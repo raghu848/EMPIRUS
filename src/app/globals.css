@@ -1,0 +1,327 @@
+@import "tailwindcss";
+
+/* ─── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  /* Backgrounds — Ultra Dark for High Contrast */
+  --bg:         #0a120e;
+  --bg-alt:     #0d1712;
+  --surface:    #122018;
+  --surface-2:  #182a20;
+
+  /* Gold -> Vibrant Rich Gold */
+  --gold:       #dfbc73;
+  --gold-lt:    #f5e3ba;
+  --gold-dim:   rgba(223, 188, 115, 0.15);
+  --gold-glow:  rgba(223, 188, 115, 0.35);
+
+  /* Text — Crisp White for 4K Sharpness */
+  --white:      #ffffff;
+  --muted:      #bac8c0;
+  --faint:      #1f3327;
+
+  /* Accent */
+  --accent:     rgba(223, 188, 115, 0.08);
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:  'Jost', system-ui, sans-serif;
+
+  --ease:         cubic-bezier(0.25, 0, 0.15, 1);
+  --ease-spring:  cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-gold: var(--gold);
+  --color-gold-lt: var(--gold-lt);
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-white-cream: var(--white);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+}
+
+/* ─── RESET ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: auto; font-size: 16px; min-height: 100%; overflow-x: hidden; }
+
+body {
+  background-color: var(--bg);
+  color: var(--white);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+img, video { 
+  display: block; 
+  max-width: 100%; 
+  filter: contrast(1.08) brightness(1.05) saturate(1.15); /* 4K HDR Pop */
+}
+a { color: inherit; text-decoration: none; }
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  color: var(--white);
+}
+
+.display {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+
+/* ─── SELECTION ──────────────────────────────────────────────── */
+::selection { background: var(--gold-dim); color: var(--gold-lt); }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow); }
+  50%       { box-shadow: 0 0 20px 4px var(--gold-glow); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ─── KEN BURNS BACKGROUND ──────────────────────────────────── */
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Base drift animation */
+.ken-burns-drift {
+  animation: kenBurnsDrift 9000ms ease-in-out infinite alternate;
+}
+
+@keyframes kenBurnsDrift {
+  from { transform: scale(1.0) translateX(0px);   }
+  to   { transform: scale(1.03) translateX(-10px); }
+}
+
+/* ─── CURSOR ─────────────────────────────────────────────────── */
+@media (pointer: fine) {
+  body, a, button, [role="button"] { cursor: none; }
+}
+
+/* ─── UTILS ──────────────────────────────────────────────────── */
+.line-h { width: 100%; height: 1px; background: var(--faint); }
+.line-v { width: 1px; background: var(--faint); }
+
+.underline-hover { position: relative; }
+.underline-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 100%; height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-spring);
+}
+.underline-hover:hover::after,
+.underline-hover.active::after { transform: scaleX(1); }
+
+/* ─── SECTION PADDING ────────────────────────────────────────── */
+.section-py { padding-top: 5rem; padding-bottom: 5rem; }
+@media (min-width: 768px) { .section-py { padding-top: 10rem; padding-bottom: 10rem; } }
+
+/* ─── CONTAINER ──────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+@media (min-width: 768px) { 
+  .container { 
+    padding-left: 3rem;
+    padding-right: 3rem;
+  } 
+}
+@media (min-width: 1400px) {
+  .container {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+/* ─── GOLD CTA BUTTON ────────────────────────────────────────── */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 2.25rem;
+  border: 1px solid var(--gold);
+  color: var(--gold-lt);
+  background: linear-gradient(135deg, rgba(212,168,67,0.08), transparent);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-lt);
+  transform: translateY(100%);
+  transition: transform 0.5s var(--ease-spring);
+  z-index: 0;
+}
+.btn-gold:hover::before { transform: translateY(0); }
+.btn-gold:hover {
+  color: var(--bg);
+  box-shadow: 0 8px 32px var(--gold-glow);
+}
+.btn-gold span { position: relative; z-index: 1; }
+
+/* ─── CARD ───────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--faint);
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.card:hover {
+  border-color: rgba(212,168,67,0.4);
+  box-shadow: 0 0 40px rgba(212,168,67,0.05);
+}
+
+/* ─── GRID ───────────────────────────────────────────────────── */
+.col-2 {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 3rem;
+}
+@media (min-width: 1024px) { 
+  .col-2 { 
+    grid-template-columns: 1fr 1fr !important; 
+    gap: 6rem; 
+  } 
+}
+
+/* ─── NAVIGATION ─────────────────────────────────────────────── */
+.nav-desktop { display: none !important; }
+@media (min-width: 1024px) { .nav-desktop { display: flex !important; } }
+
+.nav-mobile-burger { display: flex !important; }
+@media (min-width: 1024px) { .nav-mobile-burger { display: none !important; } }
+
+.nav-mobile-drawer { display: flex !important; }
+@media (min-width: 1024px) { .nav-mobile-drawer { display: none !important; } }
+
+@media (max-width: 1023px) {
+  .hidden-on-mobile { display: none !important; }
+}
+
+/* ─── IMAGE HOVER ────────────────────────────────────────────── */
+.img-reveal { position: relative; overflow: hidden; }
+.img-reveal img { transition: transform 0.8s var(--ease); }
+.img-reveal:hover img { transform: scale(1.04); }
+
+/* ─── GOLD GLOW ACCENT LINE ──────────────────────────────────── */
+.gold-line {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+/* ─── GOLD SHIMMER TEXT ─────────────────────────────────────── */
+.gold-shimmer {
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-lt) 50%, var(--gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ─── SECTION GOLD TOP BORDER ────────────────────────────────── */
+.gold-section-top {
+  border-top: 1px solid var(--faint);
+  position: relative;
+}
+.gold-section-top::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 3rem;
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* ─── GLOW HEADING ───────────────────────────────────────────── */
+.heading-glow {
+  text-shadow: 0 0 60px rgba(212,168,67,0.08);
+}
+
+/* ─── STAT NUMBER ────────────────────────────────────────────── */
+.stat-num {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+}
+
+/* ─── TIMELINE DOT ───────────────────────────────────────────── */
+.tl-dot {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--gold);
+  background: var(--bg);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* ─── LUXURY BADGE ───────────────────────────────────────────── */
+.badge-gold {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid var(--gold);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(212,168,67,0.06);
+}
+
+/* --- CUSTOM MEDIA QUERIES --- */
+.md-flex-center { display: none !important; }
+@media (min-width: 900px) { .md-flex-center { display: flex !important; flex-direction: column; align-items: center; gap: 8px; } }
