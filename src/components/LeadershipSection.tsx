@@ -8,13 +8,13 @@ const DIRECTORS = [
     name: "Mr. B.S. Gill",
     role: "Director, Visionary Leader and Mentor",
     quote: "As a company, GDPL has always prioritized quality, innovation, and a deep-rooted commitment to community building. Our vision is to create developments that not only meet expectations but exceed them, leaving a lasting impact on the lives of our customers and the society at large.",
-    image: "/mr bs gill.jpg",
+    image: "/images/mr bs gill.jpg",
   },
   {
     name: "Mr. Nardeep Singh",
     role: "Director, Driving Innovation and Growth",
     quote: "At GDPL, we are constantly innovating to align with the evolving needs of our customers. Our focus remains on delivering projects that uphold customer trust while paving the way for a brighter, more sustainable future.",
-    image: "/nardeep singh.jpg",
+    image: "/images/nardeep singh.jpg",
   }
 ];
 

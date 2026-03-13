@@ -6,19 +6,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const SLIDES = [
   {
-    image:    '/render-hero-1.jpg',
-    heading:  'Regal Empirus',
-    subline:  'Unlock the True Potential of Your Real Estate',
+    image: '/images/render-hero-1.jpg',
+    heading: 'Regal Empirus',
+    subline: 'Unlock the True Potential of Your Real Estate',
   },
   {
-    image:    '/render-hero-2.jpg',
-    heading:  'A 2-Acre Oasis',
-    subline:  'Rising Above the City with Unmatched Amenities',
+    image: '/images/render-hero-2.jpg',
+    heading: 'A 2-Acre Oasis',
+    subline: 'Rising Above the City with Unmatched Amenities',
   },
   {
-    image:    '/render-hero-3.jpg',
-    heading:  'Bungalows in the Sky',
-    subline:  'Crafted by Ar. Reza Kabul for the Chosen Few',
+    image: '/images/render-hero-3.jpg',
+    heading: 'Bungalows in the Sky',
+    subline: 'Crafted by Ar. Reza Kabul for the Chosen Few',
   },
 ];
 
@@ -34,14 +34,14 @@ const curtainBottom = {
 };
 
 export const HeroSlider = () => {
-  const [cur, setCur]               = useState(0);
-  const [phase, setPhase]           = useState<'locked' | 'opening' | 'open'>('locked');
-  const [animKey, setAnimKey]       = useState(0);
+  const [cur, setCur] = useState(0);
+  const [phase, setPhase] = useState<'locked' | 'opening' | 'open'>('locked');
+  const [animKey, setAnimKey] = useState(0);
 
   // Initial cinematic reveal - slowed down
   useEffect(() => {
     const t1 = setTimeout(() => setPhase('opening'), 400);
-    const t2 = setTimeout(() => setPhase('open'), 1800); 
+    const t2 = setTimeout(() => setPhase('open'), 1800);
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
@@ -72,7 +72,7 @@ export const HeroSlider = () => {
       }}
     >
       {/* ─── CURTAINS ─── */}
-      <motion.div 
+      <motion.div
         variants={curtainTop}
         initial="initial"
         animate="animate"
@@ -83,9 +83,9 @@ export const HeroSlider = () => {
           background: '#080A0C',
           zIndex: 9999,
           pointerEvents: phase === 'open' ? 'none' : 'all',
-        }} 
+        }}
       />
-      <motion.div 
+      <motion.div
         variants={curtainBottom}
         initial="initial"
         animate="animate"
@@ -96,7 +96,7 @@ export const HeroSlider = () => {
           background: '#080A0C',
           zIndex: 9999,
           pointerEvents: phase === 'open' ? 'none' : 'all',
-        }} 
+        }}
       />
 
       {/* ─── BACKGROUNDS ─── */}
@@ -133,7 +133,7 @@ export const HeroSlider = () => {
               style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
           </motion.div>
-          
+
           {/* TREF-Style Dark Overlay (Stronger on left side for text readability) */}
           <div
             style={{
@@ -161,11 +161,11 @@ export const HeroSlider = () => {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center', 
+          justifyContent: 'center',
         }}
       >
         <div style={{ maxWidth: '800px', width: '100%' }}>
-          
+
           <AnimatePresence mode="wait">
             <motion.div
               key={`content-${animKey}`}
@@ -275,14 +275,14 @@ export const HeroSlider = () => {
                   position: 'relative',
                   overflow: 'hidden'
                 }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.background = '#fff';
-                  (e.currentTarget as HTMLElement).style.color = '#000';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'transparent';
-                  (e.currentTarget as HTMLElement).style.color = '#fff';
-                }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.background = '#fff';
+                    (e.currentTarget as HTMLElement).style.color = '#000';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.background = 'transparent';
+                    (e.currentTarget as HTMLElement).style.color = '#fff';
+                  }}
                 >
                   Investment Inquiry
                 </a>
@@ -308,7 +308,7 @@ export const HeroSlider = () => {
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Slide ${i + 1}`}
-              custom={animKey === 0 ? 2.2 + (i * 0.1) : 0} 
+              custom={animKey === 0 ? 2.2 + (i * 0.1) : 0}
               variants={{
                 hidden: { opacity: 0, scale: 0.5 },
                 visible: (delay) => ({

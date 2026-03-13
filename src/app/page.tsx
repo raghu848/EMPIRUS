@@ -41,7 +41,7 @@ export default function Home() {
             </p>
           </>
         }
-        image="/render-about.jpg"
+        image="/images/render-about.jpg"
         cta={{ label: 'Learn More', href: '#investments' }}
       />
 
@@ -68,7 +68,7 @@ export default function Home() {
             </p>
           </>
         }
-        image="/render-hero-1.jpg"
+        image="/images/render-hero-1.jpg"
         reverse
         cta={{ label: 'View Amenities', href: '#location' }}
       />

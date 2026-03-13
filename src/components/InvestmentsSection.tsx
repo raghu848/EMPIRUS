@@ -335,7 +335,7 @@ export const InvestmentsSection = () => {
             }}
           >
             <Image
-              src="/render-investments.jpg"
+              src="/images/render-investments.jpg"
               alt="Regal Empirus Investment Property"
               fill
               priority
