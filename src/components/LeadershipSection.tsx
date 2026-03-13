@@ -79,7 +79,7 @@ export const LeadershipSection = () => {
                 initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.8, delay: i * 0.2 + 0.2, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.8, delay: i * 0.2 + 0.2, ease: [0.16, 1, 0.3, 1] as const }}
               >
                 <Image
                   src={d.image}

@@ -323,7 +323,7 @@ export const InvestmentsSection = () => {
           }}
           initial={{ opacity: 0, x: 80 }}
           animate={on ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }}
         >
           {/* Parallax image */}
           <motion.div

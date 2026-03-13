@@ -4,9 +4,11 @@ import React from 'react';
 import { ReactLenis } from '@studio-freight/react-lenis';
 
 export const SmoothScroller = ({ children }: { children: React.ReactNode }) => {
+  const LenisComponent = ReactLenis as any;
+
   return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
+    <LenisComponent root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
       {children}
-    </ReactLenis>
+    </LenisComponent>
   );
 };

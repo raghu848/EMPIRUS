@@ -25,12 +25,12 @@ const SLIDES = [
 // Softer, slower curtain variants
 const curtainTop = {
   initial: { y: 0 },
-  animate: { y: '-100%', transition: { delay: 0.4, duration: 1.4, ease: [0.76, 0, 0.24, 1] } }
+  animate: { y: '-100%', transition: { delay: 0.4, duration: 1.4, ease: [0.76, 0, 0.24, 1] as const } }
 };
 
 const curtainBottom = {
   initial: { y: 0 },
-  animate: { y: '100%', transition: { delay: 0.4, duration: 1.4, ease: [0.76, 0, 0.24, 1] } }
+  animate: { y: '100%', transition: { delay: 0.4, duration: 1.4, ease: [0.76, 0, 0.24, 1] as const } }
 };
 
 export const HeroSlider = () => {
@@ -119,7 +119,7 @@ export const HeroSlider = () => {
             animate={
               // If it's the very first load, slowly zoom out as curtains open
               (phase !== 'locked' && cur === 0 && animKey === 0)
-                ? { scale: 1.0, transition: { delay: 0.4, duration: 2.2, ease: [0.25, 0.46, 0.45, 0.94] } }
+                ? { scale: 1.0, transition: { delay: 0.4, duration: 2.2, ease: [0.25, 0.46, 0.45, 0.94] as const } }
                 // Otherwise slowly settle or just stay at 1.0 and let CSS drift take over
                 : { scale: 1.0, transition: { duration: 1.8, ease: "easeOut" } }
             }
@@ -210,7 +210,7 @@ export const HeroSlider = () => {
                     hidden: { clipPath: 'inset(0 100% 0 0)' },
                     visible: (delay) => ({
                       clipPath: 'inset(0 0% 0 0)',
-                      transition: { delay, duration: 0.9, ease: [0.76, 0, 0.24, 1] } // Smoother, slightly slower wipe
+                      transition: { delay, duration: 0.9, ease: [0.76, 0, 0.24, 1] as const } // Smoother, slightly slower wipe
                     }),
                     exit: { opacity: 0, transition: { duration: 0.4 } }
                   }}

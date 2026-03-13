@@ -323,7 +323,7 @@ export const VisuraGallery = () => {
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 1.1, opacity: 0 }}
-                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
                             src={lightbox.url}
                             className="max-h-full max-w-full object-contain shadow-2xl"
                             alt=""
