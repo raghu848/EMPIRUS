@@ -215,11 +215,11 @@ export const InvestmentsSection = () => {
           {/* Main title — large, editorial */}
           <h2
             style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 300,
-              fontSize: 'clamp(2.8rem, 5.5vw, 5.5rem)',
-              lineHeight: 0.96,
-              letterSpacing: '-0.02em',
+              fontFamily: "var(--font-hand)",
+              fontWeight: 400,
+              fontSize: 'clamp(2.8rem, 5.5vw, 6rem)',
+              lineHeight: 1.05,
+              letterSpacing: '0.02em',
               color: '#f5f2ec',
               marginBottom: '28px',
               ...fade(140),

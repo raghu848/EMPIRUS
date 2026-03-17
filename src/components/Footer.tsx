@@ -76,7 +76,7 @@ export const Footer = () => {
           <p
             style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: '13px',
+              fontSize: '15px',
               lineHeight: 1.75,
               color: '#333',
             }}
@@ -115,7 +115,7 @@ export const Footer = () => {
               <p
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontSize: '10px',
+                  fontSize: '12px',
                   letterSpacing: '0.28em',
                   textTransform: 'uppercase',
                   color: '#666',
@@ -129,7 +129,7 @@ export const Footer = () => {
                   href={l.href}
                   style={{
                     fontFamily: 'var(--font-sans)',
-                    fontSize: '13px',
+                    fontSize: '15px',
                     color: '#333',
                     opacity: 0.8,
                     transition: 'opacity 0.3s, color 0.3s',
@@ -170,7 +170,7 @@ export const Footer = () => {
           <p
             style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: '11px',
+              fontSize: '13px',
               color: '#444',
               letterSpacing: '0.05em',
             }}
@@ -180,7 +180,7 @@ export const Footer = () => {
           <p
             style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: '10px',
+              fontSize: '11px',
               color: '#555',
               maxWidth: '600px',
               lineHeight: 1.6,

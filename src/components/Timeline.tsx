@@ -99,11 +99,11 @@ export const Timeline = () => {
         <div className="tl-left">
           <h2
             style={{
-              fontFamily: 'var(--font-serif)',
-              fontWeight: 300,
-              fontSize: 'clamp(3rem, 5vw, 4.5rem)',
+              fontFamily: 'var(--font-hand)',
+              fontWeight: 400,
+              fontSize: 'clamp(2.6rem, 4.5vw, 4.8rem)',
               lineHeight: 1.1,
-              letterSpacing: '-0.02em',
+              letterSpacing: '0.02em',
               color: 'var(--gold-lt)',
               marginBottom: '1rem',
             }}

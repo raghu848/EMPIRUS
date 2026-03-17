@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Cormorant_Garamond, Jost, Parisienne } from "next/font/google";
 import "./globals.css";
 import { CustomCursor } from "@/components/CustomCursor";
 import { SmoothScroller } from "@/components/SmoothScroller";
@@ -18,6 +18,13 @@ const jost = Jost({
   display: "swap",
 });
 
+const parisienne = Parisienne({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-parisienne",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Regal Empirus | Uber-Luxury Residences in Sector 91, Mohali",
   description: "Experience the pinnacle of high-rise excellence at Regal Empirus. Crafted by Ar. Reza Kabul, featuring 2-Acre Podium Park and 100% sun-facing apartments.",
@@ -29,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${jost.variable} ${parisienne.variable}`}>
       <body className="antialiased bg-bg-primary text-text-primary selection:bg-gold-dim selection:text-gold-light">
         <SmoothScroller>
           <CustomCursor />

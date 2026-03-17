@@ -114,9 +114,9 @@ export const AboutSection = ({
         }
 
         .ab-stat-value {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(3.5rem, 6vw, 6rem);
-          font-weight: 300; line-height: 1;
+          font-family: var(--font-hand);
+          font-size: clamp(3rem, 5vw, 5.5rem);
+          font-weight: 400; line-height: 1.2;
           background: linear-gradient(135deg, #e8c97a 0%, #c8a44a 50%, #a07830 100%);
           -webkit-background-clip: text; -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -374,11 +374,11 @@ export const AboutSection = ({
             viewport={{ once: true, margin: '-10%' }}
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
             style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 300,
+              fontFamily: "var(--font-hand)",
+              fontWeight: 400,
               fontSize: 'clamp(2.2rem, 3.8vw, 3.6rem)',
               lineHeight: 1.1,
-              letterSpacing: '-0.01em',
+              letterSpacing: '0.01em',
               color: '#f5f2ec',
               margin: '0 0 24px',
             }}

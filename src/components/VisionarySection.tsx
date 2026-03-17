@@ -69,15 +69,14 @@ export const VisionarySection = () => {
               >
                 <h2 style={{ 
                   fontFamily: 'var(--font-sans)', 
-                  fontWeight: 200, 
+                  fontWeight: 600, 
                   fontSize: 'clamp(3rem, 5vw, 4.5rem)', 
                   lineHeight: '1.1',
                   color: '#999',
-                  textTransform: 'uppercase',
                   letterSpacing: '0.05em'
                 }}>
-                  CRAFTED BY<br/>
-                  <span style={{ color: '#000', fontWeight: 400 }}>A VISIONARY</span>
+                  Crafted by<br/>
+                  <span style={{ color: '#000', fontWeight: 400, fontFamily: 'var(--font-hand)', fontSize: '1.2em', letterSpacing: '0.05em' }}>A Visionary</span>
                 </h2>
               </motion.div>
               
@@ -128,8 +127,8 @@ export const VisionarySection = () => {
           padding: '1.5rem 0'
         }}>
           <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: '1.25rem', color: '#000', margin: 0 }}>
-              AR. REZA KABUL
+            <h3 style={{ fontFamily: 'var(--font-hand)', fontWeight: 400, fontSize: '1.5rem', color: '#000', margin: 0 }}>
+              Ar. Reza Kabul
             </h3>
             <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
               FOR INTERNAL TRAINING PURPOSE

@@ -194,13 +194,14 @@ export const HeroSlider = () => {
               {/* Main Headline Base Wrapper */}
               <h1
                 style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontWeight: 300,
-                  fontSize: 'clamp(3.5rem, 6vw, 5.5rem)',
-                  lineHeight: 1.1,
-                  letterSpacing: '-0.02em',
+                  fontFamily: 'var(--font-hand)',
+                  fontWeight: 400,
+                  fontSize: 'clamp(3.2rem, 6.5vw, 6.5rem)',
+                  lineHeight: 1.2,
+                  letterSpacing: '0.02em',
                   color: '#fff',
                   margin: '0',
+                  paddingBottom: '0.2em',
                 }}
               >
                 {/* Line 1 - Wipe Reveal */}
@@ -209,7 +210,7 @@ export const HeroSlider = () => {
                   variants={{
                     hidden: { clipPath: 'inset(0 100% 0 0)' },
                     visible: (delay) => ({
-                      clipPath: 'inset(0 0% 0 0)',
+                      clipPath: 'inset(0 0% -20% 0)',
                       transition: { delay, duration: 0.9, ease: [0.76, 0, 0.24, 1] as const } // Smoother, slightly slower wipe
                     }),
                     exit: { opacity: 0, transition: { duration: 0.4 } }
@@ -233,7 +234,7 @@ export const HeroSlider = () => {
                 }}
                 style={{
                   fontFamily: 'var(--font-sans)',
-                  fontWeight: 200,
+                  fontWeight: 400,
                   fontSize: 'clamp(1.25rem, 2vw, 1.75rem)',
                   lineHeight: 1.4,
                   color: '#e0e0e0',

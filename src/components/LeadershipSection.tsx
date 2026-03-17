@@ -38,11 +38,12 @@ export const LeadershipSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.9, delay: 0.1 }}
             style={{
-              fontFamily: 'var(--font-serif)',
-              fontWeight: 300,
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontFamily: 'var(--font-hand)',
+              fontWeight: 400,
+              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
               color: 'var(--white)',
-              marginTop: '1rem'
+              marginTop: '1rem',
+              letterSpacing: '0.02em'
             }}
           >
             Guided by <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>Experience</em>
@@ -91,10 +92,12 @@ export const LeadershipSection = () => {
 
               <div>
                 <h3 style={{ 
-                  fontFamily: 'var(--font-serif)', 
-                  fontSize: '1.75rem', 
+                  fontFamily: 'var(--font-hand)', 
+                  fontSize: '2.1rem', 
                   color: 'var(--gold-lt)',
-                  marginBottom: '0.25rem'
+                  fontWeight: 400,
+                  marginBottom: '0.25rem',
+                  letterSpacing: '0.01em'
                 }}>
                   {d.name}
                 </h3>

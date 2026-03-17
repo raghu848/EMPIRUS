@@ -92,8 +92,8 @@ export const Header = () => {
         /* Nav link */
         .re-nav-link {
           font-family: 'Cinzel', serif;
-          font-size: 10px;
-          font-weight: 400;
+          font-size: 12px;
+          font-weight: 500;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.6);
@@ -111,7 +111,7 @@ export const Header = () => {
         /* CTA button */
         .re-cta {
           font-family: 'Cinzel', serif;
-          font-size: 9.5px;
+          font-size: 11px;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: var(--gold);
@@ -140,7 +140,7 @@ export const Header = () => {
         /* Phone link */
         .re-phone-link {
           font-family: 'Cinzel', serif;
-          font-size: 9.5px;
+          font-size: 11px;
           letter-spacing: 0.12em;
           color: rgba(255,255,255,0.6);
           text-decoration: none;
@@ -170,7 +170,7 @@ export const Header = () => {
         .re-drawer-link {
           font-family: 'Cinzel', serif;
           font-size: 1.6rem;
-          font-weight: 400;
+          font-weight: 500;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           color: rgba(255,255,255,0.8);
@@ -333,10 +333,11 @@ export const Header = () => {
             <span
               style={{
                 fontFamily: "'Cinzel', serif",
-                fontSize: '11px',
+                fontSize: '13px',
                 letterSpacing: '0.22em',
                 color: '#fff',
                 opacity: 0.95,
+                fontWeight: 600,
               }}
             >
               REGAL EMPIRUS
@@ -435,7 +436,7 @@ export const Header = () => {
         <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
           <a href="tel:+917789000077" style={{
             fontFamily: "'Cinzel', serif",
-            fontSize: '11px', letterSpacing: '0.12em',
+            fontSize: '13px', letterSpacing: '0.12em',
             color: 'rgba(255,255,255,0.7)',
             textDecoration: 'none',
             transition: 'color 0.3s',
