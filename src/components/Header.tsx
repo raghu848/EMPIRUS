@@ -4,11 +4,11 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 const NAV = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Investments', href: '#investments' },
-  { label: 'Team', href: '#team' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/#home' },
+  { label: 'About', href: '/#about' },
+  { label: 'Investments', href: '/#investments' },
+  { label: 'Team', href: '/#team' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 export const Header = () => {
@@ -311,7 +311,7 @@ export const Header = () => {
             <a href="tel:+917789000077" className="re-phone-link">
               +91 77890 00077
             </a>
-            <a href="#contact" className="re-cta">
+            <a href="/#contact" className="re-cta">
               <span>Investment Inquiry</span>
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M2 8L8 2M8 2H4M8 2V6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -443,7 +443,7 @@ export const Header = () => {
           }}>
             +91 77890 00077
           </a>
-          <a href="#contact" className="re-cta" onClick={() => setOpen(false)}>
+          <a href="/#contact" className="re-cta" onClick={() => setOpen(false)}>
             Investment Inquiry
           </a>
         </div>

@@ -1,16 +1,16 @@
-import { Header }           from '@/components/Header';
-import { HeroSlider }        from '@/components/HeroSlider';
-import { StatsBar }          from '@/components/StatsBar';
-import { AboutSection }      from '@/components/AboutSection';
-import { VisionarySection }  from '@/components/VisionarySection';
+import { Header } from '@/components/Header';
+import { HeroSlider } from '@/components/HeroSlider';
+import { StatsBar } from '@/components/StatsBar';
+import { AboutSection } from '@/components/AboutSection';
+import { VisionarySection } from '@/components/VisionarySection';
 import { InvestmentsSection } from '@/components/InvestmentsSection';
-import { Timeline }          from '@/components/Timeline';
+import { Timeline } from '@/components/Timeline';
 import { LocationAdvantage } from '@/components/LocationAdvantage';
-import { ContactForm }       from '@/components/ContactForm';
-import { Footer }            from '@/components/Footer';
+import { ContactForm } from '@/components/ContactForm';
+import { Footer } from '@/components/Footer';
 
-import { VisuraGallery }      from '@/components/VisuraGallery';
-import { LeadershipSection }  from '@/components/LeadershipSection';
+import { VisuraGallery } from '@/components/VisuraGallery';
+import { LeadershipSection } from '@/components/LeadershipSection';
 
 export default function Home() {
   return (
@@ -27,18 +27,22 @@ export default function Home() {
       <AboutSection
         id="about"
         eyebrow="About the Project"
-        title={<>Multi-Family Real Estate Investments with <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>Proven Returns</em></>}
+        title={<>Presenting an address that defines power . <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>In Mohali</em></>}
         body={
           <>
             <p style={{ marginBottom: '1rem' }}>
-              Regal Empirus is an ultra-premium residential project in Sector 91, Mohali. Designed by Ar. Reza Kabul,
-              it represents the pinnacle of high-rise excellence — a rare 3-side open site delivering maximum
-              ventilation and 100% sun-facing apartments.
+              Regal Empirus is an expression of ultra-luxury—crafted for those who belong to a class above. Set across 5.37 acres in Sector 91, it rises as a landmark of prestige, where iconic architecture meets expansive green landscapes.
             </p>
             <p>
-              Priced at ₹8,600/sq. ft., this is an investment for those who understand that true value is
-              found not in quantity, but in the irreplaceable quality of space and light.
+              Every residence is designed to deliver a sense of grandeur, with spacious layouts, 3-side open living, and abundant natural light—creating homes that feel open, elegant, and truly exceptional. Complemented by world-class amenities and a 2-acre podium park, every detail is curated to offer a lifestyle defined by comfort, privacy, and indulgence.
             </p>
+            <p>
+              Featuring exclusive 3+1 (2200 sq. ft.) and 4+1 (3200 sq. ft.) residences, offering a compelling investment opportunity.
+            </p>
+            <p>
+              This is not just a place to live—it is a statement of power, status, and refined living.
+            </p>
+
           </>
         }
         image="/images/render-about.jpg"
