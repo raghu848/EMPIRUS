@@ -57,6 +57,7 @@ export default function Home() {
 
       {/* ── Approach / Podium Story ── */}
       <AboutSection
+        id="podium"
         eyebrow="The Podium Story"
         title={<>A 2-Acre Elevated <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>Sanctuary</em></>}
         body={
