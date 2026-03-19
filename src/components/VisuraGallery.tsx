@@ -1,341 +1,1102 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 
-const CATEGORIES = ["ARCHITECTURE", "LANDSCAPE", "MINIMALIST", "URBAN", "ABSTRACT"];
-
-interface TrackItem {
-    el: HTMLDivElement | null;
-    speed: number;
-    pos: number;
-    items: number;
-    isHovered: boolean;
-    momentum: number;
-}
-
+/* ─── Gallery Data ───────────────────────────────────────────── */
 const AMENITY_IMAGES = [
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_13.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_14.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_17.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_18.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_19.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_20.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_22.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_23.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_24.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_25.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_26.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_27.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_29.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_31.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_33.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_35.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_36.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_37.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_38.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_39.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_40.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_42.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_43.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_44.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_45.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_46.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_6.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_8.jpg",
-    "1773376444347-7fb8d954-7026-4359-a76b-393af27b675e_9.jpg",
+    "1_Five_Star_Club_House.jpg.jpeg",
+    "2_Swimming_Pool_with_Kids_Splash_Pool.jpg.jpeg",
+    "3_Cafeteria.jpg.jpeg",
+    "4_Fully_Equipped_Gym.jpg.jpeg",
+    "5_Banquet_Hall.jpg.jpeg",
+    "6_Kids_Play_Area.jpg.jpeg",
+    "7_Library.jpg.jpeg",
+    "8_Basement_Parking.jpg.jpeg",
+    "9_Stilt_Parking.jpg.jpeg",
+    "10_Surface_Parking.jpg.jpeg",
 ];
 
-export const VisuraGallery = () => {
-    const [imagesViewed, setImagesViewed] = useState(0);
-    const [scrollPerc, setScrollPerc] = useState(0);
-    const [dragStatus, setDragStatus] = useState('AUTO-SCROLL');
-    const [lightbox, setLightbox] = useState<{ active: boolean; url: string; index: number }>({
-        active: false,
-        url: '',
-        index: 0
-    });
+/* ─── Amenity metadata with categories ─────────────────────── */
+const AMENITIES: { label: string; category: string; tag: string }[] = [
+    { label: 'Five Star Club House', category: 'Social', tag: 'Premium Lifestyle' },
+    { label: 'Swimming Pool with Kids Splash Pool', category: 'Recreation', tag: 'All Ages' },
+    { label: 'Cafeteria', category: 'Social', tag: 'Fine Dining' },
+    { label: 'Fully Equipped Gym', category: 'Wellness', tag: 'State of the Art' },
+    { label: 'Banquet Hall', category: 'Events', tag: 'Grand Celebrations' },
+    { label: 'Kids Play Area', category: 'Kids', tag: 'Safe & Fun' },
+    { label: 'Library', category: 'Leisure', tag: 'Quiet Reading' },
+    { label: 'Basement Parking', category: 'Parking', tag: 'Secure Access' },
+    { label: 'Stilt Parking', category: 'Parking', tag: 'Covered Shelter' },
+    { label: 'Surface Parking', category: 'Parking', tag: 'Open Air' },
+];
 
-    const [isMobile, setIsMobile] = useState(false);
+const CATEGORIES = ['All', 'Social', 'Recreation', 'Wellness', 'Events', 'Kids', 'Leisure', 'Parking'];
 
-    const tracksRef = useRef<TrackItem[]>([
-        { el: null, speed: -0.6, pos: 0, items: 12, isHovered: false, momentum: 0 },
-        { el: null, speed: 1.2, pos: 0, items: 12, isHovered: false, momentum: 0 }
-    ]);
+const CATEGORY_ICONS: Record<string, string> = {
+    All: '✦', Social: '◉', Recreation: '◈', Wellness: '◎',
+    Events: '◑', Kids: '◔', Leisure: '◒', Parking: '◐',
+};
+
+const categoryColor: Record<string, string> = {
+    Social: '#c8a07e', Recreation: '#a0b4d4', Wellness: '#7eb8a0',
+    Events: '#a08ab4', Kids: '#d4b07a', Leisure: '#8ab0a0',
+    Parking: '#9098c0',
+};
+
+/* ─── Custom Cursor (Desktop Only) ───────────────────────────── */
+const MagneticCursor = () => {
+    const [isHovering, setIsHovering] = useState(false);
+    const [isTouch, setIsTouch] = useState(false);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const springX = useSpring(x, { stiffness: 120, damping: 20 });
+    const springY = useSpring(y, { stiffness: 120, damping: 20 });
 
     useEffect(() => {
-        const checkMobile = () => {
-            const mobile = window.innerWidth < 768;
-            setIsMobile(mobile);
-            // Calibrate speeds for mobile
-            if (mobile) {
-                tracksRef.current[0].speed = -0.4;
-                tracksRef.current[1].speed = 0.5; // Significantly slower on mobile
-            } else {
-                tracksRef.current[0].speed = -0.6;
-                tracksRef.current[1].speed = 1.2;
-            }
+        // Detect touch device and skip cursor
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            setIsTouch(true);
+            return;
+        }
+        const move = (e: MouseEvent) => { x.set(e.clientX); y.set(e.clientY); };
+        const enter = (e: MouseEvent) => {
+            const el = e.target as HTMLElement;
+            if (el.closest('[data-cursor="expand"]')) setIsHovering(true);
         };
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+        const leave = () => setIsHovering(false);
+        window.addEventListener('mousemove', move);
+        window.addEventListener('mouseover', enter);
+        window.addEventListener('mouseout', leave);
+        return () => {
+            window.removeEventListener('mousemove', move);
+            window.removeEventListener('mouseover', enter);
+            window.removeEventListener('mouseout', leave);
+        };
     }, []);
 
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const activeTrackIdx = useRef<number | null>(null);
-    const startX = useRef(0);
-    const currentX = useRef(0);
-    const dragStartTime = useRef(0);
-    const [collection, setCollection] = useState<string[]>([]);
-
-    useEffect(() => {
-        // Initialize collection with local images
-        const newCollection: string[] = AMENITY_IMAGES.map(img => `/Amenities/${img}`);
-        setCollection(newCollection);
-
-        // Animation Loop
-        let rafId: number;
-        const friction = 0.94; // Smoother deceleration
-
-        const update = () => {
-            tracksRef.current.forEach((track, idx) => {
-                if (!track.el) return;
-
-                if (!track.isHovered && (!isDragging || activeTrackIdx.current !== idx)) {
-                    track.pos += track.speed;
-                }
-
-                if (track.momentum) {
-                    track.pos += track.momentum;
-                    track.momentum *= friction;
-                    if (Math.abs(track.momentum) < 0.05) track.momentum = 0;
-                }
-
-                const trackWidth = track.el.scrollWidth / 2;
-                if (track.pos <= -trackWidth) track.pos = 0;
-                if (track.pos > 0) track.pos = -trackWidth;
-
-                track.el.style.transform = `translate3d(${track.pos}px, 0, 0)`; // Use translate3d for better perf
-            });
-
-            // Update scroll percentage relative to the gallery container
-            if (containerRef.current) {
-                const rect = containerRef.current.getBoundingClientRect();
-                const totalHeight = containerRef.current.scrollHeight;
-                const visibleY = Math.min(Math.max(-rect.top, 0), totalHeight);
-                setScrollPerc(Math.round((visibleY / totalHeight) * 100));
-            }
-
-            rafId = requestAnimationFrame(update);
-        };
-
-        rafId = requestAnimationFrame(update);
-        return () => cancelAnimationFrame(rafId);
-    }, [isDragging]);
-
-    const handleDragStart = (e: React.MouseEvent | React.TouchEvent, idx: number) => {
-        setIsDragging(true);
-        activeTrackIdx.current = idx;
-        const x = 'touches' in e ? e.touches[0].clientX : e.clientX;
-        startX.current = x;
-        currentX.current = x;
-        dragStartTime.current = Date.now();
-        tracksRef.current[idx].momentum = 0;
-        setDragStatus(`DRAGGING ROW ${idx + 1}`);
-    };
-
-    useEffect(() => {
-        const handleMove = (e: MouseEvent | TouchEvent) => {
-            if (!isDragging || activeTrackIdx.current === null) return;
-            const x = 'touches' in e ? (e as TouchEvent).touches[0].clientX : (e as MouseEvent).clientX;
-            const dist = x - currentX.current;
-            tracksRef.current[activeTrackIdx.current].pos += dist;
-            currentX.current = x;
-        };
-
-        const handleEnd = (e: MouseEvent | TouchEvent) => {
-            if (!isDragging || activeTrackIdx.current === null) return;
-            const duration = Date.now() - dragStartTime.current;
-            if (duration < 10) return; // Prevent jitter on clicks
-
-            const x = 'changedTouches' in e ? (e as TouchEvent).changedTouches[0].clientX : (e as MouseEvent).clientX;
-            const dist = x - startX.current;
-
-            tracksRef.current[activeTrackIdx.current].momentum = dist / (duration / 16);
-
-            setIsDragging(false);
-            activeTrackIdx.current = null;
-            setDragStatus('AUTO-SCROLL');
-        };
-
-        if (isDragging) {
-            window.addEventListener('mousemove', handleMove, { passive: true });
-            window.addEventListener('mouseup', handleEnd);
-            window.addEventListener('touchmove', handleMove, { passive: true });
-            window.addEventListener('touchend', handleEnd);
-        }
-
-        return () => {
-            window.removeEventListener('mousemove', handleMove);
-            window.removeEventListener('mouseup', handleEnd);
-            window.removeEventListener('touchmove', handleMove);
-            window.removeEventListener('touchend', handleEnd);
-        };
-    }, [isDragging]);
-
-    const openLightbox = (url: string, index: number) => {
-        setLightbox({ active: true, url, index });
-        setImagesViewed(prev => prev + 1);
-    };
-
-    const navigateLightbox = (dir: number) => {
-        const nextIdx = (lightbox.index + dir + collection.length) % collection.length;
-        setLightbox({ ...lightbox, url: collection[nextIdx], index: nextIdx });
-    };
-
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') setLightbox({ ...lightbox, active: false });
-            if (e.key === 'ArrowRight') navigateLightbox(1);
-            if (e.key === 'ArrowLeft') navigateLightbox(-1);
-        };
-        if (lightbox.active) window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [lightbox]);
+    if (isTouch) return null;
 
     return (
-        <section
-            id="visura-gallery"
-            ref={containerRef}
-            className="relative py-8 md:py-12 overflow-hidden bg-[#0A0A0F]"
-            style={{ fontFamily: "'Space Mono', monospace" }}
+        <motion.div
+            style={{
+                position: 'fixed', top: 0, left: 0, pointerEvents: 'none',
+                zIndex: 99999, x: springX, y: springY,
+                translateX: '-50%', translateY: '-50%',
+            }}
         >
-            {/* Fonts */}
-            <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+            <motion.div
+                animate={{ scale: isHovering ? 2.8 : 1, opacity: isHovering ? 0.15 : 0.5 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+                style={{
+                    width: 16, height: 16, borderRadius: '50%',
+                    background: 'var(--gold)',
+                    mixBlendMode: 'difference',
+                }}
+            />
+        </motion.div>
+    );
+};
 
-            <div className="absolute inset-0 pointer-events-none opacity-5 z-50 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-            <div className="absolute inset-0 pointer-events-none opacity-10 bg-[radial-gradient(circle_at_20%_30%,#ff3c0033,transparent_40%),radial-gradient(circle_at_80%_70%,#00ffff11,transparent_40%)]" />
+/* ─── useIsMobile hook ───────────────────────────────────────── */
+function useIsMobile(breakpoint = 768) {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < breakpoint);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, [breakpoint]);
+    return isMobile;
+}
 
-            <div className="container mx-auto px-4 md:px-6 mb-8 flex justify-between items-end relative z-10">
-                <div>
-                    <span className="text-[#ff3c00] text-[8px] md:text-[9px] tracking-[0.4em] uppercase mb-1 block">Curated Sanctuary</span>
-                    <h2 className="text-3xl md:text-4xl text-white font-['Bebas_Neue'] leading-none uppercase">The Podium Life</h2>
-                </div>
-                <div className="text-[8px] md:text-[9px] text-white/50 flex gap-4 uppercase">
-                    <div className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-[#ff3c00] rounded-full animate-pulse" />
-                        LIVE VIEWS: {String(imagesViewed).padStart(4, '0')}
+/* ─── Component ──────────────────────────────────────────────── */
+export const VisuraGallery = () => {
+    const outerRef = useRef<HTMLDivElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null);
+    const [scrollProgress, setScrollProgress] = useState(0);
+    const [activeCategory, setActiveCategory] = useState('All');
+    const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+    const [favorited, setFavorited] = useState<Set<number>>(new Set());
+    const [lightbox, setLightbox] = useState<{
+        active: boolean; url: string; index: number; zoomed: boolean;
+    }>({ active: false, url: '', index: 0, zoomed: false });
+
+    const isDragging = useRef(false);
+    const dragStartX = useRef(0);
+    const dragScrollStart = useRef(0);
+    const currentTranslate = useRef(0);
+
+    const isMobile = useIsMobile();
+
+    const filteredIndices = AMENITIES
+        .map((a, i) => ({ ...a, origIdx: i }))
+        .filter(a => activeCategory === 'All' || a.category === activeCategory);
+
+    /* ── Scroll-driven horizontal movement (DESKTOP ONLY) ── */
+    useEffect(() => {
+        if (isMobile) return;
+        const handleScroll = () => {
+            if (!outerRef.current || !trackRef.current) return;
+            const outer = outerRef.current;
+            const rect = outer.getBoundingClientRect();
+            const outerHeight = outer.offsetHeight;
+            const windowH = window.innerHeight;
+            const scrollableDistance = outerHeight - windowH;
+            const scrolled = -rect.top;
+            const progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
+            setScrollProgress(progress);
+            const trackWidth = trackRef.current.scrollWidth;
+            const viewportWidth = window.innerWidth;
+            const maxTranslate = trackWidth - viewportWidth;
+            currentTranslate.current = -progress * maxTranslate;
+            trackRef.current.style.transform = `translateX(${currentTranslate.current}px)`;
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [activeCategory, isMobile]);
+
+    /* ── Drag support (DESKTOP ONLY) ── */
+    const handleDragStart = (e: React.MouseEvent) => {
+        if (isMobile) return;
+        isDragging.current = true;
+        dragStartX.current = e.clientX;
+        dragScrollStart.current = currentTranslate.current;
+        document.body.style.cursor = 'grabbing';
+        document.body.style.userSelect = 'none';
+    };
+
+    const handleDragMove = useCallback((e: MouseEvent) => {
+        if (!isDragging.current || !trackRef.current) return;
+        const dx = e.clientX - dragStartX.current;
+        const trackWidth = trackRef.current.scrollWidth;
+        const max = -(trackWidth - window.innerWidth);
+        const newT = Math.min(0, Math.max(max, dragScrollStart.current + dx));
+        currentTranslate.current = newT;
+        trackRef.current.style.transform = `translateX(${newT}px)`;
+    }, []);
+
+    const handleDragEnd = useCallback(() => {
+        isDragging.current = false;
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+    }, []);
+
+    useEffect(() => {
+        if (isMobile) return;
+        window.addEventListener('mousemove', handleDragMove);
+        window.addEventListener('mouseup', handleDragEnd);
+        return () => {
+            window.removeEventListener('mousemove', handleDragMove);
+            window.removeEventListener('mouseup', handleDragEnd);
+        };
+    }, [handleDragMove, handleDragEnd, isMobile]);
+
+    /* ── Touch swipe (DESKTOP horizontal mode only) ── */
+    const touchStartX = useRef(0);
+    const touchStartT = useRef(0);
+    const handleTouchStart = (e: React.TouchEvent) => {
+        if (isMobile) return;
+        touchStartX.current = e.touches[0].clientX;
+        touchStartT.current = currentTranslate.current;
+    };
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (isMobile || !trackRef.current) return;
+        const dx = e.touches[0].clientX - touchStartX.current;
+        const trackWidth = trackRef.current.scrollWidth;
+        const max = -(trackWidth - window.innerWidth);
+        const newT = Math.min(0, Math.max(max, touchStartT.current + dx));
+        currentTranslate.current = newT;
+        trackRef.current.style.transform = `translateX(${newT}px)`;
+    };
+
+    /* ── Lightbox navigation ── */
+    const navigateLightbox = useCallback((dir: number) => {
+        const list = filteredIndices;
+        const curPos = list.findIndex(a => a.origIdx === lightbox.index);
+        const nextPos = (curPos + dir + list.length) % list.length;
+        const next = list[nextPos];
+        setLightbox(lb => ({
+            ...lb,
+            url: `/pictures/${AMENITY_IMAGES[next.origIdx]}`,
+            index: next.origIdx,
+            zoomed: false,
+        }));
+    }, [lightbox.index, filteredIndices]);
+
+    /* ── Keyboard events ── */
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!lightbox.active) return;
+            if (e.key === 'Escape') setLightbox(lb => ({ ...lb, active: false, zoomed: false }));
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'z' || e.key === 'Z') setLightbox(lb => ({ ...lb, zoomed: !lb.zoomed }));
+            if (e.key === 'f' || e.key === 'F') toggleFav(lightbox.index);
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [lightbox, navigateLightbox]);
+
+    const openLightbox = (origIdx: number) => {
+        setLightbox({ active: true, url: `/pictures/${AMENITY_IMAGES[origIdx]}`, index: origIdx, zoomed: false });
+    };
+
+    const toggleFav = (idx: number) => {
+        setFavorited(prev => {
+            const next = new Set(prev);
+            next.has(idx) ? next.delete(idx) : next.add(idx);
+            return next;
+        });
+    };
+
+    /* ── Size patterns (Desktop) ── */
+    const sizes = [
+        { w: '280px', h: '400px', imgH: '225px', radius: '20px 8px 20px 8px' },
+        { w: '310px', h: '440px', imgH: '260px', radius: '24px 14px' },
+        { w: '290px', h: '410px', imgH: '235px', radius: '12px 28px 12px 28px' },
+        { w: '300px', h: '430px', imgH: '250px', radius: '22px' },
+        { w: '270px', h: '390px', imgH: '215px', radius: '28px 10px' },
+    ];
+
+    /* ─────────── RENDER ─────────── */
+    return (
+        <>
+            <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+        #visura-gallery {
+          --gold: #c9a96e;
+          --gold-lt: #e2c99a;
+          --gold-glow: rgba(201,169,110,0.4);
+          --font-serif: 'Cormorant Garamond', Georgia, serif;
+          --font-sans: 'DM Sans', sans-serif;
+        }
+
+        @keyframes galleryFloat {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-10px); }
+        }
+        @keyframes shimmer {
+          0%   { background-position: -200% center; }
+          100% { background-position:  200% center; }
+        }
+
+        .gallery-card {
+          transition: box-shadow 0.5s ease;
+        }
+        .gallery-card:hover {
+          box-shadow: 0 28px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,169,110,0.2);
+        }
+
+        .cat-pill {
+          cursor: pointer;
+          border: 1px solid rgba(201,169,110,0.25);
+          background: transparent;
+          color: rgba(255,255,255,0.4);
+          font-family: 'DM Sans', sans-serif;
+          font-size: 9px;
+          font-weight: 500;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          padding: 7px 16px;
+          border-radius: 100px;
+          transition: all 0.3s ease;
+          white-space: nowrap;
+          position: relative;
+          overflow: hidden;
+          flex-shrink: 0;
+        }
+        .cat-pill::before {
+          content: '';
+          position: absolute; inset: 0;
+          background: linear-gradient(90deg, transparent, rgba(201,169,110,0.08), transparent);
+          background-size: 200% 100%;
+          opacity: 0;
+          transition: opacity 0.3s;
+        }
+        .cat-pill:hover::before { opacity: 1; animation: shimmer 1.2s infinite; }
+        .cat-pill.active {
+          background: #c9a96e;
+          border-color: #c9a96e;
+          color: #1e2022;
+        }
+        .cat-pill:hover:not(.active) { color: #e2c99a; border-color: rgba(201,169,110,0.5); }
+
+        .fav-btn {
+          width: 32px; height: 32px; border-radius: 50%;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(0,0,0,0.3);
+          backdrop-filter: blur(8px);
+          cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 13px;
+          transition: all 0.3s ease;
+          position: absolute; top: 14px; right: 14px; z-index: 10;
+        }
+        .fav-btn:hover {
+          border-color: rgba(255,100,100,0.5);
+          background: rgba(255,80,80,0.15);
+          transform: scale(1.1);
+        }
+        .fav-btn.active {
+          background: rgba(220,60,60,0.3);
+          border-color: rgba(220,60,60,0.5);
+        }
+
+        .thumb-strip {
+          display: flex; gap: 8px; overflow-x: auto; padding: 0 1rem;
+          scrollbar-width: none;
+        }
+        .thumb-strip::-webkit-scrollbar { display: none; }
+        .thumb-item {
+          width: 56px; height: 38px; flex-shrink: 0; border-radius: 5px;
+          overflow: hidden; cursor: pointer;
+          border: 2px solid transparent;
+          transition: all 0.25s ease; opacity: 0.5;
+        }
+        .thumb-item:hover { opacity: 0.8; }
+        .thumb-item.active { border-color: #c9a96e; opacity: 1; }
+        .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .kbd-hint {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 8.5px; letter-spacing: 0.18em;
+          color: rgba(255,255,255,0.25); text-transform: uppercase;
+          display: flex; gap: 16px; align-items: center;
+        }
+        kbd {
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 4px; padding: 2px 6px;
+          font-family: 'DM Sans', sans-serif; font-size: 8px;
+        }
+
+        /* ── Category pills scroll container on mobile ── */
+        .cat-pills-scroll {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          max-width: 480px;
+          justify-content: flex-end;
+        }
+        @media (max-width: 767px) {
+          .cat-pills-scroll {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            max-width: 100%;
+            justify-content: flex-start;
+            padding-bottom: 4px;
+          }
+          .cat-pills-scroll::-webkit-scrollbar { display: none; }
+        }
+
+        /* ── Mobile gallery grid ── */
+        .vg-mobile-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          padding: 0 1.25rem;
+        }
+        @media (min-width: 480px) and (max-width: 767px) {
+          .vg-mobile-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+          }
+        }
+
+        /* ── Hide kbd hints on mobile ── */
+        @media (max-width: 767px) {
+          .kbd-hint { display: none !important; }
+          .fav-btn { width: 28px; height: 28px; font-size: 11px; top: 8px; right: 8px; }
+        }
+
+        /* ── Lightbox mobile fix ── */
+        @media (max-width: 767px) {
+          .lb-nav-btn {
+            width: 36px !important; height: 36px !important;
+            font-size: 14px !important;
+          }
+          .lb-topbar { padding: 0.8rem 1rem !important; }
+          .lb-topbar-title { font-size: 0.95rem !important; }
+          .lb-topbar-cat { display: none !important; }
+          .lb-topbar-actions button { padding: 5px 10px !important; font-size: 8px !important; }
+          .thumb-strip { padding: 0 0.75rem; }
+          .thumb-item { width: 44px; height: 30px; }
+        }
+      `}</style>
+
+            <MagneticCursor />
+
+            {/* ── MOBILE LAYOUT ── */}
+            {isMobile ? (
+                <div id="visura-gallery" style={{ background: '#1e2022', padding: '3rem 0 2rem', position: 'relative' }}>
+                    {/* Ambient BG */}
+                    <div style={{
+                        position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
+                        background: `
+                            radial-gradient(ellipse 80% 50% at 20% 30%, rgba(201,169,110,0.06) 0%, transparent 60%),
+                            radial-gradient(ellipse 60% 40% at 80% 70%, rgba(100,120,160,0.05) 0%, transparent 60%),
+                            linear-gradient(180deg, #1e2022 50%, #2a2d2f 50%)
+                        `,
+                    }} />
+
+                    {/* Header */}
+                    <div style={{ padding: '0 1.25rem', marginBottom: '1.5rem', position: 'relative', zIndex: 4 }}>
+                        {/* Eyebrow */}
+                        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.75rem' }}>
+                            <span style={{
+                                fontFamily: 'var(--font-sans)', fontSize: '8px', fontWeight: 500,
+                                letterSpacing: '0.44em', textTransform: 'uppercase',
+                                color: 'var(--gold)', opacity: 0.8,
+                            }}>
+                                ✦ &nbsp; Curated Sanctuary &nbsp; ✦
+                            </span>
+                        </div>
+
+                        <h2 style={{
+                            fontFamily: 'var(--font-serif)', fontWeight: 300,
+                            fontSize: 'clamp(1.8rem, 7vw, 2.8rem)',
+                            color: '#ffffff', margin: 0, lineHeight: 1.1, letterSpacing: '-0.01em',
+                        }}>
+                            Let our experience
+                            <br />
+                            <em style={{ color: 'var(--gold)', fontStyle: 'italic', fontWeight: 400 }}>
+                                speak for us
+                            </em>
+                        </h2>
+
+                        {/* Stat strip */}
+                        <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1rem', fontFamily: 'var(--font-sans)' }}>
+                            {[['10+', 'Amenities'], ['5⭑', 'Lifestyle'], ['∞', 'Experiences']].map(([val, lbl]) => (
+                                <div key={lbl}>
+                                    <div style={{ fontSize: '18px', fontWeight: 300, color: 'var(--gold)', lineHeight: 1 }}>{val}</div>
+                                    <div style={{ fontSize: '8px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            {[0, 1].map((rowIndex) => (
-                <div key={rowIndex} className="mb-6 md:mb-8 group last:mb-0">
-                    <div className="container mx-auto px-4 md:px-6 mb-2 md:mb-3 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                        <span className="text-[9px] md:text-[10px] uppercase text-white/30 tracking-widest">
-                            {rowIndex === 0 ? 'Elevated' : 'Lifestyle'} Perspectives
-                        </span>
-                        <div className="w-12 md:w-16 h-[1px] bg-[#ff3c00]/20" />
+                    {/* Category Filter Pills — scrollable row */}
+                    <div style={{ padding: '0 1.25rem', marginBottom: '1rem', position: 'relative', zIndex: 4 }}>
+                        <div className="cat-pills-scroll">
+                            {CATEGORIES.map(cat => (
+                                <button
+                                    key={cat}
+                                    className={`cat-pill${activeCategory === cat ? ' active' : ''}`}
+                                    onClick={() => setActiveCategory(cat)}
+                                >
+                                    <span style={{ marginRight: '5px', opacity: 0.7 }}>{CATEGORY_ICONS[cat]}</span>
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
-                    <div
-                        className="track-wrapper cursor-grab active:cursor-grabbing overflow-hidden"
-                        onMouseDown={(e) => handleDragStart(e, rowIndex)}
-                        onTouchStart={(e) => handleDragStart(e, rowIndex)}
-                        onMouseEnter={() => { tracksRef.current[rowIndex].isHovered = true; }}
-                        onMouseLeave={() => { tracksRef.current[rowIndex].isHovered = false; }}
-                    >
-                        <div
-                            ref={(el) => { tracksRef.current[rowIndex].el = el; }}
-                            className="flex gap-3 md:gap-4 px-4 md:px-6 w-max will-change-transform"
-                        >
-                            {/* Original 12 + Duplicate 12 for infinite */}
-                            {[...Array(24)].map((_, i) => {
-                                const realIdx = i % 12;
-                                const imgIdx = (rowIndex * 12 + realIdx) % AMENITY_IMAGES.length;
-                                const imgUrl = `/Amenities/${AMENITY_IMAGES[imgIdx]}`;
+                    {/* Count */}
+                    <div style={{ padding: '0 1.25rem', marginBottom: '1rem', position: 'relative', zIndex: 4 }}>
+                        <AnimatePresence mode="wait">
+                            <motion.span
+                                key={activeCategory}
+                                initial={{ opacity: 0, y: 6 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -6 }}
+                                style={{
+                                    fontFamily: 'var(--font-sans)', fontSize: '9px',
+                                    color: 'rgba(255,255,255,0.25)', letterSpacing: '0.2em', textTransform: 'uppercase',
+                                }}
+                            >
+                                Showing {filteredIndices.length} of {AMENITY_IMAGES.length} amenities
+                                {activeCategory !== 'All' && (
+                                    <> — <span style={{ color: 'var(--gold-lt)' }}>{activeCategory}</span></>
+                                )}
+                            </motion.span>
+                        </AnimatePresence>
+                    </div>
+
+                    {/* ── Mobile Grid ── */}
+                    <div className="vg-mobile-grid" style={{ position: 'relative', zIndex: 4 }}>
+                        <AnimatePresence mode="popLayout">
+                            {filteredIndices.map((amenity, displayIdx) => {
+                                const { origIdx, label, category, tag } = amenity;
+                                const imgUrl = `/pictures/${AMENITY_IMAGES[origIdx]}`;
+                                const catColor = categoryColor[category] || 'var(--gold)';
+                                const isFav = favorited.has(origIdx);
+
                                 return (
-                                    <div
-                                        key={i}
-                                        className="relative w-[220px] md:w-[280px] h-[300px] md:h-[360px] rounded-sm overflow-hidden flex-shrink-0 group/card transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] hover:scale-[1.02] z-10 hover:z-20"
-                                        onClick={() => openLightbox(imgUrl, imgIdx)}
+                                    <motion.div
+                                        key={origIdx}
+                                        layout
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.3, delay: displayIdx * 0.03 }}
+                                        className="gallery-card"
+                                        style={{
+                                            background: 'linear-gradient(160deg, #2f3438 0%, #262b2e 100%)',
+                                            borderRadius: '14px', overflow: 'hidden',
+                                            position: 'relative',
+                                            border: '1px solid rgba(255,255,255,0.04)',
+                                        }}
                                     >
-                                        <img src={imgUrl} alt="" className="w-full h-full object-cover grayscale-[0.3] transition-all duration-1000 group-hover/card:scale-105 group-hover/card:grayscale-0 pointer-events-none" draggable="false" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent flex flex-col justify-end p-4 md:p-6 pointer-events-none translate-y-2 opacity-0 group-hover/card:translate-y-0 group-hover/card:opacity-100 transition-all duration-700">
-                                            <span className="text-[#ff3c00] text-[8px] md:text-[9px] mb-1">AMENITY // 0{imgIdx + 1}</span>
-                                            <h3 className="text-white font-['Bebas_Neue'] text-xl md:text-2xl uppercase">Project Perspective</h3>
-                                            <div className="mt-2 md:mt-3 py-1.5 border border-white/10 text-center text-[8px] md:text-[9px] tracking-widest text-white/40 backdrop-blur-sm group-hover/card:border-white/30 transition-colors">EXPLORE</div>
+                                        {/* Category colour accent bar */}
+                                        <div style={{
+                                            position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+                                            background: catColor, opacity: 0.5, zIndex: 10,
+                                        }} />
+
+                                        {/* Favourite button */}
+                                        <button
+                                            className={`fav-btn${isFav ? ' active' : ''}`}
+                                            onClick={(e) => { e.stopPropagation(); toggleFav(origIdx); }}
+                                        >
+                                            {isFav ? '♥' : '♡'}
+                                        </button>
+
+                                        {/* Image */}
+                                        <div
+                                            onClick={() => openLightbox(origIdx)}
+                                            style={{
+                                                width: '100%', aspectRatio: '4/3', overflow: 'hidden',
+                                                cursor: 'pointer',
+                                            }}
+                                        >
+                                            <img
+                                                src={imgUrl}
+                                                alt={label}
+                                                draggable={false}
+                                                style={{
+                                                    width: '100%', height: '100%', objectFit: 'cover',
+                                                    display: 'block',
+                                                }}
+                                            />
                                         </div>
-                                    </div>
+
+                                        {/* Card bottom content */}
+                                        <div style={{ padding: '8px 10px 10px' }}>
+                                            <p style={{
+                                                fontFamily: 'var(--font-sans)', fontSize: '14px',
+                                                fontWeight: 400, color: 'rgba(255,255,255,0.85)',
+                                                letterSpacing: '0.03em', margin: '0 0 4px',
+                                                lineHeight: 1.3,
+                                            }}>
+                                                {label}
+                                            </p>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
+                                                <span style={{
+                                                    fontFamily: 'var(--font-sans)', fontSize: '7px',
+                                                    letterSpacing: '0.12em', color: catColor,
+                                                    textTransform: 'uppercase', fontWeight: 500,
+                                                    background: `${catColor}18`, padding: '2px 6px',
+                                                    borderRadius: '20px', border: `1px solid ${catColor}30`,
+                                                }}>
+                                                    {tag}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </motion.div>
                                 );
                             })}
+                        </AnimatePresence>
+
+                        {filteredIndices.length === 0 && (
+                            <motion.div
+                                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                                style={{
+                                    gridColumn: '1 / -1', textAlign: 'center',
+                                    fontFamily: 'var(--font-serif)', color: 'rgba(255,255,255,0.2)',
+                                    fontSize: '1.4rem', fontWeight: 300, fontStyle: 'italic', padding: '3rem 0',
+                                }}
+                            >
+                                No amenities in this category
+                            </motion.div>
+                        )}
+                    </div>
+
+                    {/* Saved count */}
+                    {favorited.size > 0 && (
+                        <div style={{
+                            textAlign: 'center', padding: '1rem 1.25rem 0',
+                            fontFamily: 'var(--font-sans)', fontSize: '8.5px',
+                            letterSpacing: '0.18em', color: 'rgba(220,100,100,0.6)', textTransform: 'uppercase',
+                        }}>
+                            ♥ {favorited.size} saved
+                        </div>
+                    )}
+                </div>
+            ) : (
+                /* ── DESKTOP LAYOUT (original horizontal scroll) ── */
+                <div
+                    ref={outerRef}
+                    id="visura-gallery"
+                    style={{ height: '380vh', position: 'relative', background: '#1e2022' }}
+                >
+                    {/* ── Sticky viewport ── */}
+                    <div style={{
+                        position: 'sticky', top: 0, height: '100vh',
+                        overflow: 'hidden', display: 'flex',
+                        flexDirection: 'column', justifyContent: 'center',
+                    }}>
+                        {/* Ambient BG */}
+                        <div style={{
+                            position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
+                            background: `
+                                radial-gradient(ellipse 80% 50% at 20% 30%, rgba(201,169,110,0.06) 0%, transparent 60%),
+                                radial-gradient(ellipse 60% 40% at 80% 70%, rgba(100,120,160,0.05) 0%, transparent 60%),
+                                linear-gradient(180deg, #1e2022 50%, #2a2d2f 50%)
+                            `,
+                        }} />
+
+                        {/* Decorative vertical rule */}
+                        <div style={{
+                            position: 'absolute', left: '1.5rem', top: '10%', bottom: '10%',
+                            width: '1px',
+                            background: 'linear-gradient(180deg, transparent, rgba(201,169,110,0.3) 40%, rgba(201,169,110,0.3) 60%, transparent)',
+                            zIndex: 3,
+                        }} />
+
+                        {/* ── Header Block ── */}
+                        <div style={{
+                            padding: '0 3.5rem 0 4rem',
+                            marginBottom: '2rem',
+                            position: 'relative', zIndex: 4,
+                            display: 'flex', alignItems: 'flex-end',
+                            justifyContent: 'space-between',
+                            flexWrap: 'wrap', gap: '1.5rem',
+                        }}>
+                            <div>
+                                {/* Eyebrow */}
+                                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+                                    <span style={{
+                                        fontFamily: 'var(--font-sans)', fontSize: '9px', fontWeight: 500,
+                                        letterSpacing: '0.44em', textTransform: 'uppercase',
+                                        color: 'var(--gold)', opacity: 0.8,
+                                    }}>
+                                        ✦ &nbsp; Curated Sanctuary &nbsp; ✦
+                                    </span>
+                                </div>
+
+                                <h2 style={{
+                                    fontFamily: 'var(--font-serif)', fontWeight: 300,
+                                    fontSize: 'clamp(2.8rem, 5.5vw, 4.5rem)',
+                                    color: '#ffffff', margin: 0, lineHeight: 1.05, letterSpacing: '-0.01em',
+                                }}>
+                                    Let our experience
+                                    <br />
+                                    <em style={{ color: 'var(--gold)', fontStyle: 'italic', fontWeight: 400 }}>
+                                        speak for us
+                                    </em>
+                                </h2>
+
+                                {/* Stat strip */}
+                                <div style={{ display: 'flex', gap: '2.5rem', marginTop: '1.5rem', fontFamily: 'var(--font-sans)' }}>
+                                    {[['10+', 'Amenities'], ['5⭑', 'Lifestyle'], ['∞', 'Experiences']].map(([val, lbl]) => (
+                                        <div key={lbl}>
+                                            <div style={{ fontSize: '22px', fontWeight: 300, color: 'var(--gold)', lineHeight: 1 }}>{val}</div>
+                                            <div style={{ fontSize: '9px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* ── Category Filter Pills ── */}
+                            <div className="cat-pills-scroll">
+                                {CATEGORIES.map(cat => (
+                                    <button
+                                        key={cat}
+                                        className={`cat-pill${activeCategory === cat ? ' active' : ''}`}
+                                        onClick={() => setActiveCategory(cat)}
+                                    >
+                                        <span style={{ marginRight: '5px', opacity: 0.7 }}>{CATEGORY_ICONS[cat]}</span>
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Count badge */}
+                        <div style={{ padding: '0 3.5rem 0 4rem', marginBottom: '1rem', position: 'relative', zIndex: 4 }}>
+                            <AnimatePresence mode="wait">
+                                <motion.span
+                                    key={activeCategory}
+                                    initial={{ opacity: 0, y: 6 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -6 }}
+                                    style={{
+                                        fontFamily: 'var(--font-sans)', fontSize: '9px',
+                                        color: 'rgba(255,255,255,0.25)', letterSpacing: '0.2em', textTransform: 'uppercase',
+                                    }}
+                                >
+                                    Showing {filteredIndices.length} of {AMENITY_IMAGES.length} amenities
+                                    {activeCategory !== 'All' && (
+                                        <> — <span style={{ color: 'var(--gold-lt)' }}>{activeCategory}</span></>
+                                    )}
+                                </motion.span>
+                            </AnimatePresence>
+                        </div>
+
+                        {/* ── Horizontal Cards Track ── */}
+                        <div
+                            ref={trackRef}
+                            data-cursor="expand"
+                            onMouseDown={handleDragStart}
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            style={{
+                                display: 'flex', gap: '20px',
+                                paddingLeft: '4rem', paddingRight: '4rem',
+                                width: 'max-content', willChange: 'transform',
+                                alignItems: 'center', position: 'relative', zIndex: 4,
+                                cursor: 'grab', userSelect: 'none',
+                            }}
+                        >
+                            <AnimatePresence mode="popLayout">
+                                {filteredIndices.map((amenity, displayIdx) => {
+                                    const { origIdx, label, category, tag } = amenity;
+                                    const imgUrl = `/pictures/${AMENITY_IMAGES[origIdx]}`;
+                                    const s = sizes[origIdx % 5];
+                                    const floatDelay = (origIdx * 0.35) % 2.5;
+                                    const floatDur = 3 + (origIdx % 3) * 0.6;
+                                    const catColor = categoryColor[category] || 'var(--gold)';
+                                    const isFav = favorited.has(origIdx);
+                                    const isHov = hoveredIdx === origIdx;
+
+                                    return (
+                                        <motion.div
+                                            key={origIdx}
+                                            layout
+                                            initial={{ opacity: 0, scale: 0.85, y: 20 }}
+                                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                                            exit={{ opacity: 0, scale: 0.85, y: 20 }}
+                                            transition={{ duration: 0.4, delay: displayIdx * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                                            className="gallery-card"
+                                            onMouseEnter={() => setHoveredIdx(origIdx)}
+                                            onMouseLeave={() => setHoveredIdx(null)}
+                                            style={{
+                                                width: s.w, height: s.h, flexShrink: 0,
+                                                background: 'linear-gradient(160deg, #2f3438 0%, #262b2e 100%)',
+                                                borderRadius: s.radius, overflow: 'hidden',
+                                                position: 'relative',
+                                                animation: `galleryFloat ${floatDur}s ease-in-out ${floatDelay}s infinite`,
+                                                border: '1px solid rgba(255,255,255,0.04)',
+                                            } as React.CSSProperties}
+                                        >
+                                            {/* Category colour accent bar */}
+                                            <div style={{
+                                                position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+                                                background: catColor, opacity: isHov ? 1 : 0.4,
+                                                transition: 'opacity 0.4s ease', zIndex: 10,
+                                            }} />
+
+                                            {/* Favourite button */}
+                                            <button
+                                                className={`fav-btn${isFav ? ' active' : ''}`}
+                                                onClick={(e) => { e.stopPropagation(); toggleFav(origIdx); }}
+                                            >
+                                                {isFav ? '♥' : '♡'}
+                                            </button>
+
+                                            {/* Index tag */}
+                                            <span style={{
+                                                position: 'absolute', top: '12px', left: '14px', zIndex: 8,
+                                                fontFamily: 'var(--font-sans)', fontSize: '8px', fontWeight: 500,
+                                                letterSpacing: '0.1em', color: 'rgba(255,255,255,0.3)',
+                                            }}>
+                                                .{String(origIdx + 1).padStart(2, '0')}
+                                            </span>
+
+                                            {/* Image */}
+                                            <div
+                                                onClick={() => openLightbox(origIdx)}
+                                                style={{
+                                                    width: '100%', height: s.imgH, overflow: 'hidden',
+                                                    padding: '10px', paddingTop: '32px', cursor: 'pointer',
+                                                }}
+                                            >
+                                                <div style={{ width: '100%', height: '100%', overflow: 'hidden', borderRadius: '10px', position: 'relative' }}>
+                                                    <img
+                                                        src={imgUrl}
+                                                        alt={label}
+                                                        draggable={false}
+                                                        style={{
+                                                            width: '100%', height: '100%', objectFit: 'cover',
+                                                            transform: isHov ? 'scale(1.07)' : 'scale(1)',
+                                                            transition: 'transform 0.8s cubic-bezier(0.16,1,0.3,1)',
+                                                            display: 'block',
+                                                        }}
+                                                    />
+                                                    {/* Hover expand overlay */}
+                                                    <div style={{
+                                                        position: 'absolute', inset: 0,
+                                                        background: 'rgba(0,0,0,0.35)',
+                                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                        opacity: isHov ? 1 : 0, transition: 'opacity 0.4s ease',
+                                                    }}>
+                                                        <div style={{
+                                                            width: 40, height: 40, borderRadius: '50%',
+                                                            border: '1.5px solid rgba(255,255,255,0.8)',
+                                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                            color: '#fff', fontSize: 16,
+                                                        }}>⤢</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Card bottom content */}
+                                            <div style={{ padding: '4px 14px 14px' }}>
+                                                <span style={{
+                                                    fontFamily: 'var(--font-serif)',
+                                                    fontSize: 'clamp(2.2rem, 3.5vw, 3rem)',
+                                                    fontWeight: 300, color: 'rgba(255,255,255,0.07)',
+                                                    lineHeight: 1, display: 'block', marginBottom: '-6px',
+                                                }}>
+                                                    {String(origIdx + 1).padStart(2, '0')}
+                                                </span>
+                                                <p style={{
+                                                     fontFamily: 'var(--font-sans)', fontSize: '15px',
+                                                     fontWeight: 400, color: 'rgba(255,255,255,0.85)',
+                                                    letterSpacing: '0.03em', margin: '0 0 6px',
+                                                }}>
+                                                    {label}
+                                                </p>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-sans)', fontSize: '8px',
+                                                        letterSpacing: '0.12em', color: catColor,
+                                                        textTransform: 'uppercase', fontWeight: 500,
+                                                        background: `${catColor}18`, padding: '3px 8px',
+                                                        borderRadius: '20px', border: `1px solid ${catColor}30`,
+                                                    }}>
+                                                        {tag}
+                                                    </span>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-sans)', fontSize: '8px',
+                                                        letterSpacing: '0.1em', color: 'rgba(255,255,255,0.2)',
+                                                        textTransform: 'uppercase',
+                                                    }}>
+                                                        {category}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    );
+                                })}
+                            </AnimatePresence>
+
+                            {filteredIndices.length === 0 && (
+                                <motion.div
+                                    initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                                    style={{
+                                        width: '60vw', textAlign: 'center',
+                                        fontFamily: 'var(--font-serif)', color: 'rgba(255,255,255,0.2)',
+                                        fontSize: '2rem', fontWeight: 300, fontStyle: 'italic', padding: '4rem 0',
+                                    }}
+                                >
+                                    No amenities in this category
+                                </motion.div>
+                            )}
+                        </div>
+
+                        {/* ── Progress Bar & Bottom Strip ── */}
+                        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 5 }}>
+                            {favorited.size > 0 && (
+                                <div style={{
+                                    textAlign: 'right', padding: '0 3.5rem 6px',
+                                    fontFamily: 'var(--font-sans)', fontSize: '8.5px',
+                                    letterSpacing: '0.18em', color: 'rgba(220,100,100,0.6)', textTransform: 'uppercase',
+                                }}>
+                                    ♥ {favorited.size} saved
+                                </div>
+                            )}
+
+                            {/* Progress track */}
+                            <div style={{ height: '3px', background: 'rgba(255,255,255,0.05)', position: 'relative' }}>
+                                <div style={{
+                                    height: '100%', width: `${scrollProgress * 100}%`,
+                                    background: 'linear-gradient(90deg, var(--gold), var(--gold-lt))',
+                                    boxShadow: '0 0 18px var(--gold-glow)',
+                                    transition: 'width 0.05s linear', position: 'relative',
+                                }}>
+                                    <div style={{
+                                        position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)',
+                                        width: 8, height: 8, borderRadius: '50%',
+                                        background: 'var(--gold-lt)', boxShadow: '0 0 12px var(--gold)',
+                                    }} />
+                                </div>
+                            </div>
+
+                            {/* Bottom info bar */}
+                            <div style={{
+                                padding: '12px 3.5rem 16px 4rem',
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                background: 'rgba(30,32,34,0.6)', backdropFilter: 'blur(10px)',
+                            }}>
+                                <div className="kbd-hint">
+                                    <span><kbd>Drag</kbd> to explore</span>
+                                    <span><kbd>↑↓</kbd> scroll</span>
+                                    <span><kbd>♡</kbd> save</span>
+                                </div>
+                                <div className="kbd-hint" style={{ display: 'flex' }}>
+                                    <span style={{ color: 'var(--gold)', opacity: 0.7 }}>{Math.round(scrollProgress * 100)}%</span>
+                                    <span>—</span>
+                                    <span>{filteredIndices.length} shown</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            ))}
+            )}
 
-            {/* Bottom Stats Bar (Gallery specific) */}
-            <div className="mt-20 border-t border-white/10 pt-10 pb-4 container mx-auto px-6 flex justify-between items-center text-[9px] text-white/30 tracking-[0.2em] uppercase">
-                <div className="flex gap-10">
-                    <div className="flex gap-3">
-                        <span className="text-white/10">NAV:</span> {scrollPerc}% COMPLETE
-                    </div>
-                    <div className="flex gap-3">
-                        <span className="text-white/10">STATUS:</span> <span className="text-[#ff3c00]">{dragStatus}</span>
-                    </div>
-                </div>
-                <div className="flex gap-10">
-                    <div className="flex gap-3">
-                        <span className="text-white/10">TRACKS:</span> {tracksRef.current.map((t, i) => (
-                            <span key={i} className={activeTrackIdx.current === i ? 'text-white' : ''}>{t.speed < 0 ? '←' : '→'}</span>
-                        ))}
-                    </div>
-                    <div>VISURA // VERSION 1.1</div>
-                </div>
-            </div>
-
-            {/* Lightbox */}
+            {/* ── Lightbox (shared between mobile & desktop) ── */}
             <AnimatePresence>
                 {lightbox.active && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[10000] flex items-center justify-center p-10 bg-black/95 backdrop-blur-2xl"
+                        transition={{ duration: 0.4 }}
+                        style={{
+                            position: 'fixed', inset: 0, zIndex: 10000,
+                            display: 'flex', flexDirection: 'column',
+                            background: 'rgba(14,15,16,0.97)',
+                            backdropFilter: 'blur(32px)',
+                        }}
                     >
-                        <button
-                            className="absolute top-10 right-10 text-white/50 hover:text-white text-xs tracking-[0.3em] z-[10001]"
-                            onClick={() => setLightbox({ ...lightbox, active: false })}
-                        >
-                            CLOSE (ESC)
-                        </button>
+                        {/* Top bar */}
+                        <div className="lb-topbar" style={{
+                            padding: '1.4rem 2rem',
+                            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                            borderBottom: '1px solid rgba(255,255,255,0.05)',
+                            background: 'rgba(0,0,0,0.3)',
+                            flexWrap: 'wrap', gap: '0.5rem',
+                        }}>
+                            <div className="lb-topbar-title" style={{
+                                fontFamily: 'var(--font-serif)', fontSize: '1.2rem',
+                                color: 'rgba(255,255,255,0.7)', fontWeight: 300, fontStyle: 'italic',
+                            }}>
+                                {AMENITIES[lightbox.index]?.label}
+                                <span className="lb-topbar-cat" style={{
+                                    fontFamily: 'var(--font-sans)', fontSize: '8px',
+                                    color: 'rgba(255,255,255,0.2)', letterSpacing: '0.2em',
+                                    textTransform: 'uppercase', marginLeft: '14px', fontStyle: 'normal',
+                                }}>
+                                    {AMENITIES[lightbox.index]?.category}
+                                </span>
+                            </div>
 
-                        <div className="absolute inset-y-0 left-10 flex items-center z-[10001]">
-                            <button className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-[#ff3c00] hover:border-[#ff3c00] transition-all" onClick={() => navigateLightbox(-1)}>←</button>
+                            <div className="lb-topbar-actions" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                {/* Close */}
+                                <button
+                                    onClick={() => setLightbox(lb => ({ ...lb, active: false, zoomed: false }))}
+                                    style={{
+                                        background: 'rgba(255,255,255,0.05)',
+                                        border: '1px solid rgba(255,255,255,0.08)',
+                                        borderRadius: '6px', color: 'rgba(255,255,255,0.4)',
+                                        fontFamily: 'var(--font-sans)', fontSize: '9px',
+                                        letterSpacing: '0.16em', textTransform: 'uppercase',
+                                        padding: '7px 16px', cursor: 'pointer',
+                                    }}
+                                >
+                                    ✕ Close
+                                </button>
+                            </div>
                         </div>
-                        <div className="absolute inset-y-0 right-10 flex items-center z-[10001]">
-                            <button className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-[#ff3c00] hover:border-[#ff3c00] transition-all" onClick={() => navigateLightbox(1)}>→</button>
+
+                        {/* Main image */}
+                        <div style={{
+                            flex: 1, display: 'flex', alignItems: 'center',
+                            justifyContent: 'center', position: 'relative', overflow: 'hidden',
+                        }}>
+                            <button
+                                className="lb-nav-btn"
+                                onClick={() => navigateLightbox(-1)}
+                                style={{
+                                    position: 'absolute', left: isMobile ? '0.5rem' : '2rem', zIndex: 10,
+                                    width: 52, height: 52, borderRadius: '50%',
+                                    border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(0,0,0,0.5)',
+                                    color: '#fff', fontSize: 20, cursor: 'pointer',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                }}
+                            >
+                                ←
+                            </button>
+
+                            <motion.img
+                                key={lightbox.url}
+                                initial={{ scale: 0.88, opacity: 0, filter: 'blur(10px)' }}
+                                animate={{ scale: lightbox.zoomed ? 1.6 : 1, opacity: 1, filter: 'blur(0px)' }}
+                                exit={{ scale: 1.06, opacity: 0, filter: 'blur(8px)' }}
+                                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                                src={lightbox.url}
+                                alt=""
+                                style={{
+                                    maxHeight: isMobile ? '60vh' : '72vh',
+                                    maxWidth: isMobile ? '90vw' : '80vw',
+                                    objectFit: 'contain', borderRadius: '6px',
+                                    cursor: lightbox.zoomed ? 'zoom-out' : 'zoom-in',
+                                    boxShadow: '0 40px 120px rgba(0,0,0,0.8)',
+                                }}
+                                onClick={() => setLightbox(lb => ({ ...lb, zoomed: !lb.zoomed }))}
+                            />
+
+                            <button
+                                className="lb-nav-btn"
+                                onClick={() => navigateLightbox(1)}
+                                style={{
+                                    position: 'absolute', right: isMobile ? '0.5rem' : '2rem', zIndex: 10,
+                                    width: 52, height: 52, borderRadius: '50%',
+                                    border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(0,0,0,0.5)',
+                                    color: '#fff', fontSize: 20, cursor: 'pointer',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                }}
+                            >
+                                →
+                            </button>
                         </div>
 
-                        <motion.img
-                            key={lightbox.url}
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 1.1, opacity: 0 }}
-                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-                            src={lightbox.url}
-                            className="max-h-full max-w-full object-contain shadow-2xl"
-                            alt=""
-                        />
+                        {/* Bottom: thumbnails + meta */}
+                        <div style={{
+                            borderTop: '1px solid rgba(255,255,255,0.05)',
+                            paddingTop: '10px', paddingBottom: '12px',
+                            background: 'rgba(0,0,0,0.3)',
+                        }}>
+                            <div style={{
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                padding: '0 1rem 8px',
+                            }}>
+                                <div className="kbd-hint">
+                                    <span><kbd>←</kbd><kbd>→</kbd> navigate</span>
+                                    <span><kbd>Esc</kbd> close</span>
+                                </div>
+                                <div style={{
+                                    fontFamily: 'var(--font-sans)', fontSize: '9px',
+                                    color: 'rgba(255,255,255,0.3)', letterSpacing: '0.14em', textTransform: 'uppercase',
+                                }}>
+                                    <span style={{ color: 'var(--gold)' }}>{lightbox.index + 1}</span>
+                                    &nbsp;/&nbsp;{AMENITY_IMAGES.length}
+                                </div>
+                            </div>
 
-                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
-                            <h4 className="text-white font-['Bebas_Neue'] text-2xl uppercase tracking-wider mb-2">Item {lightbox.index + 1} of {collection.length}</h4>
-                            <div className="w-12 h-0.5 bg-[#ff3c00] mx-auto" />
+                            <div className="thumb-strip">
+                                {AMENITY_IMAGES.map((img, idx) => (
+                                    <div
+                                        key={idx}
+                                        className={`thumb-item${idx === lightbox.index ? ' active' : ''}`}
+                                        onClick={() => setLightbox(lb => ({
+                                            ...lb, url: `/pictures/${img}`, index: idx, zoomed: false,
+                                        }))}
+                                    >
+                                        <img src={`/pictures/${img}`} alt="" />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </section>
+        </>
     );
 };

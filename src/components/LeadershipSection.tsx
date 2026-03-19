@@ -20,7 +20,7 @@ const DIRECTORS = [
 
 export const LeadershipSection = () => {
   return (
-    <section id="team" className="section-py" style={{ background: 'var(--bg-alt)' }}>
+    <section id="team" style={{ background: 'var(--bg-alt)', paddingTop: '5rem', paddingBottom: '2rem' }}>
       <div className="container">
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <motion.p 

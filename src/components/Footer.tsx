@@ -30,18 +30,49 @@ export const Footer = () => {
         borderTop: '1px solid rgba(0,0,0,0.1)',
       }}
     >
+      <style>{`
+        .footer-main {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 4rem;
+          padding-top: 5rem;
+          padding-bottom: 5rem;
+          justify-content: space-between;
+        }
+        .footer-nav-groups {
+          display: flex;
+          gap: 5rem;
+          flex-wrap: wrap;
+        }
+        .footer-map {
+          flex: 1;
+          min-width: 280px;
+          max-width: 450px;
+          height: 240px;
+          border-radius: 8px;
+          overflow: hidden;
+          border: 1px solid rgba(0,0,0,0.1);
+          background: rgba(0,0,0,0.02);
+        }
+        @media (max-width: 767px) {
+          .footer-main {
+            gap: 2rem;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            flex-direction: column;
+          }
+          .footer-nav-groups {
+            gap: 2rem;
+          }
+          .footer-map {
+            min-width: 100%;
+            max-width: 100%;
+            height: 200px;
+          }
+        }
+      `}</style>
       {/* Main footer */}
-      <div
-        className="container"
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '4rem',
-          paddingTop: '5rem',
-          paddingBottom: '5rem',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div className="container footer-main">
         {/* Brand */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '300px', alignItems: 'flex-start' }}>
           <div style={{ position: 'relative', display: 'inline-block', marginBottom: '0.5rem', width: '220px' }}>
@@ -86,16 +117,7 @@ export const Footer = () => {
         </div>
 
         {/* Map */}
-        <div style={{ 
-          flex: 1, 
-          minWidth: '280px', 
-          maxWidth: '450px', 
-          height: '240px', 
-          borderRadius: '8px', 
-          overflow: 'hidden', 
-          border: '1px solid rgba(0,0,0,0.1)',
-          background: 'rgba(0,0,0,0.02)'
-        }}>
+        <div className="footer-map">
           <iframe 
             src="https://maps.google.com/maps?q=Sector%2091,%20Mohali&t=&z=13&ie=UTF8&iwloc=&output=embed"
             width="100%" 
@@ -109,7 +131,7 @@ export const Footer = () => {
         </div>
 
         {/* Nav groups */}
-        <div style={{ display: 'flex', gap: '5rem', flexWrap: 'wrap' }}>
+        <div className="footer-nav-groups">
           {NAV_GROUPS.map(g => (
             <div key={g.title} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <p

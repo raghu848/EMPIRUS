@@ -92,7 +92,7 @@ export const Header = () => {
         /* Nav link */
         .re-nav-link {
           font-family: 'Cinzel', serif;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 500;
           letter-spacing: 0.18em;
           text-transform: uppercase;

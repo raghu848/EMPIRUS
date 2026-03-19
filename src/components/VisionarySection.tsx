@@ -126,11 +126,25 @@ export const VisionarySection = () => {
           borderTop: '1px solid #ccc',
           padding: '1.5rem 0'
         }}>
-          <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h3 style={{ fontFamily: 'var(--font-hand)', fontWeight: 400, fontSize: '1.5rem', color: '#000', margin: 0 }}>
+          <style>{`
+            .vis-footer-bar {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+            @media (max-width: 767px) {
+              .vis-footer-bar {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+              }
+            }
+          `}</style>
+          <div className="container vis-footer-bar">
+            <h3 style={{ fontFamily: 'var(--font-hand)', fontWeight: 400, fontSize: 'clamp(1.1rem, 3vw, 1.5rem)', color: '#000', margin: 0 }}>
               Ar. Reza Kabul
             </h3>
-            <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.85rem', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(0.65rem, 2vw, 0.85rem)', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
               FOR INTERNAL TRAINING PURPOSE
             </span>
           </div>

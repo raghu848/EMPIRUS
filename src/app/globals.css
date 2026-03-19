@@ -111,6 +111,11 @@ h1, h2, h3, h4 {
   100% { background-position:  200% 0; }
 }
 
+@keyframes galleryFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-12px); }
+}
+
 /* ─── KEN BURNS BACKGROUND ──────────────────────────────────── */
 .hero-bg-image {
   position: absolute;
@@ -327,3 +332,9 @@ h1, h2, h3, h4 {
 /* --- CUSTOM MEDIA QUERIES --- */
 .md-flex-center { display: none !important; }
 @media (min-width: 900px) { .md-flex-center { display: flex !important; flex-direction: column; align-items: center; gap: 8px; } }
+
+/* --- MOBILE UTILITIES --- */
+@media (max-width: 767px) {
+  .hide-mobile { display: none !important; }
+  html { -webkit-overflow-scrolling: touch; }
+}

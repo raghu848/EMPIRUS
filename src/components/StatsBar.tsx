@@ -41,12 +41,11 @@ const StatItem = ({ value, suffix, label }: typeof STATS[number]) => {
       ref={ref}
       style={{
         padding: '2rem 1.5rem',
-        mdPadding: '3rem 2rem',
-        textAlign: 'center',
+        textAlign: 'center' as const,
         borderRight: '1px solid var(--faint)',
-        borderBottom: '1px solid var(--faint)', // Add bottom border for mobile wrapping
-        position: 'relative',
-      } as any}
+        borderBottom: '1px solid var(--faint)',
+        position: 'relative' as const,
+      }}
     >
       <div
         style={{

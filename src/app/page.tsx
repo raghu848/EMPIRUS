@@ -4,7 +4,7 @@ import { StatsBar } from '@/components/StatsBar';
 import { AboutSection } from '@/components/AboutSection';
 import { VisionarySection } from '@/components/VisionarySection';
 import { InvestmentsSection } from '@/components/InvestmentsSection';
-import { Timeline } from '@/components/Timeline';
+
 import { LocationAdvantage } from '@/components/LocationAdvantage';
 import { ContactForm } from '@/components/ContactForm';
 import { Footer } from '@/components/Footer';
@@ -86,8 +86,7 @@ export default function Home() {
       {/* ── Location & Floor Plans ── */}
       <LocationAdvantage />
 
-      {/* ── Track Record / Timeline ── */}
-      <Timeline />
+
 
       {/* ── Contact & Lead Form ── */}
       <ContactForm />
