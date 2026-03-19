@@ -6,8 +6,8 @@ const NAV_GROUPS = [
     links: [
       { label: 'Home', href: '#home' },
       { label: 'About', href: '#about' },
-      { label: 'Investments', href: '#investments' },
-      { label: 'Team', href: '#team' },
+      { label: 'Amenities', href: '#amenities' },
+      { label: 'Location', href: '#location' },
       { label: 'Contact', href: '#contact' },
     ],
   },
@@ -118,13 +118,13 @@ export const Footer = () => {
 
         {/* Map */}
         <div className="footer-map">
-          <iframe 
+          <iframe
             src="https://maps.google.com/maps?q=Sector%2091,%20Mohali&t=&z=13&ie=UTF8&iwloc=&output=embed"
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen 
-            loading="lazy" 
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="Location Map"
           />
@@ -156,12 +156,12 @@ export const Footer = () => {
                     opacity: 0.8,
                     transition: 'opacity 0.3s, color 0.3s',
                   }}
-                  onMouseEnter={e => { 
-                    (e.currentTarget as HTMLElement).style.opacity = '1'; 
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.opacity = '1';
                     (e.currentTarget as HTMLElement).style.color = '#000';
                   }}
-                  onMouseLeave={e => { 
-                    (e.currentTarget as HTMLElement).style.opacity = '0.8'; 
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.opacity = '0.8';
                     (e.currentTarget as HTMLElement).style.color = '#333';
                   }}
                 >

@@ -6,8 +6,8 @@ import Link from 'next/link';
 const NAV = [
   { label: 'Home', href: '/#home' },
   { label: 'About', href: '/#about' },
-  { label: 'Investments', href: '/#investments' },
-  { label: 'Team', href: '/#team' },
+  { label: 'Amenities', href: '/#amenities' },
+  { label: 'Location', href: '/#location' },
   { label: 'Contact', href: '/#contact' },
 ];
 
@@ -289,6 +289,17 @@ export const Header = () => {
                   href={n.href}
                   ref={isActive ? (el) => { activeRef.current = el; } : undefined}
                   className={`re-nav-link${isActive ? ' re-nav-active' : ''}`}
+                  onClick={(e) => {
+                    if (window.location.pathname === '/' || window.location.pathname === '') {
+                      const targetId = n.href.split('#')[1];
+                      const el = document.getElementById(targetId);
+                      if (el) {
+                        e.preventDefault();
+                        el.scrollIntoView({ behavior: 'smooth' });
+                        if (open) setOpen(false);
+                      }
+                    }
+                  }}
                 >
                   {n.label}
                 </Link>
@@ -308,9 +319,6 @@ export const Header = () => {
               marginLeft: '6px',
             }}
           >
-            <a href="tel:+917789000077" className="re-phone-link">
-              +91 77890 00077
-            </a>
             <a href="/#contact" className="re-cta">
               <span>Investment Inquiry</span>
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -419,7 +427,17 @@ export const Header = () => {
           <Link
             key={n.href}
             href={n.href}
-            onClick={() => setOpen(false)}
+            onClick={(e) => {
+              setOpen(false);
+              if (window.location.pathname === '/' || window.location.pathname === '') {
+                const targetId = n.href.split('#')[1];
+                const el = document.getElementById(targetId);
+                if (el) {
+                  e.preventDefault();
+                  el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }
+            }}
             className="re-drawer-link"
             style={{
               transitionProperty: 'opacity, transform, color',
@@ -434,15 +452,6 @@ export const Header = () => {
         ))}
 
         <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
-          <a href="tel:+917789000077" style={{
-            fontFamily: "'Cinzel', serif",
-            fontSize: '13px', letterSpacing: '0.12em',
-            color: 'rgba(255,255,255,0.7)',
-            textDecoration: 'none',
-            transition: 'color 0.3s',
-          }}>
-            +91 77890 00077
-          </a>
           <a href="/#contact" className="re-cta" onClick={() => setOpen(false)}>
             Investment Inquiry
           </a>

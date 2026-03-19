@@ -266,7 +266,7 @@ export const VisuraGallery = () => {
             <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
-        #visura-gallery {
+        #amenities {
           --gold: #c9a96e;
           --gold-lt: #e2c99a;
           --gold-glow: rgba(201,169,110,0.4);
@@ -433,7 +433,7 @@ export const VisuraGallery = () => {
 
             {/* ── MOBILE LAYOUT ── */}
             {isMobile ? (
-                <div id="visura-gallery" style={{ background: '#1e2022', padding: '3rem 0 2rem', position: 'relative' }}>
+                <div id="amenities" style={{ background: '#1e2022', padding: '3rem 0 2rem', position: 'relative' }}>
                     {/* Ambient BG */}
                     <div style={{
                         position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
@@ -631,7 +631,7 @@ export const VisuraGallery = () => {
                 /* ── DESKTOP LAYOUT (original horizontal scroll) ── */
                 <div
                     ref={outerRef}
-                    id="visura-gallery"
+                    id="amenities"
                     style={{ height: '380vh', position: 'relative', background: '#1e2022' }}
                 >
                     {/* ── Sticky viewport ── */}
@@ -856,8 +856,8 @@ export const VisuraGallery = () => {
                                                     {String(origIdx + 1).padStart(2, '0')}
                                                 </span>
                                                 <p style={{
-                                                     fontFamily: 'var(--font-sans)', fontSize: '15px',
-                                                     fontWeight: 400, color: 'rgba(255,255,255,0.85)',
+                                                    fontFamily: 'var(--font-sans)', fontSize: '15px',
+                                                    fontWeight: 400, color: 'rgba(255,255,255,0.85)',
                                                     letterSpacing: '0.03em', margin: '0 0 6px',
                                                 }}>
                                                     {label}

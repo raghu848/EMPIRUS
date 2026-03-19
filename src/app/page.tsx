@@ -57,7 +57,6 @@ export default function Home() {
 
       {/* ── Approach / Podium Story ── */}
       <AboutSection
-        id="podium"
         eyebrow="The Podium Story"
         title={<>A 2-Acre Elevated <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>Sanctuary</em></>}
         body={
@@ -74,7 +73,7 @@ export default function Home() {
         }
         image="/images/render-hero-1.jpg"
         reverse
-        cta={{ label: 'View Amenities', href: '#location' }}
+        cta={{ label: 'View Amenities', href: '#amenities' }}
       />
 
       {/* ── Visura Gallery ── */}
