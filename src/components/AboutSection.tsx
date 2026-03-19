@@ -232,7 +232,7 @@ export const AboutSection = ({
                   position: 'absolute', top: '20px', right: '20px',
                   fontFamily: "'Cinzel', serif",
                   fontSize: '8px', letterSpacing: '0.3em',
-                  color: 'rgba(200,164,74,0.75)',
+                  color: 'rgba(200,164,74,0.9)',
                   border: '1px solid rgba(200,164,74,0.3)',
                   padding: '6px 12px', borderRadius: '20px',
                   backdropFilter: 'blur(8px)',
@@ -251,7 +251,7 @@ export const AboutSection = ({
                 <div style={{
                   fontFamily: "'Cinzel', serif",
                   fontSize: '7.5px', letterSpacing: '0.3em',
-                  color: 'rgba(200,164,74,0.6)', textTransform: 'uppercase',
+                  color: 'rgba(200,164,74,0.85)', textTransform: 'uppercase',
                 }}>
                   Regal Empirus — {eyebrow}
                 </div>
@@ -305,7 +305,7 @@ export const AboutSection = ({
               <div style={{
                 fontFamily: "'Cinzel', serif",
                 fontSize: '7.5px', letterSpacing: '0.28em',
-                color: 'rgba(200,164,74,0.5)',
+                color: 'rgba(200,164,74,0.85)',
                 marginTop: '6px', textTransform: 'uppercase',
               }}>
                 {stat.label}
@@ -419,7 +419,7 @@ export const AboutSection = ({
               fontSize: 'clamp(1rem, 1.3vw, 1.15rem)',
               fontWeight: 300,
               lineHeight: 1.85,
-              color: 'rgba(220,210,190,0.65)',
+              color: 'rgba(220,210,190,0.88)',
               marginBottom: '36px',
             }}
           >
@@ -468,7 +468,7 @@ export const AboutSection = ({
                 <div style={{
                   fontFamily: "'Cinzel', serif",
                   fontSize: '7px', letterSpacing: '0.25em',
-                  color: 'rgba(200,164,74,0.4)',
+                  color: 'rgba(200,164,74,0.8)',
                   textTransform: 'uppercase',
                 }}>
                   {s.label}

@@ -1,29 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-// Softer, slower curtain variants
-const curtainTop = {
-  initial: { y: 0 },
-  animate: { y: '-100%', transition: { delay: 0.4, duration: 1.4, ease: [0.76, 0, 0.24, 1] as const } }
-};
-
-const curtainBottom = {
-  initial: { y: 0 },
-  animate: { y: '100%', transition: { delay: 0.4, duration: 1.4, ease: [0.76, 0, 0.24, 1] as const } }
-};
-
 export const HeroSlider = () => {
-  const [phase, setPhase] = useState<'locked' | 'opening' | 'open'>('locked');
-
-  // Initial cinematic reveal
-  useEffect(() => {
-    const t1 = setTimeout(() => setPhase('opening'), 400);
-    const t2 = setTimeout(() => setPhase('open'), 1800);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
-
   return (
     <section
       id="home"
@@ -36,39 +15,8 @@ export const HeroSlider = () => {
         background: '#080A0C',
       }}
     >
-      {/* ─── CURTAINS ─── */}
-      <motion.div
-        variants={curtainTop}
-        initial="initial"
-        animate="animate"
-        style={{
-          position: 'fixed',
-          top: 0, left: 0, right: 0,
-          height: '50vh',
-          background: '#080A0C',
-          zIndex: 9999,
-          pointerEvents: phase === 'open' ? 'none' : 'all',
-        }}
-      />
-      <motion.div
-        variants={curtainBottom}
-        initial="initial"
-        animate="animate"
-        style={{
-          position: 'fixed',
-          bottom: 0, left: 0, right: 0,
-          height: '50vh',
-          background: '#080A0C',
-          zIndex: 9999,
-          pointerEvents: phase === 'open' ? 'none' : 'all',
-        }}
-      />
-
       {/* ─── FULLSCREEN VIDEO BACKGROUND ─── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={phase !== 'locked' ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 1.8, ease: 'easeInOut' }}
+      <div
         style={{
           position: 'absolute',
           inset: 0,
@@ -89,13 +37,13 @@ export const HeroSlider = () => {
         >
           <source src="/pictures/Regal_Empirus_Website_2.mp4" type="video/mp4" />
         </video>
-      </motion.div>
+      </div>
 
       {/* ─── SCROLL INDICATOR ─── */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={phase === 'open' ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ delay: 2.0, duration: 1.0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.0, duration: 1.0 }}
         style={{
           position: 'absolute',
           bottom: '2rem',

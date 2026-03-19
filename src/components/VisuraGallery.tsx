@@ -474,7 +474,7 @@ export const VisuraGallery = () => {
                             {[['10+', 'Amenities'], ['5⭑', 'Lifestyle'], ['∞', 'Experiences']].map(([val, lbl]) => (
                                 <div key={lbl}>
                                     <div style={{ fontSize: '18px', fontWeight: 300, color: 'var(--gold)', lineHeight: 1 }}>{val}</div>
-                                    <div style={{ fontSize: '8px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
+                                    <div style={{ fontSize: '8px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
                                 </div>
                             ))}
                         </div>
@@ -506,7 +506,7 @@ export const VisuraGallery = () => {
                                 exit={{ opacity: 0, y: -6 }}
                                 style={{
                                     fontFamily: 'var(--font-sans)', fontSize: '9px',
-                                    color: 'rgba(255,255,255,0.25)', letterSpacing: '0.2em', textTransform: 'uppercase',
+                                    color: 'rgba(255,255,255,0.55)', letterSpacing: '0.2em', textTransform: 'uppercase',
                                 }}
                             >
                                 Showing {filteredIndices.length} of {AMENITY_IMAGES.length} amenities
@@ -607,7 +607,7 @@ export const VisuraGallery = () => {
                                 initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                                 style={{
                                     gridColumn: '1 / -1', textAlign: 'center',
-                                    fontFamily: 'var(--font-serif)', color: 'rgba(255,255,255,0.2)',
+                                    fontFamily: 'var(--font-serif)', color: 'rgba(255,255,255,0.45)',
                                     fontSize: '1.4rem', fontWeight: 300, fontStyle: 'italic', padding: '3rem 0',
                                 }}
                             >
@@ -621,7 +621,7 @@ export const VisuraGallery = () => {
                         <div style={{
                             textAlign: 'center', padding: '1rem 1.25rem 0',
                             fontFamily: 'var(--font-sans)', fontSize: '8.5px',
-                            letterSpacing: '0.18em', color: 'rgba(220,100,100,0.6)', textTransform: 'uppercase',
+                            letterSpacing: '0.18em', color: 'rgba(220,100,100,0.85)', textTransform: 'uppercase',
                         }}>
                             ♥ {favorited.size} saved
                         </div>
@@ -696,7 +696,7 @@ export const VisuraGallery = () => {
                                     {[['10+', 'Amenities'], ['5⭑', 'Lifestyle'], ['∞', 'Experiences']].map(([val, lbl]) => (
                                         <div key={lbl}>
                                             <div style={{ fontSize: '22px', fontWeight: 300, color: 'var(--gold)', lineHeight: 1 }}>{val}</div>
-                                            <div style={{ fontSize: '9px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
+                                            <div style={{ fontSize: '9px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
                                         </div>
                                     ))}
                                 </div>
@@ -727,7 +727,7 @@ export const VisuraGallery = () => {
                                     exit={{ opacity: 0, y: -6 }}
                                     style={{
                                         fontFamily: 'var(--font-sans)', fontSize: '9px',
-                                        color: 'rgba(255,255,255,0.25)', letterSpacing: '0.2em', textTransform: 'uppercase',
+                                        color: 'rgba(255,255,255,0.55)', letterSpacing: '0.2em', textTransform: 'uppercase',
                                     }}
                                 >
                                     Showing {filteredIndices.length} of {AMENITY_IMAGES.length} amenities
@@ -803,7 +803,7 @@ export const VisuraGallery = () => {
                                             <span style={{
                                                 position: 'absolute', top: '12px', left: '14px', zIndex: 8,
                                                 fontFamily: 'var(--font-sans)', fontSize: '8px', fontWeight: 500,
-                                                letterSpacing: '0.1em', color: 'rgba(255,255,255,0.3)',
+                                                letterSpacing: '0.1em', color: 'rgba(255,255,255,0.6)',
                                             }}>
                                                 .{String(origIdx + 1).padStart(2, '0')}
                                             </span>
@@ -874,7 +874,7 @@ export const VisuraGallery = () => {
                                                     </span>
                                                     <span style={{
                                                         fontFamily: 'var(--font-sans)', fontSize: '8px',
-                                                        letterSpacing: '0.1em', color: 'rgba(255,255,255,0.2)',
+                                                        letterSpacing: '0.1em', color: 'rgba(255,255,255,0.5)',
                                                         textTransform: 'uppercase',
                                                     }}>
                                                         {category}
@@ -891,7 +891,7 @@ export const VisuraGallery = () => {
                                     initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                                     style={{
                                         width: '60vw', textAlign: 'center',
-                                        fontFamily: 'var(--font-serif)', color: 'rgba(255,255,255,0.2)',
+                                        fontFamily: 'var(--font-serif)', color: 'rgba(255,255,255,0.45)',
                                         fontSize: '2rem', fontWeight: 300, fontStyle: 'italic', padding: '4rem 0',
                                     }}
                                 >
@@ -906,7 +906,7 @@ export const VisuraGallery = () => {
                                 <div style={{
                                     textAlign: 'right', padding: '0 3.5rem 6px',
                                     fontFamily: 'var(--font-sans)', fontSize: '8.5px',
-                                    letterSpacing: '0.18em', color: 'rgba(220,100,100,0.6)', textTransform: 'uppercase',
+                                    letterSpacing: '0.18em', color: 'rgba(220,100,100,0.85)', textTransform: 'uppercase',
                                 }}>
                                     ♥ {favorited.size} saved
                                 </div>
@@ -980,7 +980,7 @@ export const VisuraGallery = () => {
                                 {AMENITIES[lightbox.index]?.label}
                                 <span className="lb-topbar-cat" style={{
                                     fontFamily: 'var(--font-sans)', fontSize: '8px',
-                                    color: 'rgba(255,255,255,0.2)', letterSpacing: '0.2em',
+                                    color: 'rgba(255,255,255,0.5)', letterSpacing: '0.2em',
                                     textTransform: 'uppercase', marginLeft: '14px', fontStyle: 'normal',
                                 }}>
                                     {AMENITIES[lightbox.index]?.category}
@@ -1073,7 +1073,7 @@ export const VisuraGallery = () => {
                                 </div>
                                 <div style={{
                                     fontFamily: 'var(--font-sans)', fontSize: '9px',
-                                    color: 'rgba(255,255,255,0.3)', letterSpacing: '0.14em', textTransform: 'uppercase',
+                                    color: 'rgba(255,255,255,0.6)', letterSpacing: '0.14em', textTransform: 'uppercase',
                                 }}>
                                     <span style={{ color: 'var(--gold)' }}>{lightbox.index + 1}</span>
                                     &nbsp;/&nbsp;{AMENITY_IMAGES.length}

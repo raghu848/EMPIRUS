@@ -44,7 +44,7 @@ export const VisionarySection = () => {
               <motion.div
                 style={{
                   position: 'absolute', width: '100%', height: '115%', // taller to allow parallax
-                  backgroundColor: '#f5f5f5', zIndex: 0,
+                  backgroundColor: 'transparent', zIndex: 0,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   y: yImage // Apply parallax transform
                 }}
@@ -53,7 +53,7 @@ export const VisionarySection = () => {
                   src="/images/regal_empirus/Architect_Image.png"
                   alt="Ar. Reza Kabul"
                   fill
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  style={{ objectFit: 'cover', objectPosition: 'center', mixBlendMode: 'multiply' }}
                 />
               </motion.div>
             </motion.div>
@@ -144,7 +144,7 @@ export const VisionarySection = () => {
             <h3 style={{ fontFamily: 'var(--font-hand)', fontWeight: 400, fontSize: 'clamp(1.1rem, 3vw, 1.5rem)', color: '#000', margin: 0 }}>
               Ar. Reza Kabul
             </h3>
-            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(0.65rem, 2vw, 0.85rem)', color: '#444', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(0.65rem, 2vw, 0.85rem)', color: '#222', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
               FOR INTERNAL TRAINING PURPOSE
             </span>
           </div>

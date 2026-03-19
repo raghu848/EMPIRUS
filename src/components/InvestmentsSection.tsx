@@ -147,7 +147,7 @@ export const InvestmentsSection = () => {
           <span style={{
             fontFamily: "'Cinzel', serif",
             fontSize: '8px', letterSpacing: '0.38em',
-            color: 'rgba(200,164,74,0.55)', textTransform: 'uppercase',
+            color: 'rgba(200,164,74,0.85)', textTransform: 'uppercase',
           }}>
             Site Advantage — Investment Overview
           </span>
@@ -155,7 +155,7 @@ export const InvestmentsSection = () => {
         <span style={{
           fontFamily: "'Cinzel', serif",
           fontSize: '8px', letterSpacing: '0.22em',
-          color: 'rgba(200,164,74,0.25)',
+          color: 'rgba(200,164,74,0.6)',
         }}>
           MULTI-FAMILY REAL ESTATE DISCIPLINED FOCUS
         </span>
@@ -257,7 +257,7 @@ export const InvestmentsSection = () => {
               fontStyle: 'italic', fontWeight: 300,
               fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)',
               lineHeight: 1.85,
-              color: 'rgba(220,210,190,0.6)',
+              color: 'rgba(220,210,190,0.88)',
               margin: 0,
             }}>
               The Real Estate Fund's goal is to provide attractive housing for tenants seeking a safe environment they can be proud of. We focus on multi-family properties in the 24–60 unit range, representing a significant piece of the market where we expect to find opportunities.
@@ -281,7 +281,7 @@ export const InvestmentsSection = () => {
                   style={{
                     fontFamily: "'Cinzel', serif",
                     fontSize: '8px', flexShrink: 0, marginTop: '4px',
-                    color: 'rgba(200,164,74,0.45)',
+                    color: 'rgba(200,164,74,0.8)',
                     transition: 'color 0.3s, opacity 0.3s',
                   }}
                 >
@@ -293,7 +293,7 @@ export const InvestmentsSection = () => {
                     fontFamily: "'Cormorant Garamond', serif",
                     fontSize: 'clamp(0.9rem, 1.1vw, 1rem)',
                     lineHeight: 1.6,
-                    color: 'rgba(220,210,190,0.55)',
+                    color: 'rgba(220,210,190,0.85)',
                     transition: 'color 0.3s',
                   }}
                 >
@@ -406,14 +406,14 @@ export const InvestmentsSection = () => {
                 <div style={{
                   fontFamily: "'Cinzel', serif",
                   fontSize: '7.5px', letterSpacing: '0.32em',
-                  color: 'rgba(200,164,74,0.5)', marginBottom: '4px',
+                  color: 'rgba(200,164,74,0.85)', marginBottom: '4px',
                 }}>
                   REGAL EMPIRUS — FLAGSHIP PROJECT
                 </div>
                 <div style={{
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: '1.1rem', fontWeight: 300, fontStyle: 'italic',
-                  color: 'rgba(245,242,236,0.7)',
+                  color: 'rgba(245,242,236,0.9)',
                 }}>
                   Elevated Living Redefined
                 </div>
@@ -432,7 +432,7 @@ export const InvestmentsSection = () => {
                 <div style={{
                   fontFamily: "'Cinzel', serif",
                   fontSize: '7px', letterSpacing: '0.22em',
-                  color: 'rgba(200,164,74,0.4)', textTransform: 'uppercase',
+                  color: 'rgba(200,164,74,0.8)', textTransform: 'uppercase',
                 }}>
                   Per Sq. Ft.
                 </div>
