@@ -15,7 +15,7 @@ const NAV_GROUPS = [
     title: 'Contact',
     links: [
       { label: '+91 77890 00077', href: 'tel:+917789000077' },
-      { label: 'info@regalempirus.com', href: 'mailto:info@regalempirus.com' },
+      { label: 'info@gdplmohali.in', href: 'mailto:info@gdplmohali.in' },
       { label: 'Sector 91, Mohali', href: '#' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
     ],
@@ -58,8 +58,6 @@ export const Footer = () => {
         @media (max-width: 767px) {
           .footer-main {
             gap: 2rem;
-            padding-top: 3rem;
-            padding-bottom: 3rem;
             flex-direction: column;
           }
           .footer-nav-groups {
@@ -101,76 +99,75 @@ export const Footer = () => {
                 position: 'absolute', top: 0, left: 0, height: '100%', width: '100%',
                 objectFit: 'contain', objectPosition: 'left center',
                 clipPath: 'inset(50% 0 0 0)', /* Slices the top half off */
-                filter: 'brightness(0)' /* Turns the white text to black */
+                filter: 'brightness(0)' /* Makes the bottom part black */
               }}
             />
           </div>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '15px',
-              lineHeight: 1.75,
-              color: '#333',
-            }}
-          >
-            Ultra-premium residential towers in Sector 91, Mohali. Crafted by Ar. Reza Kabul. Liberating Spaces.
+          <p style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '14px',
+            color: '#666',
+            lineHeight: 1.6,
+            marginTop: '0.5rem'
+          }}>
+            Regal Empirus is more than just a home. It is a legacy of luxury, meticulously designed for those who have arrived.
           </p>
         </div>
 
-        {/* Map */}
+        {/* Links */}
+        <div className="footer-nav-groups">
+          {NAV_GROUPS.map((g, i) => (
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              <h4 style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '11px',
+                fontWeight: 600,
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: '#000',
+              }}>
+                {g.title}
+              </h4>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {g.links.map((l, j) => (
+                  <a
+                    key={j}
+                    href={l.href}
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: '15px',
+                      color: '#333',
+                      opacity: 0.8,
+                      transition: 'opacity 0.3s, color 0.3s',
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.opacity = '1';
+                      (e.currentTarget as HTMLElement).style.color = '#000';
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.opacity = '0.8';
+                      (e.currentTarget as HTMLElement).style.color = '#333';
+                    }}
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Map Placeholder */}
         <div className="footer-map">
           <iframe
-            src="https://maps.google.com/maps?q=Sector%2091,%20Mohali&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3431.57143419385!2d76.6805!3d30.7011!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fef935!2sSector%2091%2C%20Mohali%2C%20Punjab!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
             width="100%"
             height="100%"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Location Map"
           />
-        </div>
-
-        {/* Nav groups */}
-        <div className="footer-nav-groups">
-          {NAV_GROUPS.map(g => (
-            <div key={g.title} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              <p
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '12px',
-                  letterSpacing: '0.28em',
-                  textTransform: 'uppercase',
-                  color: '#666',
-                }}
-              >
-                {g.title}
-              </p>
-              {g.links.map(l => (
-                <a
-                  key={l.label}
-                  href={l.href}
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '15px',
-                    color: '#333',
-                    opacity: 0.8,
-                    transition: 'opacity 0.3s, color 0.3s',
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.opacity = '1';
-                    (e.currentTarget as HTMLElement).style.color = '#000';
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.opacity = '0.8';
-                    (e.currentTarget as HTMLElement).style.color = '#333';
-                  }}
-                >
-                  {l.label}
-                </a>
-              ))}
-            </div>
-          ))}
         </div>
       </div>
 
@@ -210,7 +207,7 @@ export const Footer = () => {
               textAlign: 'right',
             }}
           >
-            This information does not constitute an offer. Any offering will only be made through formal documents. RERA registration pending.
+            Offer subject to formal documents. RERA registration pending.
           </p>
         </div>
       </div>

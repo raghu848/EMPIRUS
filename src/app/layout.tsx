@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Jost, Parisienne } from "next/font/google";
 import "./globals.css";
 import { CustomCursor } from "@/components/CustomCursor";
 import { SmoothScroller } from "@/components/SmoothScroller";
+import { SocialDock } from "@/components/SocialDock";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body className="antialiased bg-bg-primary text-text-primary selection:bg-gold-dim selection:text-gold-light">
         <SmoothScroller>
           <CustomCursor />
+          <SocialDock />
           {children}
         </SmoothScroller>
       </body>

@@ -3,6 +3,7 @@
 import { useRef, ReactNode } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { LuxuryGoldBackground } from './LuxuryGoldBackground';
 
 interface Props {
   id: string;
@@ -60,12 +61,10 @@ export const AboutSection = ({
       style={{
         position: 'relative',
         padding: 'clamp(80px, 10vw, 120px) 0 clamp(40px, 6vw, 80px) 0',
-        background: reverse
-          ? 'linear-gradient(160deg, #0d0b07 0%, #0a0806 100%)'
-          : 'linear-gradient(160deg, #0a0806 0%, #0d0b07 100%)',
         overflow: 'hidden',
       }}
     >
+      <LuxuryGoldBackground />
       {/* ── injected styles ── */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,opsz,wght@0,8..144,300;0,8..144,400;1,8..144,300;1,8..144,400&display=swap');
@@ -150,8 +149,9 @@ export const AboutSection = ({
       </motion.div>
 
       {/* ── MAIN GRID ── */}
-      <div className="ab-grid" style={{ direction: reverse ? 'rtl' : 'ltr' }}>
-        <style>{`
+      <div style={{ position: 'relative', zIndex: 4 }}>
+        <div className="ab-grid" style={{ direction: reverse ? 'rtl' : 'ltr' }}>
+          <style>{`
           .ab-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -170,41 +170,41 @@ export const AboutSection = ({
           }
         `}</style>
 
-        {/* ════════════════ IMAGE COLUMN ════════════════ */}
-        <motion.div
-          style={{ direction: 'ltr', rotateX: tilt.sRotX, rotateY: tilt.sRotY }}
-          onMouseMove={tilt.onMove}
-          onMouseLeave={tilt.onLeave}
-          initial={{ opacity: 0, x: reverse ? 60 : -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: '-8%' }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] as const }}
-        >
-          <div style={{ position: 'relative' }}>
+          {/* ════════════════ IMAGE COLUMN ════════════════ */}
+          <motion.div
+            style={{ direction: 'ltr', rotateX: tilt.sRotX, rotateY: tilt.sRotY }}
+            onMouseMove={tilt.onMove}
+            onMouseLeave={tilt.onLeave}
+            initial={{ opacity: 0, x: reverse ? 60 : -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-8%' }}
+            transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] as const }}
+          >
+            <div style={{ position: 'relative' }}>
 
-            {/* Main image frame */}
-            <div style={{
-              position: 'relative',
-              aspectRatio: '3/4',
-              borderRadius: '3px',
-              overflow: 'hidden',
-              boxShadow: '0 48px 120px rgba(0,0,0,0.55), 0 0 0 1px rgba(200,164,74,0.1)',
-            }}>
-              {/* Image Container */}
+              {/* Main image frame */}
               <div style={{
-                position: 'absolute', inset: 0,
+                position: 'relative',
+                aspectRatio: '3/4',
+                borderRadius: '3px',
+                overflow: 'hidden',
+                boxShadow: '0 48px 120px rgba(0,0,0,0.55), 0 0 0 1px rgba(200,164,74,0.1)',
               }}>
-                <Image
-                  src={image}
-                  alt={imageAlt ?? eyebrow}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
+                {/* Image Container */}
+                <div style={{
+                  position: 'absolute', inset: 0,
+                }}>
+                  <Image
+                    src={image}
+                    alt={imageAlt ?? eyebrow}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                  />
+                </div>
 
 
-              {/* Tag — corner stamp */}
-              {/* <motion.div
+                {/* Tag — corner stamp */}
+                {/* <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -225,195 +225,195 @@ export const AboutSection = ({
 
 
 
-              {/* Gold corner flourishes */}
-              {[
-                { top: 0, left: 0, borderTop: '2px solid rgba(200,164,74,0.5)', borderLeft: '2px solid rgba(200,164,74,0.5)' },
-                { top: 0, right: 0, borderTop: '2px solid rgba(200,164,74,0.5)', borderRight: '2px solid rgba(200,164,74,0.5)' },
-                { bottom: 0, left: 0, borderBottom: '2px solid rgba(200,164,74,0.5)', borderLeft: '2px solid rgba(200,164,74,0.5)' },
-                { bottom: 0, right: 0, borderBottom: '2px solid rgba(200,164,74,0.5)', borderRight: '2px solid rgba(200,164,74,0.5)' },
-              ].map((s, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.5 + i * 0.08 }}
-                  style={{
-                    position: 'absolute', width: '24px', height: '24px', ...s,
-                  }}
-                />
-              ))}
+                {/* Gold corner flourishes */}
+                {[
+                  { top: 0, left: 0, borderTop: '2px solid rgba(200,164,74,0.5)', borderLeft: '2px solid rgba(200,164,74,0.5)' },
+                  { top: 0, right: 0, borderTop: '2px solid rgba(200,164,74,0.5)', borderRight: '2px solid rgba(200,164,74,0.5)' },
+                  { bottom: 0, left: 0, borderBottom: '2px solid rgba(200,164,74,0.5)', borderLeft: '2px solid rgba(200,164,74,0.5)' },
+                  { bottom: 0, right: 0, borderBottom: '2px solid rgba(200,164,74,0.5)', borderRight: '2px solid rgba(200,164,74,0.5)' },
+                ].map((s, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.5 + i * 0.08 }}
+                    style={{
+                      position: 'absolute', width: '24px', height: '24px', ...s,
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* ── Floating stat card ── */}
+              <motion.div
+                initial={{ opacity: 0, y: 24, x: reverse ? -24 : 24 }}
+                whileInView={{ opacity: 1, y: 0, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] as const }}
+                style={{
+                  position: 'absolute',
+                  bottom: '-28px',
+                  [reverse ? 'right' : 'left']: '-28px',
+                  background: 'rgba(15,11,4,0.95)',
+                  border: '1px solid rgba(212,175,55,0.15)',
+                  borderRadius: '4px',
+                  padding: '22px 26px',
+                  boxShadow: '0 24px 60px rgba(0,0,0,0.5), 0 0 40px rgba(212,175,55,0.04) inset',
+                  minWidth: '150px',
+                }}
+              >
+                {/* Gold top line */}
+                <div style={{
+                  width: '28px', height: '1px',
+                  background: 'linear-gradient(90deg, #c8a44a, rgba(200,164,74,0.2))',
+                  marginBottom: '10px',
+                }} />
+                <div className="ab-stat-value" style={{ textAlign: 'center', letterSpacing: '-0.02em' }}>
+                  {stat.value}
+                </div>
+                <div style={{
+                  fontFamily: "'Cinzel', serif",
+                  fontSize: '11px', letterSpacing: '0.36em',
+                  color: 'rgba(200,164,74,0.95)',
+                  marginTop: '8px', textTransform: 'uppercase',
+                  textAlign: 'center'
+                }}>
+                  {stat.label}
+                </div>
+              </motion.div>
+
+              {/* ── Vertical accent line beside image ── */}
+              <motion.div
+                initial={{ scaleY: 0 }}
+                whileInView={{ scaleY: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
+                style={{
+                  position: 'absolute',
+                  top: '15%', bottom: '15%',
+                  [reverse ? 'left' : 'right']: '-20px',
+                  width: '1px',
+                  background: 'linear-gradient(to bottom, transparent, rgba(200,164,74,0.35), transparent)',
+                  transformOrigin: 'top',
+                }}
+              />
             </div>
+          </motion.div>
 
-            {/* ── Floating stat card ── */}
+          {/* ════════════════ TEXT COLUMN ════════════════ */}
+          <motion.div
+            style={{
+              direction: 'ltr',
+              display: 'flex', flexDirection: 'column', gap: '0',
+            }}
+          >
+            {/* Eyebrow */}
             <motion.div
-              initial={{ opacity: 0, y: 24, x: reverse ? -24 : 24 }}
-              whileInView={{ opacity: 1, y: 0, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] as const }}
-              style={{
-                position: 'absolute',
-                bottom: '-28px',
-                [reverse ? 'right' : 'left']: '-28px',
-                background: 'linear-gradient(135deg, rgba(16,12,8,0.97) 0%, rgba(22,17,11,0.99) 100%)',
-                border: '1px solid rgba(200,164,74,0.22)',
-                borderRadius: '4px',
-                padding: '22px 26px',
-                boxShadow: '0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,164,74,0.06)',
-                minWidth: '150px',
-              }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] as const }}
+              style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}
             >
-              {/* Gold top line */}
-              <div style={{
-                width: '28px', height: '1px',
-                background: 'linear-gradient(90deg, #c8a44a, rgba(200,164,74,0.2))',
-                marginBottom: '10px',
-              }} />
-              <div className="ab-stat-value" style={{ textAlign: 'center', letterSpacing: '-0.02em' }}>
-                {stat.value}
-              </div>
-              <div style={{
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                style={{
+                  width: '36px', height: '1px',
+                  background: 'linear-gradient(90deg, #c8a44a, rgba(200,164,74,0.3))',
+                  transformOrigin: 'left',
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{
                 fontFamily: "'Cinzel', serif",
-                fontSize: '11px', letterSpacing: '0.36em',
-                color: 'rgba(200,164,74,0.95)',
-                marginTop: '8px', textTransform: 'uppercase',
-                textAlign: 'center'
+                fontSize: '10px', letterSpacing: '0.35em',
+                color: '#c8a44a', textTransform: 'uppercase',
               }}>
-                {stat.label}
-              </div>
+                {eyebrow}
+              </span>
             </motion.div>
 
-            {/* ── Vertical accent line beside image ── */}
-            <motion.div
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
-              style={{
-                position: 'absolute',
-                top: '15%', bottom: '15%',
-                [reverse ? 'left' : 'right']: '-20px',
-                width: '1px',
-                background: 'linear-gradient(to bottom, transparent, rgba(200,164,74,0.35), transparent)',
-                transformOrigin: 'top',
-              }}
-            />
-          </div>
-        </motion.div>
-
-        {/* ════════════════ TEXT COLUMN ════════════════ */}
-        <motion.div
-          style={{
-            direction: 'ltr',
-            display: 'flex', flexDirection: 'column', gap: '0',
-          }}
-        >
-          {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-10%' }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] as const }}
-            style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}
-          >
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              style={{
-                width: '36px', height: '1px',
-                background: 'linear-gradient(90deg, #c8a44a, rgba(200,164,74,0.3))',
-                transformOrigin: 'left',
-                flexShrink: 0,
-              }}
-            />
-            <span style={{
-              fontFamily: "'Cinzel', serif",
-              fontSize: '10px', letterSpacing: '0.35em',
-              color: '#c8a44a', textTransform: 'uppercase',
-            }}>
-              {eyebrow}
-            </span>
-          </motion.div>
-
-          {/* Title */}
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10%' }}
-            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
-            style={{
-              fontFamily: "var(--font-hand)",
-              fontWeight: 400,
-              fontSize: 'clamp(2.2rem, 3.8vw, 3.6rem)',
-              lineHeight: 1.1,
-              letterSpacing: '0.01em',
-              color: '#f5f2ec',
-              margin: '0 0 24px',
-            }}
-          >
-            {title}
-          </motion.h2>
-
-          {/* Gold separator with small diamond */}
-          <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
-            style={{
-              display: 'flex', alignItems: 'center', gap: '10px',
-              marginBottom: '28px', transformOrigin: 'left',
-            }}
-          >
-            <div style={{ width: '48px', height: '1px', background: 'rgba(200,164,74,0.5)' }} />
-            <div style={{
-              width: '5px', height: '5px',
-              background: 'transparent',
-              border: '1px solid rgba(200,164,74,0.6)',
-              transform: 'rotate(45deg)', flexShrink: 0,
-            }} />
-            <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, rgba(200,164,74,0.3), transparent)' }} />
-          </motion.div>
-
-          {/* Body */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10%' }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontStyle: 'italic',
-              fontSize: 'clamp(1rem, 1.3vw, 1.15rem)',
-              fontWeight: 300,
-              lineHeight: 1.85,
-              color: 'rgba(220,210,190,0.88)',
-              marginBottom: '36px',
-            }}
-          >
-            {body}
-          </motion.div>
-
-
-          {/* CTA */}
-          {cta && (
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
+            {/* Title */}
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
+              style={{
+                fontFamily: "var(--font-hand)",
+                fontWeight: 400,
+                fontSize: 'clamp(2.2rem, 3.8vw, 3.6rem)',
+                lineHeight: 1.1,
+                letterSpacing: '0.01em',
+                color: '#f5f2ec',
+                margin: '0 0 24px',
+              }}
             >
-              <a href={cta.href} className="ab-cta-btn">
-                <span>{cta.label}</span>
-                <span className="arrow" />
-              </a>
-            </motion.div>
-          )}
-        </motion.div>
-      </div>
+              {title}
+            </motion.h2>
 
+            {/* Gold separator with small diamond */}
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '10px',
+                marginBottom: '28px', transformOrigin: 'left',
+              }}
+            >
+              <div style={{ width: '48px', height: '1px', background: 'rgba(200,164,74,0.5)' }} />
+              <div style={{
+                width: '5px', height: '5px',
+                background: 'transparent',
+                border: '1px solid rgba(200,164,74,0.6)',
+                transform: 'rotate(45deg)', flexShrink: 0,
+              }} />
+              <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, rgba(200,164,74,0.3), transparent)' }} />
+            </motion.div>
+
+            {/* Body */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontStyle: 'italic',
+                fontSize: 'clamp(1rem, 1.3vw, 1.15rem)',
+                fontWeight: 300,
+                lineHeight: 1.85,
+                color: 'rgba(220,210,190,0.88)',
+                marginBottom: '36px',
+              }}
+            >
+              {body}
+            </motion.div>
+
+
+            {/* CTA */}
+            {cta && (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+              >
+                <a href={cta.href} className="ab-cta-btn">
+                  <span>{cta.label}</span>
+                  <span className="arrow" />
+                </a>
+              </motion.div>
+            )}
+          </motion.div>
+        </div> {/* Closes the new relative div */}
+      </div> {/* Closes the main content div that holds image and text columns */}
     </section>
   );
 };

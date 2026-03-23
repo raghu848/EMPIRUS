@@ -44,7 +44,7 @@ export default function Home() {
 
           </>
         }
-        image="/pictures/30963868116.png"
+        image="/images/regal_empirus/WhatsApp Image 2026-03-23 at 12.33.52 PM.jpeg"
       />
 
       {/* ── Visionary ── */}

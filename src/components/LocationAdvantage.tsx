@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
+import { LuxuryGoldBackground } from './LuxuryGoldBackground';
 
 /* ─── Location Data ──────────────────────────────────────────── */
 const LOCATIONS = [
@@ -74,22 +75,11 @@ export const LocationAdvantage = () => {
       ref={sectionRef}
       style={{
         position: 'relative',
-        backgroundColor: 'var(--bg)',
-        background: 'linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 50%, var(--bg) 100%)',
-        color: 'var(--white)',
         padding: '2rem 0 4rem',
         overflow: 'hidden',
       }}
     >
-      {/* ── Subtle bg accents ── */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: `
-          radial-gradient(ellipse 600px 400px at 15% 50%, rgba(223,188,115,0.04) 0%, transparent 70%),
-          radial-gradient(ellipse 600px 400px at 85% 50%, rgba(223,188,115,0.03) 0%, transparent 70%)
-        `,
-        pointerEvents: 'none', zIndex: 1,
-      }} />
+      <LuxuryGoldBackground />
 
       {/* ── Header ── */}
       <div className="container" style={{ position: 'relative', zIndex: 10 }}>
@@ -163,16 +153,16 @@ export const LocationAdvantage = () => {
                 style={{
                   width: '270px',
                   flexShrink: 0,
-                  background: 'var(--surface)',
-                  border: `1px solid ${isHovered ? 'rgba(223,188,115,0.35)' : 'var(--faint)'}`,
+                  background: 'rgba(25,32,28,0.85)',
+                  border: `1px solid ${isHovered ? 'rgba(212,175,55,0.4)' : 'rgba(212,175,55,0.15)'}`,
                   borderRadius: '10px',
                   overflow: 'hidden',
                   cursor: 'pointer',
                   transition: 'transform 0.45s var(--ease-spring), border-color 0.3s var(--ease), box-shadow 0.4s var(--ease)',
                   transform: isHovered ? 'translateY(-6px) scale(1.02)' : 'translateY(0) scale(1)',
                   boxShadow: isHovered
-                    ? '0 12px 40px rgba(223,188,115,0.12), 0 0 0 1px rgba(223,188,115,0.08)'
-                    : '0 2px 12px rgba(0,0,0,0.2)',
+                    ? '0 12px 40px rgba(212,175,55,0.12), 0 0 40px rgba(212,175,55,0.04) inset'
+                    : '0 0 40px rgba(212,175,55,0.04) inset',
                 }}
               >
                 {/* ── Image ── */}

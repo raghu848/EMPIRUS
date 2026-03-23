@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { LuxuryGoldBackground } from './LuxuryGoldBackground';
 
 /* ─── Gallery Data ───────────────────────────────────────────── */
 const AMENITY_IMAGES = [
@@ -429,16 +430,8 @@ export const VisuraGallery = () => {
 
             {/* ── MOBILE LAYOUT ── */}
             {isMobile ? (
-                <div id="amenities" style={{ background: '#1e2022', padding: '3rem 0 6rem', position: 'relative' }}>
-                    {/* Ambient BG */}
-                    <div style={{
-                        position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
-                        background: `
-                            radial-gradient(ellipse 80% 50% at 20% 30%, rgba(201,169,110,0.06) 0%, transparent 60%),
-                            radial-gradient(ellipse 60% 40% at 80% 70%, rgba(100,120,160,0.05) 0%, transparent 60%),
-                            linear-gradient(180deg, #1e2022 50%, #2a2d2f 50%)
-                        `,
-                    }} />
+                <div id="amenities" style={{ padding: '3rem 0 6rem', position: 'relative' }}>
+                    <LuxuryGoldBackground />
 
                     {/* Header */}
                     <div style={{ padding: '4rem 1.25rem 1.5rem', position: 'relative', zIndex: 4 }}>
@@ -532,10 +525,11 @@ export const VisuraGallery = () => {
                                         transition={{ duration: 0.3, delay: displayIdx * 0.03 }}
                                         className="gallery-card"
                                         style={{
-                                            background: 'linear-gradient(160deg, #2f3438 0%, #262b2e 100%)',
+                                            background: 'rgba(25,28,30,0.85)',
                                             borderRadius: '14px', overflow: 'hidden',
                                             position: 'relative',
-                                            border: '1px solid rgba(255,255,255,0.04)',
+                                            border: '1px solid rgba(212,175,55,0.15)',
+                                            boxShadow: '0 0 40px rgba(212,175,55,0.04) inset',
                                         }}
                                     >
                                         {/* Category colour accent bar */}
@@ -622,7 +616,7 @@ export const VisuraGallery = () => {
                             ♥ {favorited.size} saved
                         </div>
                     )}
-                </div>
+                </div >
             ) : (
                 /* ── DESKTOP LAYOUT (original horizontal scroll) ── */
                 <div
@@ -635,8 +629,8 @@ export const VisuraGallery = () => {
                         position: 'sticky', top: 0, height: '100vh',
                         overflow: 'hidden', display: 'grid',
                         gridTemplateRows: 'auto 1fr auto', // Header / Track / Footer
-                        background: '#1e2022',
                     }}>
+                        <LuxuryGoldBackground />
                         {/* Ambient BG */}
                         <div style={{
                             position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
@@ -776,10 +770,11 @@ export const VisuraGallery = () => {
                                             onMouseLeave={() => setHoveredIdx(null)}
                                             style={{
                                                 width: s.w, height: s.h, flexShrink: 0,
-                                                background: 'linear-gradient(160deg, #2f3438 0%, #262b2e 100%)',
+                                                background: 'rgba(25,28,30,0.85)',
                                                 borderRadius: s.radius, overflow: 'hidden',
                                                 position: 'relative',
-                                                border: '1px solid rgba(255,255,255,0.04)',
+                                                border: '1px solid rgba(212,175,55,0.15)',
+                                                boxShadow: '0 0 40px rgba(212,175,55,0.04) inset',
                                             } as React.CSSProperties}
                                         >
                                             {/* Category colour accent bar */}
@@ -946,7 +941,7 @@ export const VisuraGallery = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
             )}
 
             {/* ── Lightbox (shared between mobile & desktop) ── */}

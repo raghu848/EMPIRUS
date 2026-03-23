@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { LuxuryGoldBackground } from './LuxuryGoldBackground';
 
 const DIRECTORS = [
   {
@@ -20,10 +21,11 @@ const DIRECTORS = [
 
 export const LeadershipSection = () => {
   return (
-    <section id="team" style={{ background: 'var(--bg-alt)', paddingTop: '5rem', paddingBottom: '2rem' }}>
-      <div className="container">
+    <section id="team" style={{ position: 'relative', paddingTop: '5rem', paddingBottom: '2rem', overflow: 'hidden' }}>
+      <LuxuryGoldBackground />
+      <div className="container" style={{ position: 'relative', zIndex: 4 }}>
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <motion.p 
+          <motion.p
             className="eyebrow"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -59,21 +61,18 @@ export const LeadershipSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: i * 0.2 }}
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '2rem',
-                padding: '2rem',
                 background: 'rgba(255,255,255,0.02)',
-                border: '1px solid var(--faint)',
+                border: '1px solid rgba(212,175,55,0.15)',
                 borderRadius: '4px',
-                height: '100%'
+                height: '100%',
+                boxShadow: '0 0 40px rgba(212,175,55,0.04) inset',
               }}
             >
-              <motion.div 
-                style={{ 
-                  position: 'relative', 
-                  width: '100%', 
-                  aspectRatio: '1/1', 
+              <motion.div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  aspectRatio: '1/1',
                   overflow: 'hidden',
                   borderRadius: '2px'
                 }}
@@ -91,9 +90,9 @@ export const LeadershipSection = () => {
               </motion.div>
 
               <div>
-                <h3 style={{ 
-                  fontFamily: 'var(--font-hand)', 
-                  fontSize: '2.1rem', 
+                <h3 style={{
+                  fontFamily: 'var(--font-hand)',
+                  fontSize: '2.1rem',
                   color: 'var(--gold-lt)',
                   fontWeight: 400,
                   marginBottom: '0.25rem',
@@ -101,33 +100,33 @@ export const LeadershipSection = () => {
                 }}>
                   {d.name}
                 </h3>
-                <p style={{ 
-                  fontFamily: 'var(--font-sans)', 
-                  fontSize: '12px', 
-                  letterSpacing: '0.1em', 
+                <p style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '12px',
+                  letterSpacing: '0.1em',
                   textTransform: 'uppercase',
                   color: 'var(--muted)',
                   marginBottom: '1.5rem'
                 }}>
                   {d.role}
                 </p>
-                
+
                 <div style={{ position: 'relative' }}>
-                  <span style={{ 
-                    position: 'absolute', 
-                    top: '-1rem', 
-                    left: '-0.5rem', 
-                    fontSize: '4rem', 
+                  <span style={{
+                    position: 'absolute',
+                    top: '-1rem',
+                    left: '-0.5rem',
+                    fontSize: '4rem',
                     color: 'rgba(212,175,55,0.1)',
                     fontFamily: 'var(--font-serif)',
                     lineHeight: 1
                   }}>
                     &ldquo;
                   </span>
-                  <p style={{ 
-                    fontFamily: 'var(--font-sans)', 
-                    fontSize: '15px', 
-                    lineHeight: 1.8, 
+                  <p style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '15px',
+                    lineHeight: 1.8,
                     color: 'var(--white)',
                     opacity: 0.8,
                     fontStyle: 'italic'

@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { LuxuryGoldBackground } from './LuxuryGoldBackground';
 
 const STATS = [
   { value: 8, suffix: '+', label: 'Years of Excellence' },
-  { value: 0, suffix: 'Premium', label: 'Luxury Living' },
+  { value: 0, suffix: '3+1 & 4+1 Bhk', label: 'Luxury Living' },
   { value: 2, suffix: ' Acre', label: 'Podium Park' },
   { value: 95, suffix: '%+', label: 'Sun-Facing Apartments' },
 ];
@@ -42,9 +43,10 @@ const StatItem = ({ value, suffix, label }: typeof STATS[number]) => {
       style={{
         padding: '2rem 1.5rem',
         textAlign: 'center' as const,
-        borderRight: '1px solid var(--faint)',
-        borderBottom: '1px solid var(--faint)',
+        borderRight: '1px solid rgba(212,175,55,0.15)',
+        borderBottom: '1px solid rgba(212,175,55,0.15)',
         position: 'relative' as const,
+        boxShadow: '0 0 40px rgba(212,175,55,0.04) inset',
       }}
     >
       <div
@@ -93,13 +95,11 @@ const StatItem = ({ value, suffix, label }: typeof STATS[number]) => {
 export const StatsBar = () => (
   <div
     style={{
-      background: 'linear-gradient(180deg, var(--bg-alt) 0%, var(--surface) 100%)',
-      borderTop: '1px solid var(--faint)',
-      borderBottom: '1px solid var(--faint)',
       position: 'relative',
       overflow: 'hidden',
     }}
   >
+    <LuxuryGoldBackground />
     {/* Gold shimmer top border */}
     <div
       style={{
@@ -115,7 +115,9 @@ export const StatsBar = () => (
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        borderLeft: '1px solid var(--faint)'
+        borderLeft: '1px solid rgba(212,175,55,0.15)',
+        position: 'relative',
+        zIndex: 4,
       }}
     >
       {STATS.map((s, i) => (
