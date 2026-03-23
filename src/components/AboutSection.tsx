@@ -38,8 +38,8 @@ function useTilt(strength = 10) {
 
 export const AboutSection = ({
   id, eyebrow, title, body, image, imageAlt, reverse, cta,
-  stat = { value: '10+', label: 'Years of Excellence' },
-  tag = 'EST. 2014',
+  stat = { value: '8+', label: 'Years of Excellence' },
+  tag = '',
 }: Props) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const tilt = useTilt(8);
@@ -59,7 +59,7 @@ export const AboutSection = ({
       ref={sectionRef}
       style={{
         position: 'relative',
-        padding: 'clamp(80px, 12vw, 160px) 0',
+        padding: 'clamp(80px, 10vw, 120px) 0 clamp(40px, 6vw, 80px) 0',
         background: reverse
           ? 'linear-gradient(160deg, #0d0b07 0%, #0a0806 100%)'
           : 'linear-gradient(160deg, #0a0806 0%, #0d0b07 100%)',
@@ -114,28 +114,19 @@ export const AboutSection = ({
         }
 
         .ab-stat-value {
-          font-family: var(--font-hand);
-          font-size: clamp(3rem, 5vw, 5.5rem);
-          font-weight: 400; line-height: 1.2;
+          font-family: var(--font-serif);
+          font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+          font-weight: 300; 
+          line-height: 0.9;
+          display: block;
           background: linear-gradient(135deg, #e8c97a 0%, #c8a44a 50%, #a07830 100%);
-          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+          -webkit-background-clip: text; 
+          -webkit-text-fill-color: transparent;
           background-clip: text;
+          margin-bottom: 4px;
         }
       `}</style>
 
-      {/* ── atmosphere glows ── */}
-      <div aria-hidden style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        background: reverse
-          ? 'radial-gradient(ellipse 55% 60% at 85% 50%, rgba(200,164,74,0.05) 0%, transparent 65%)'
-          : 'radial-gradient(ellipse 55% 60% at 15% 50%, rgba(200,164,74,0.05) 0%, transparent 65%)',
-      }} />
-
-      {/* ── grain overlay ── */}
-      <div aria-hidden style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0.25, zIndex: 1,
-        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E")`,
-      }} />
 
       {/* ── decorative roman numeral aside ── */}
       <motion.div
@@ -199,31 +190,21 @@ export const AboutSection = ({
               overflow: 'hidden',
               boxShadow: '0 48px 120px rgba(0,0,0,0.55), 0 0 0 1px rgba(200,164,74,0.1)',
             }}>
-              {/* Parallax inner */}
-              <motion.div style={{
-                position: 'absolute', inset: '-12%',
-                y: yImg,
+              {/* Image Container */}
+              <div style={{
+                position: 'absolute', inset: 0,
               }}>
                 <Image
                   src={image}
                   alt={imageAlt ?? eyebrow}
                   fill
-                  style={{ objectFit: 'cover', filter: 'brightness(0.88) contrast(1.04)' }}
+                  style={{ objectFit: 'cover' }}
                 />
-              </motion.div>
+              </div>
 
-              {/* Inner vignette */}
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: `
-                  linear-gradient(to top,  rgba(8,6,4,0.7) 0%, transparent 40%),
-                  linear-gradient(to right, rgba(8,6,4,0.25) 0%, transparent 35%),
-                  linear-gradient(to left,  rgba(8,6,4,0.25) 0%, transparent 35%)
-                `,
-              }} />
 
               {/* Tag — corner stamp */}
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -231,7 +212,7 @@ export const AboutSection = ({
                 style={{
                   position: 'absolute', top: '20px', right: '20px',
                   fontFamily: "'Cinzel', serif",
-                  fontSize: '8px', letterSpacing: '0.3em',
+                  fontSize: '10px', letterSpacing: '0.3em',
                   color: 'rgba(200,164,74,0.9)',
                   border: '1px solid rgba(200,164,74,0.3)',
                   padding: '6px 12px', borderRadius: '20px',
@@ -240,22 +221,9 @@ export const AboutSection = ({
                 }}
               >
                 {tag}
-              </motion.div>
+              </motion.div> */}
 
-              {/* Bottom caption strip */}
-              <div style={{
-                position: 'absolute', bottom: 0, left: 0, right: 0,
-                padding: '20px 22px',
-                borderTop: '1px solid rgba(200,164,74,0.12)',
-              }}>
-                <div style={{
-                  fontFamily: "'Cinzel', serif",
-                  fontSize: '7.5px', letterSpacing: '0.3em',
-                  color: 'rgba(200,164,74,0.85)', textTransform: 'uppercase',
-                }}>
-                  Regal Empirus — {eyebrow}
-                </div>
-              </div>
+
 
               {/* Gold corner flourishes */}
               {[
@@ -301,12 +269,15 @@ export const AboutSection = ({
                 background: 'linear-gradient(90deg, #c8a44a, rgba(200,164,74,0.2))',
                 marginBottom: '10px',
               }} />
-              <div className="ab-stat-value">{stat.value}</div>
+              <div className="ab-stat-value" style={{ textAlign: 'center', letterSpacing: '-0.02em' }}>
+                {stat.value}
+              </div>
               <div style={{
                 fontFamily: "'Cinzel', serif",
-                fontSize: '7.5px', letterSpacing: '0.28em',
-                color: 'rgba(200,164,74,0.85)',
-                marginTop: '6px', textTransform: 'uppercase',
+                fontSize: '11px', letterSpacing: '0.36em',
+                color: 'rgba(200,164,74,0.95)',
+                marginTop: '8px', textTransform: 'uppercase',
+                textAlign: 'center'
               }}>
                 {stat.label}
               </div>
@@ -335,7 +306,6 @@ export const AboutSection = ({
           style={{
             direction: 'ltr',
             display: 'flex', flexDirection: 'column', gap: '0',
-            y: yText,
           }}
         >
           {/* Eyebrow */}
@@ -360,7 +330,7 @@ export const AboutSection = ({
             />
             <span style={{
               fontFamily: "'Cinzel', serif",
-              fontSize: '8.5px', letterSpacing: '0.35em',
+              fontSize: '10px', letterSpacing: '0.35em',
               color: '#c8a44a', textTransform: 'uppercase',
             }}>
               {eyebrow}
@@ -426,56 +396,6 @@ export const AboutSection = ({
             {body}
           </motion.div>
 
-          {/* Inline mini-stats row */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] as const }}
-            style={{
-              display: 'flex', gap: '0',
-              marginBottom: '44px',
-              borderTop: '1px solid rgba(200,164,74,0.1)',
-              borderBottom: '1px solid rgba(200,164,74,0.1)',
-            }}
-          >
-            {[
-              { value: '₹500Cr+', label: 'Portfolio Value' },
-              { value: '12', label: 'Landmark Projects' },
-              { value: '98%', label: 'Client Satisfaction' },
-            ].map((s, i) => (
-              <div
-                key={i}
-                style={{
-                  flex: 1, padding: '20px 0',
-                  borderRight: i < 2 ? '1px solid rgba(200,164,74,0.1)' : 'none',
-                  paddingLeft: i > 0 ? '20px' : '0',
-                  paddingRight: i < 2 ? '20px' : '0',
-                }}
-              >
-                <div style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 'clamp(1.4rem, 2vw, 2rem)',
-                  fontWeight: 300,
-                  background: 'linear-gradient(135deg, #e8c97a, #c8a44a)',
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  lineHeight: 1,
-                  marginBottom: '5px',
-                }}>
-                  {s.value}
-                </div>
-                <div style={{
-                  fontFamily: "'Cinzel', serif",
-                  fontSize: '7px', letterSpacing: '0.25em',
-                  color: 'rgba(200,164,74,0.8)',
-                  textTransform: 'uppercase',
-                }}>
-                  {s.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
 
           {/* CTA */}
           {cta && (
@@ -494,19 +414,6 @@ export const AboutSection = ({
         </motion.div>
       </div>
 
-      {/* ── Bottom section divider ── */}
-      <motion.div
-        initial={{ scaleX: 0, opacity: 0 }}
-        whileInView={{ scaleX: 1, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, ease: 'easeOut' }}
-        style={{
-          position: 'absolute', bottom: 0, left: '8%', right: '8%',
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(200,164,74,0.2), transparent)',
-          transformOrigin: 'center',
-        }}
-      />
     </section>
   );
 };

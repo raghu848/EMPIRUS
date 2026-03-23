@@ -3,7 +3,6 @@ import { HeroSlider } from '@/components/HeroSlider';
 import { StatsBar } from '@/components/StatsBar';
 import { AboutSection } from '@/components/AboutSection';
 import { VisionarySection } from '@/components/VisionarySection';
-import { InvestmentsSection } from '@/components/InvestmentsSection';
 
 import { LocationAdvantage } from '@/components/LocationAdvantage';
 import { ContactForm } from '@/components/ContactForm';
@@ -27,14 +26,14 @@ export default function Home() {
       <AboutSection
         id="about"
         eyebrow="About the Project"
-        title={<>Presenting an address that defines power . <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>In Mohali</em></>}
+        title={<>Presenting an address that defines power  <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>In Mohali</em></>}
         body={
           <>
             <p style={{ marginBottom: '1rem' }}>
               Regal Empirus is an expression of ultra-luxury—crafted for those who belong to a class above. Set across 5.37 acres in Sector 91, it rises as a landmark of prestige, where iconic architecture meets expansive green landscapes.
             </p>
             <p>
-              Every residence is designed to deliver a sense of grandeur, with spacious layouts, 3-side open living, and abundant natural light—creating homes that feel open, elegant, and truly exceptional. Complemented by world-class amenities and a 2-acre podium park, every detail is curated to offer a lifestyle defined by comfort, privacy, and indulgence.
+              Every residence is designed to deliver a sense of grandeur, with spacious layouts, 3-side open living, and abundant natural light—creating homes that feel open, elegant, and truly exceptional. Complemented by world-class amenities and a 2 Acre podium park, every detail is curated to offer a lifestyle defined by comfort, privacy, and indulgence.
             </p>
             <p>
               Featuring exclusive 3+1 (2200 sq. ft.) and 4+1 (3200 sq. ft.) residences, offering a compelling investment opportunity.
@@ -45,21 +44,27 @@ export default function Home() {
 
           </>
         }
-        image="/images/render-about.jpg"
-        cta={{ label: 'Learn More', href: '#investments' }}
+        image="/pictures/30963868116.png"
       />
 
       {/* ── Visionary ── */}
       <VisionarySection />
 
-      {/* ── Investment Case ── */}
-      <InvestmentsSection />
+      {/* ── Visura Gallery (Amenities) ── */}
+      <VisuraGallery />
+
+      {/* ── Location & Floor Plans ── */}
+      <LocationAdvantage />
+
+      {/* ── Leadership Team ── */}
+      <LeadershipSection />
+
 
       {/* ── Approach / Podium Story ── */}
       <AboutSection
         id="podium"
         eyebrow="The Podium Story"
-        title={<>A 2-Acre Elevated <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>Sanctuary</em></>}
+        title={<>A 2 Acre Elevated <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>Sanctuary</em></>}
         body={
           <>
             <p style={{ marginBottom: '1rem' }}>
@@ -76,17 +81,6 @@ export default function Home() {
         reverse
         cta={{ label: 'View Amenities', href: '#amenities' }}
       />
-
-      {/* ── Visura Gallery ── */}
-      <VisuraGallery />
-
-      {/* ── Leadership Team ── */}
-      <LeadershipSection />
-
-      {/* ── Location & Floor Plans ── */}
-      <LocationAdvantage />
-
-
 
       {/* ── Contact & Lead Form ── */}
       <ContactForm />

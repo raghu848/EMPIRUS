@@ -17,6 +17,7 @@ const NAV_GROUPS = [
       { label: '+91 77890 00077', href: 'tel:+917789000077' },
       { label: 'info@regalempirus.com', href: 'mailto:info@regalempirus.com' },
       { label: 'Sector 91, Mohali', href: '#' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
     ],
   },
 ];
@@ -206,6 +207,7 @@ export const Footer = () => {
               color: '#555',
               maxWidth: '600px',
               lineHeight: 1.6,
+              textAlign: 'right',
             }}
           >
             This information does not constitute an offer. Any offering will only be made through formal documents. RERA registration pending.

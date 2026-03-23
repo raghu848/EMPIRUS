@@ -5,16 +5,16 @@ import Image from 'next/image';
 
 /* ─── Location Data ──────────────────────────────────────────── */
 const LOCATIONS = [
-  { place: 'Manav Mangal School', time: '0 Min', image: '/location_images/Manav_mangal_school.jpeg', category: 'Education', icon: '🎓' },
-  { place: 'CGC Landran', time: '2 Min', image: '/location_images/cgc_landran.jpeg', category: 'Education', icon: '🎓' },
-  { place: 'Amity University', time: '7 Min', image: '/location_images/Amity_univercity.jpeg', category: 'Education', icon: '🎓' },
-  { place: 'Quark City', time: '3 Min', image: '/location_images/quark_city.jpeg', category: 'IT & Business', icon: '🏢' },
-  { place: 'IT City', time: '2 Min', image: '/location_images/IT city.jpeg', category: 'IT & Business', icon: '🏢' },
-  { place: 'IVY Hospital', time: '3 Min', image: '/location_images/IVY.jpeg', category: 'Healthcare', icon: '🏥' },
-  { place: 'Sohana Hospital', time: '5 Min', image: '/location_images/sohana_hospital.jpeg', category: 'Healthcare', icon: '🏥' },
-  { place: 'Fortis Hospital', time: '10 Min', image: '/location_images/Fortis_hospital.jpeg', category: 'Healthcare', icon: '🏥' },
-  { place: 'CP 67 Mall', time: '8 Min', image: '/location_images/cp 67.jpeg', category: 'Lifestyle', icon: '🛍️' },
-  { place: 'International Airport', time: '20 Min', image: '/location_images/Airport.jpeg', category: 'Transport', icon: '✈️' },
+  { place: 'Manav Mangal School', time: 'Immediate', image: '/location_images/Manav_mangal_school.jpeg', category: 'Education', icon: '🎓' },
+  { place: 'CGC Landran', time: '~ 2 Min', image: '/location_images/cgc_landran.jpeg', category: 'Education', icon: '🎓' },
+  { place: 'Amity University', time: '~ 5 Min', image: '/location_images/Amity_univercity.jpeg', category: 'Education', icon: '🎓' },
+  { place: 'Quark City', time: '~ 3 Min', image: '/location_images/quark_city.jpeg', category: 'IT & Business', icon: '🏢' },
+  { place: 'IT City', time: '~ 2 Min', image: '/location_images/IT city.jpeg', category: 'IT & Business', icon: '🏢' },
+  { place: 'IVY Hospital', time: '~ 3 Min', image: '/location_images/IVY.jpeg', category: 'Healthcare', icon: '🏥' },
+  { place: 'Sohana Hospital', time: '~ 5 Min', image: '/location_images/sohana_hospital.jpeg', category: 'Healthcare', icon: '🏥' },
+  { place: 'Fortis Hospital', time: '~ 10 Min', image: '/location_images/Fortis_hospital.jpeg', category: 'Healthcare', icon: '🏥' },
+  { place: 'CP 67 Mall', time: '~ 8 Min', image: '/location_images/cp 67.jpeg', category: 'Lifestyle', icon: '🛍️' },
+  { place: 'International Airport', time: '~ 20 Min', image: '/location_images/Airport.jpeg', category: 'Transport', icon: '✈️' },
 ];
 
 /* Duplicate for seamless infinite scroll */
@@ -222,7 +222,7 @@ export const LocationAdvantage = () => {
                     backdropFilter: 'blur(6px)',
                     borderRadius: '20px',
                     padding: '3px 10px',
-                    fontFamily: 'var(--font-sans)', fontSize: '9px', fontWeight: 600,
+                    fontFamily: 'var(--font-sans)', fontSize: '10px', fontWeight: 600,
                     letterSpacing: '0.1em', textTransform: 'uppercase' as const,
                     color: 'var(--gold-lt)',
                     display: 'flex', alignItems: 'center', gap: '4px',
@@ -288,9 +288,9 @@ export const LocationAdvantage = () => {
         }}>
           {[
             { value: '10+', label: 'Key Destinations' },
-            { value: '0–20', label: 'Minutes Drive' },
-            { value: '3', label: 'Top Hospitals' },
-            { value: '3', label: 'Edu Institutions' },
+            { value: 'Approx. 20', label: 'Minutes Drive' },
+            { value: 'Multiple', label: 'Top Hospitals' },
+            { value: 'Multiple', label: 'Edu Institutions' },
           ].map((stat, i) => (
             <div key={i} style={{ textAlign: 'center' }}>
               <div style={{
@@ -301,7 +301,7 @@ export const LocationAdvantage = () => {
                 {stat.value}
               </div>
               <div style={{
-                fontFamily: 'var(--font-sans)', fontSize: '9px', fontWeight: 600,
+                fontFamily: 'var(--font-sans)', fontSize: '10px', fontWeight: 600,
                 letterSpacing: '0.16em', textTransform: 'uppercase',
                 color: 'rgba(255,255,255,0.8)', marginTop: '0.35rem',
               }}>

@@ -11,8 +11,8 @@ export const ApproachSection = () => {
         <div className="flex flex-col lg:flex-row gap-16 md:gap-32">
           {/* Header Block */}
           <div className={`lg:w-1/2 border-l-4 border-gold pl-12 transition-all duration-700 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-             <span className="block font-body text-[10px] tracking-[0.38em] text-gold uppercase mb-6">
-                OUR APPROACH
+            <span className="block font-body text-[10px] tracking-[0.38em] text-gold uppercase mb-6">
+              OUR APPROACH
             </span>
             <h2 className="font-display text-4xl md:text-6xl text-text-primary leading-[1.1] max-w-[500px]">
               Crafting Liberating Spaces for the Next Generation
@@ -28,7 +28,7 @@ export const ApproachSection = () => {
             </div>
             <div className={`transition-all duration-700 delay-400 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
               <p className="font-body text-[15px] leading-[1.75] text-text-secondary">
-                 The 2-Acre Podium park stands as an elevated sanctuary, a lush escape from the urban tempo. From the high-performance wellness studio to the resort-style splash zones, every amenity is meticulously designed to foster community and well-being.
+                The 2 Acre Podium park stands as an elevated sanctuary, a lush escape from the urban tempo. From the high-performance wellness studio to the resort-style splash zones, every amenity is meticulously designed to foster community and well-being.
               </p>
             </div>
           </div>

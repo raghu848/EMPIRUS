@@ -29,34 +29,45 @@ export const VisionarySection = () => {
           <div className="col-2" style={{ alignItems: 'center', width: '100%' }}>
 
             {/* Left Image Side (With Parallax) */}
-            <motion.div
-              style={{ position: 'relative', width: '100%', maxWidth: '500px', margin: '0 auto', aspectRatio: '4/5', overflow: 'hidden', borderRadius: '8px' }}
-              initial={{ opacity: 0, x: -80 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }}
-            >
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(to top, rgba(0,0,0,0.05), transparent)',
-                zIndex: 1
-              }} />
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem', width: '100%', maxWidth: '500px', margin: '0 auto' }}>
               <motion.div
-                style={{
-                  position: 'absolute', width: '100%', height: '115%', // taller to allow parallax
-                  backgroundColor: 'transparent', zIndex: 0,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  y: yImage // Apply parallax transform
-                }}
+                style={{ position: 'relative', width: '100%', aspectRatio: '4/5', overflow: 'hidden', borderRadius: '8px' }}
+                initial={{ opacity: 0, x: -80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }}
               >
-                <Image
-                  src="/images/regal_empirus/Architect_Image.png"
-                  alt="Ar. Reza Kabul"
-                  fill
-                  style={{ objectFit: 'cover', objectPosition: 'center', mixBlendMode: 'multiply' }}
-                />
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.05), transparent)',
+                  zIndex: 1
+                }} />
+                <motion.div
+                  style={{
+                    position: 'absolute', width: '100%', height: '115%', // taller to allow parallax
+                    backgroundColor: 'transparent', zIndex: 0,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    y: yImage // Apply parallax transform
+                  }}
+                >
+                  <Image
+                    src="/images/regal_empirus/Architect_Image.png"
+                    alt="Ar. Reza Kabul"
+                    fill
+                    style={{ objectFit: 'cover', objectPosition: 'center', mixBlendMode: 'multiply' }}
+                  />
+                </motion.div>
               </motion.div>
-            </motion.div>
+              <motion.h3
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                style={{ fontFamily: 'var(--font-hand)', fontWeight: 400, fontSize: 'clamp(1.5rem, 3.5vw, 2.2rem)', color: '#000', margin: 0 }}
+              >
+                Ar. Reza Kabul
+              </motion.h3>
+            </div>
 
             {/* Right Text Side (Fade Up) */}
             <div style={{ zIndex: 3 }}>
@@ -120,35 +131,6 @@ export const VisionarySection = () => {
           </div>
         </div>
 
-        {/* Footer Area */}
-        <div style={{
-          background: 'linear-gradient(90deg, #d3d3d3 0%, #ffffff 50%, #d3d3d3 100%)',
-          borderTop: '1px solid #ccc',
-          padding: '1.5rem 0'
-        }}>
-          <style>{`
-            .vis-footer-bar {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-            }
-            @media (max-width: 767px) {
-              .vis-footer-bar {
-                flex-direction: column;
-                gap: 0.5rem;
-                text-align: center;
-              }
-            }
-          `}</style>
-          <div className="container vis-footer-bar">
-            <h3 style={{ fontFamily: 'var(--font-hand)', fontWeight: 400, fontSize: 'clamp(1.1rem, 3vw, 1.5rem)', color: '#000', margin: 0 }}>
-              Ar. Reza Kabul
-            </h3>
-            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(0.65rem, 2vw, 0.85rem)', color: '#222', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              FOR INTERNAL TRAINING PURPOSE
-            </span>
-          </div>
-        </div>
 
       </div>
     </section>

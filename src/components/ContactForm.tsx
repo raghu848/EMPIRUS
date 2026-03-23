@@ -1,21 +1,22 @@
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
+import Image from 'next/image';
 
 const INPUTS = [
-  { id: 'name',    label: 'Full Name',          type: 'text',  required: true  },
-  { id: 'phone',   label: 'Phone Number',        type: 'tel',   required: true  },
-  { id: 'email',   label: 'Email Address',       type: 'email', required: false },
-  { id: 'type',    label: 'Apartment Preference',type: 'text',  required: false },
+  { id: 'name', label: 'Full Name', type: 'text', required: true },
+  { id: 'phone', label: 'Phone Number', type: 'tel', required: true },
+  { id: 'email', label: 'Email Address', type: 'email', required: false },
+  { id: 'type', label: 'Apartment Preference', type: 'text', required: false },
 ];
 
 type Status = 'idle' | 'sending' | 'done';
 
 export const ContactForm = () => {
-  const [form, setForm]     = useState<Record<string, string>>({});
+  const [form, setForm] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>('idle');
-  const ref                 = useRef<HTMLElement>(null);
-  const [on, setOn]         = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const [on, setOn] = useState(false);
 
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setOn(true); }, { threshold: 0.1 });
@@ -42,11 +43,31 @@ export const ContactForm = () => {
       ref={ref}
       className="section-py gold-section-top"
       style={{
-        background: 'linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%)',
         position: 'relative',
         overflow: 'hidden',
+        background: '#080A0C',
       }}
     >
+      {/* Background Image with specific cropping */}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <Image
+          src="/Amenities/WhatsApp Image 2026-03-23 at 11.38.34 AM.jpeg"
+          alt="Background"
+          fill
+          priority
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center 10%', // Focus more on the top
+          }}
+        />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'rgba(5,7,9,0.35)', // Very light dark tint
+          zIndex: 1
+        }} />
+      </div>
+
       {/* Ambient gold glow */}
       <div
         style={{
@@ -56,10 +77,10 @@ export const ContactForm = () => {
           height: '500px',
           background: 'radial-gradient(ellipse, rgba(212,168,67,0.06) 0%, transparent 70%)',
           transform: 'translateY(-50%)',
-          pointerEvents: 'none',
+          zIndex: 2,
         }}
       />
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 3 }}>
         <div className="col-2" style={{ alignItems: 'flex-start' }}>
           {/* Left info */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -87,12 +108,12 @@ export const ContactForm = () => {
                 fontFamily: 'var(--font-sans)',
                 fontSize: '15px',
                 lineHeight: 1.8,
-                color: 'var(--muted)',
+                color: 'rgba(255,255,255,0.92)',
                 maxWidth: '380px',
                 ...anim(250),
               }}
             >
-              Reserve your expression of interest today and receive the official Investment Brochure with floor plans, pricing, and project timeline.
+              Reserve your expression of interest today and receive the official Investment Brochure with floor plans and project timeline.
             </p>
 
             <div
@@ -110,7 +131,7 @@ export const ContactForm = () => {
                 ['Address', 'Sector 91, Mohali, Punjab'],
               ].map(([label, val]) => (
                 <div key={label}>
-                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: '4px' }}>
+                  <p style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>
                     {label}
                   </p>
                   <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', color: 'var(--white)' }}>{val}</p>

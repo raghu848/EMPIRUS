@@ -27,7 +27,7 @@ const parisienne = Parisienne({
 
 export const metadata: Metadata = {
   title: "Regal Empirus | Uber-Luxury Residences in Sector 91, Mohali",
-  description: "Experience the pinnacle of high-rise excellence at Regal Empirus. Crafted by Ar. Reza Kabul, featuring 2-Acre Podium Park and 100% sun-facing apartments.",
+  description: "Experience the pinnacle of high-rise excellence at Regal Empirus. Crafted by Ar. Reza Kabul, featuring 2 Acre Podium Park and 100% sun-facing apartments.",
 };
 
 export default function RootLayout({

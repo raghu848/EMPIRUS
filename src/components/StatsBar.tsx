@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 
 const STATS = [
-  { value: 22,   suffix: '+',  label: 'Years of Excellence' },
-  { value: 8600, suffix: '',  label: '₹/sq. ft. Premier Pricing' },
-  { value: 2,    suffix: ' Ac.', label: 'Podium Park' },
-  { value: 100,  suffix: '%',  label: 'Sun-Facing Apartments' },
+  { value: 8, suffix: '+', label: 'Years of Excellence' },
+  { value: 0, suffix: 'Premium', label: 'Luxury Living' },
+  { value: 2, suffix: ' Acre', label: 'Podium Park' },
+  { value: 95, suffix: '%+', label: 'Sun-Facing Apartments' },
 ];
 
 function useCountUp(target: number, active: boolean) {
@@ -27,7 +27,7 @@ function useCountUp(target: number, active: boolean) {
 }
 
 const StatItem = ({ value, suffix, label }: typeof STATS[number]) => {
-  const ref   = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [on, setOn] = useState(false);
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setOn(true); }, { threshold: 0.5 });
@@ -61,7 +61,7 @@ const StatItem = ({ value, suffix, label }: typeof STATS[number]) => {
           textShadow: '0 0 40px rgba(212,168,67,0.3)',
         }}
       >
-        {num.toLocaleString()}<span style={{ color: 'var(--gold)', fontSize: '70%', marginLeft: '2px' }}>{suffix}</span>
+        {value > 0 && num.toLocaleString()}<span style={{ color: 'var(--gold)', fontSize: '70%', marginLeft: '2px' }}>{suffix}</span>
       </div>
       <p
         style={{
@@ -112,10 +112,10 @@ export const StatsBar = () => (
     />
     <div
       className="container"
-      style={{ 
-        display: 'grid', 
+      style={{
+        display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        borderLeft: '1px solid var(--faint)' 
+        borderLeft: '1px solid var(--faint)'
       }}
     >
       {STATS.map((s, i) => (

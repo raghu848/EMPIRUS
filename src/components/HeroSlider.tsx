@@ -35,7 +35,7 @@ export const HeroSlider = () => {
             objectPosition: 'center',
           }}
         >
-          <source src="/pictures/Regal_Empirus_Website_2.mp4" type="video/mp4" />
+          <source src="/pictures/Regal_Empirus_Website_1.mp4" type="video/mp4" />
         </video>
       </div>
 

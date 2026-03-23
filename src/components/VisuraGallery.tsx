@@ -253,11 +253,11 @@ export const VisuraGallery = () => {
 
     /* ── Size patterns (Desktop) ── */
     const sizes = [
-        { w: '280px', h: '400px', imgH: '225px', radius: '20px 8px 20px 8px' },
-        { w: '310px', h: '440px', imgH: '260px', radius: '24px 14px' },
-        { w: '290px', h: '410px', imgH: '235px', radius: '12px 28px 12px 28px' },
-        { w: '300px', h: '430px', imgH: '250px', radius: '22px' },
-        { w: '270px', h: '390px', imgH: '215px', radius: '28px 10px' },
+        { w: '260px', h: '360px', imgH: '200px', radius: '20px 8px 20px 8px' },
+        { w: '290px', h: '400px', imgH: '240px', radius: '24px 14px' },
+        { w: '270px', h: '370px', imgH: '210px', radius: '12px 28px 12px 28px' },
+        { w: '280px', h: '390px', imgH: '230px', radius: '22px' },
+        { w: '250px', h: '350px', imgH: '190px', radius: '28px 10px' },
     ];
 
     /* ─────────── RENDER ─────────── */
@@ -274,10 +274,6 @@ export const VisuraGallery = () => {
           --font-sans: 'DM Sans', sans-serif;
         }
 
-        @keyframes galleryFloat {
-          0%, 100% { transform: translateY(0px); }
-          50%       { transform: translateY(-10px); }
-        }
         @keyframes shimmer {
           0%   { background-position: -200% center; }
           100% { background-position:  200% center; }
@@ -362,7 +358,7 @@ export const VisuraGallery = () => {
 
         .kbd-hint {
           font-family: 'DM Sans', sans-serif;
-          font-size: 8.5px; letter-spacing: 0.18em;
+          font-size: 10px; letter-spacing: 0.18em;
           color: rgba(255,255,255,0.25); text-transform: uppercase;
           display: flex; gap: 16px; align-items: center;
         }
@@ -370,7 +366,7 @@ export const VisuraGallery = () => {
           background: rgba(255,255,255,0.06);
           border: 1px solid rgba(255,255,255,0.1);
           border-radius: 4px; padding: 2px 6px;
-          font-family: 'DM Sans', sans-serif; font-size: 8px;
+          font-family: 'DM Sans', sans-serif; font-size: 10px;
         }
 
         /* ── Category pills scroll container on mobile ── */
@@ -423,7 +419,7 @@ export const VisuraGallery = () => {
           .lb-topbar { padding: 0.8rem 1rem !important; }
           .lb-topbar-title { font-size: 0.95rem !important; }
           .lb-topbar-cat { display: none !important; }
-          .lb-topbar-actions button { padding: 5px 10px !important; font-size: 8px !important; }
+          .lb-topbar-actions button { padding: 5px 10px !important; font-size: 10px !important; }
           .thumb-strip { padding: 0 0.75rem; }
           .thumb-item { width: 44px; height: 30px; }
         }
@@ -433,7 +429,7 @@ export const VisuraGallery = () => {
 
             {/* ── MOBILE LAYOUT ── */}
             {isMobile ? (
-                <div id="amenities" style={{ background: '#1e2022', padding: '3rem 0 2rem', position: 'relative' }}>
+                <div id="amenities" style={{ background: '#1e2022', padding: '3rem 0 6rem', position: 'relative' }}>
                     {/* Ambient BG */}
                     <div style={{
                         position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
@@ -445,11 +441,11 @@ export const VisuraGallery = () => {
                     }} />
 
                     {/* Header */}
-                    <div style={{ padding: '0 1.25rem', marginBottom: '1.5rem', position: 'relative', zIndex: 4 }}>
+                    <div style={{ padding: '4rem 1.25rem 1.5rem', position: 'relative', zIndex: 4 }}>
                         {/* Eyebrow */}
                         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.75rem' }}>
                             <span style={{
-                                fontFamily: 'var(--font-sans)', fontSize: '8px', fontWeight: 500,
+                                fontFamily: 'var(--font-sans)', fontSize: '10px', fontWeight: 500,
                                 letterSpacing: '0.44em', textTransform: 'uppercase',
                                 color: 'var(--gold)', opacity: 0.8,
                             }}>
@@ -474,7 +470,7 @@ export const VisuraGallery = () => {
                             {[['10+', 'Amenities'], ['5⭑', 'Lifestyle'], ['∞', 'Experiences']].map(([val, lbl]) => (
                                 <div key={lbl}>
                                     <div style={{ fontSize: '18px', fontWeight: 300, color: 'var(--gold)', lineHeight: 1 }}>{val}</div>
-                                    <div style={{ fontSize: '8px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
+                                    <div style={{ fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
                                 </div>
                             ))}
                         </div>
@@ -505,7 +501,7 @@ export const VisuraGallery = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -6 }}
                                 style={{
-                                    fontFamily: 'var(--font-sans)', fontSize: '9px',
+                                    fontFamily: 'var(--font-sans)', fontSize: '10px',
                                     color: 'rgba(255,255,255,0.55)', letterSpacing: '0.2em', textTransform: 'uppercase',
                                 }}
                             >
@@ -587,7 +583,7 @@ export const VisuraGallery = () => {
                                             </p>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
                                                 <span style={{
-                                                    fontFamily: 'var(--font-sans)', fontSize: '7px',
+                                                    fontFamily: 'var(--font-sans)', fontSize: '10px',
                                                     letterSpacing: '0.12em', color: catColor,
                                                     textTransform: 'uppercase', fontWeight: 500,
                                                     background: `${catColor}18`, padding: '2px 6px',
@@ -620,7 +616,7 @@ export const VisuraGallery = () => {
                     {favorited.size > 0 && (
                         <div style={{
                             textAlign: 'center', padding: '1rem 1.25rem 0',
-                            fontFamily: 'var(--font-sans)', fontSize: '8.5px',
+                            fontFamily: 'var(--font-sans)', fontSize: '10px',
                             letterSpacing: '0.18em', color: 'rgba(220,100,100,0.85)', textTransform: 'uppercase',
                         }}>
                             ♥ {favorited.size} saved
@@ -637,8 +633,9 @@ export const VisuraGallery = () => {
                     {/* ── Sticky viewport ── */}
                     <div style={{
                         position: 'sticky', top: 0, height: '100vh',
-                        overflow: 'hidden', display: 'flex',
-                        flexDirection: 'column', justifyContent: 'center',
+                        overflow: 'hidden', display: 'grid',
+                        gridTemplateRows: 'auto 1fr auto', // Header / Track / Footer
+                        background: '#1e2022',
                     }}>
                         {/* Ambient BG */}
                         <div style={{
@@ -658,84 +655,85 @@ export const VisuraGallery = () => {
                             zIndex: 3,
                         }} />
 
-                        {/* ── Header Block ── */}
-                        <div style={{
-                            padding: '0 3.5rem 0 4rem',
-                            marginBottom: '2rem',
-                            position: 'relative', zIndex: 4,
-                            display: 'flex', alignItems: 'flex-end',
-                            justifyContent: 'space-between',
-                            flexWrap: 'wrap', gap: '1.5rem',
-                        }}>
-                            <div>
-                                {/* Eyebrow */}
-                                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                                    <span style={{
-                                        fontFamily: 'var(--font-sans)', fontSize: '9px', fontWeight: 500,
-                                        letterSpacing: '0.44em', textTransform: 'uppercase',
-                                        color: 'var(--gold)', opacity: 0.8,
+                        {/* Header + Info Block */}
+                        <div style={{ position: 'relative', zIndex: 4 }}>
+                            {/* ── Header Block ── */}
+                            <div style={{
+                                padding: '2.5rem 3.5rem 1rem 4rem', // Further reduced padding
+                                display: 'flex', alignItems: 'flex-end',
+                                justifyContent: 'space-between',
+                                flexWrap: 'wrap', gap: '1rem',
+                            }}>
+                                <div>
+                                    {/* Eyebrow */}
+                                    <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.75rem' }}>
+                                        <span style={{
+                                            fontFamily: 'var(--font-sans)', fontSize: '9px', fontWeight: 500,
+                                            letterSpacing: '0.44em', textTransform: 'uppercase',
+                                            color: 'var(--gold)', opacity: 0.8,
+                                        }}>
+                                            ✦ &nbsp; Curated Sanctuary &nbsp; ✦
+                                        </span>
+                                    </div>
+
+                                    <h2 style={{
+                                        fontFamily: 'var(--font-serif)', fontWeight: 300,
+                                        fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                                        color: '#ffffff', margin: 0, lineHeight: 1.05, letterSpacing: '-0.01em',
                                     }}>
-                                        ✦ &nbsp; Curated Sanctuary &nbsp; ✦
-                                    </span>
+                                        Let our experience
+                                        <br />
+                                        <em style={{ color: 'var(--gold)', fontStyle: 'italic', fontWeight: 400 }}>
+                                            speak for us
+                                        </em>
+                                    </h2>
+
+                                    {/* Stat strip */}
+                                    <div style={{ display: 'flex', gap: '2rem', marginTop: '1.25rem', fontFamily: 'var(--font-sans)' }}>
+                                        {[['10+', 'Amenities'], ['5⭑', 'Lifestyle'], ['∞', 'Experiences']].map(([val, lbl]) => (
+                                            <div key={lbl}>
+                                                <div style={{ fontSize: '20px', fontWeight: 300, color: 'var(--gold)', lineHeight: 1 }}>{val}</div>
+                                                <div style={{ fontSize: '9px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
 
-                                <h2 style={{
-                                    fontFamily: 'var(--font-serif)', fontWeight: 300,
-                                    fontSize: 'clamp(2.8rem, 5.5vw, 4.5rem)',
-                                    color: '#ffffff', margin: 0, lineHeight: 1.05, letterSpacing: '-0.01em',
-                                }}>
-                                    Let our experience
-                                    <br />
-                                    <em style={{ color: 'var(--gold)', fontStyle: 'italic', fontWeight: 400 }}>
-                                        speak for us
-                                    </em>
-                                </h2>
-
-                                {/* Stat strip */}
-                                <div style={{ display: 'flex', gap: '2.5rem', marginTop: '1.5rem', fontFamily: 'var(--font-sans)' }}>
-                                    {[['10+', 'Amenities'], ['5⭑', 'Lifestyle'], ['∞', 'Experiences']].map(([val, lbl]) => (
-                                        <div key={lbl}>
-                                            <div style={{ fontSize: '22px', fontWeight: 300, color: 'var(--gold)', lineHeight: 1 }}>{val}</div>
-                                            <div style={{ fontSize: '9px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', marginTop: '2px' }}>{lbl}</div>
-                                        </div>
+                                {/* ── Category Filter Pills ── */}
+                                <div className="cat-pills-scroll">
+                                    {CATEGORIES.map(cat => (
+                                        <button
+                                            key={cat}
+                                            className={`cat-pill${activeCategory === cat ? ' active' : ''}`}
+                                            onClick={() => setActiveCategory(cat)}
+                                        >
+                                            <span style={{ marginRight: '5px', opacity: 0.7 }}>{CATEGORY_ICONS[cat]}</span>
+                                            {cat}
+                                        </button>
                                     ))}
                                 </div>
                             </div>
 
-                            {/* ── Category Filter Pills ── */}
-                            <div className="cat-pills-scroll">
-                                {CATEGORIES.map(cat => (
-                                    <button
-                                        key={cat}
-                                        className={`cat-pill${activeCategory === cat ? ' active' : ''}`}
-                                        onClick={() => setActiveCategory(cat)}
+                            {/* Count badge */}
+                            <div style={{ padding: '0 3.5rem 0.5rem 4rem' }}>
+                                <AnimatePresence mode="wait">
+                                    <motion.span
+                                        key={activeCategory}
+                                        initial={{ opacity: 0, y: 6 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -6 }}
+                                        style={{
+                                            fontFamily: 'var(--font-sans)', fontSize: '10px',
+                                            color: 'rgba(255,255,255,0.55)', letterSpacing: '0.2em', textTransform: 'uppercase',
+                                        }}
                                     >
-                                        <span style={{ marginRight: '5px', opacity: 0.7 }}>{CATEGORY_ICONS[cat]}</span>
-                                        {cat}
-                                    </button>
-                                ))}
+                                        Showing {filteredIndices.length} of {AMENITY_IMAGES.length} amenities
+                                        {activeCategory !== 'All' && (
+                                            <> — <span style={{ color: 'var(--gold-lt)' }}>{activeCategory}</span></>
+                                        )}
+                                    </motion.span>
+                                </AnimatePresence>
                             </div>
-                        </div>
-
-                        {/* Count badge */}
-                        <div style={{ padding: '0 3.5rem 0 4rem', marginBottom: '1rem', position: 'relative', zIndex: 4 }}>
-                            <AnimatePresence mode="wait">
-                                <motion.span
-                                    key={activeCategory}
-                                    initial={{ opacity: 0, y: 6 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -6 }}
-                                    style={{
-                                        fontFamily: 'var(--font-sans)', fontSize: '9px',
-                                        color: 'rgba(255,255,255,0.55)', letterSpacing: '0.2em', textTransform: 'uppercase',
-                                    }}
-                                >
-                                    Showing {filteredIndices.length} of {AMENITY_IMAGES.length} amenities
-                                    {activeCategory !== 'All' && (
-                                        <> — <span style={{ color: 'var(--gold-lt)' }}>{activeCategory}</span></>
-                                    )}
-                                </motion.span>
-                            </AnimatePresence>
                         </div>
 
                         {/* ── Horizontal Cards Track ── */}
@@ -751,6 +749,7 @@ export const VisuraGallery = () => {
                                 width: 'max-content', willChange: 'transform',
                                 alignItems: 'center', position: 'relative', zIndex: 4,
                                 cursor: 'grab', userSelect: 'none',
+                                overflow: 'visible',
                             }}
                         >
                             <AnimatePresence mode="popLayout">
@@ -780,7 +779,6 @@ export const VisuraGallery = () => {
                                                 background: 'linear-gradient(160deg, #2f3438 0%, #262b2e 100%)',
                                                 borderRadius: s.radius, overflow: 'hidden',
                                                 position: 'relative',
-                                                animation: `galleryFloat ${floatDur}s ease-in-out ${floatDelay}s infinite`,
                                                 border: '1px solid rgba(255,255,255,0.04)',
                                             } as React.CSSProperties}
                                         >
@@ -802,7 +800,7 @@ export const VisuraGallery = () => {
                                             {/* Index tag */}
                                             <span style={{
                                                 position: 'absolute', top: '12px', left: '14px', zIndex: 8,
-                                                fontFamily: 'var(--font-sans)', fontSize: '8px', fontWeight: 500,
+                                                fontFamily: 'var(--font-sans)', fontSize: '10px', fontWeight: 500,
                                                 letterSpacing: '0.1em', color: 'rgba(255,255,255,0.6)',
                                             }}>
                                                 .{String(origIdx + 1).padStart(2, '0')}
@@ -864,7 +862,7 @@ export const VisuraGallery = () => {
                                                 </p>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                                     <span style={{
-                                                        fontFamily: 'var(--font-sans)', fontSize: '8px',
+                                                        fontFamily: 'var(--font-sans)', fontSize: '10px',
                                                         letterSpacing: '0.12em', color: catColor,
                                                         textTransform: 'uppercase', fontWeight: 500,
                                                         background: `${catColor}18`, padding: '3px 8px',
@@ -873,7 +871,7 @@ export const VisuraGallery = () => {
                                                         {tag}
                                                     </span>
                                                     <span style={{
-                                                        fontFamily: 'var(--font-sans)', fontSize: '8px',
+                                                        fontFamily: 'var(--font-sans)', fontSize: '10px',
                                                         letterSpacing: '0.1em', color: 'rgba(255,255,255,0.5)',
                                                         textTransform: 'uppercase',
                                                     }}>
@@ -901,11 +899,11 @@ export const VisuraGallery = () => {
                         </div>
 
                         {/* ── Progress Bar & Bottom Strip ── */}
-                        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 5 }}>
+                        <div style={{ position: 'relative', zIndex: 5 }}>
                             {favorited.size > 0 && (
                                 <div style={{
                                     textAlign: 'right', padding: '0 3.5rem 6px',
-                                    fontFamily: 'var(--font-sans)', fontSize: '8.5px',
+                                    fontFamily: 'var(--font-sans)', fontSize: '10px',
                                     letterSpacing: '0.18em', color: 'rgba(220,100,100,0.85)', textTransform: 'uppercase',
                                 }}>
                                     ♥ {favorited.size} saved
@@ -932,7 +930,8 @@ export const VisuraGallery = () => {
                             <div style={{
                                 padding: '12px 3.5rem 16px 4rem',
                                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                                background: 'rgba(30,32,34,0.6)', backdropFilter: 'blur(10px)',
+                                background: 'rgba(30,32,34,0.95)', backdropFilter: 'blur(10px)',
+                                borderTop: '1px solid rgba(255,255,255,0.05)',
                             }}>
                                 <div className="kbd-hint">
                                     <span><kbd>Drag</kbd> to explore</span>
@@ -979,7 +978,7 @@ export const VisuraGallery = () => {
                             }}>
                                 {AMENITIES[lightbox.index]?.label}
                                 <span className="lb-topbar-cat" style={{
-                                    fontFamily: 'var(--font-sans)', fontSize: '8px',
+                                    fontFamily: 'var(--font-sans)', fontSize: '10px',
                                     color: 'rgba(255,255,255,0.5)', letterSpacing: '0.2em',
                                     textTransform: 'uppercase', marginLeft: '14px', fontStyle: 'normal',
                                 }}>
