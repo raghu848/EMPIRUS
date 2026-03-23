@@ -39,17 +39,12 @@ export default function PrivacyPolicyPage() {
           }}
         />
 
-        <p
-          className="eyebrow"
-          style={{ marginBottom: '1.5rem', position: 'relative' }}
-        >
-          Legal
-        </p>
+
         <h1
           style={{
             fontFamily: 'var(--font-hand)',
             fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-            color: 'var(--white)',
+            color: '#e5d8be',
             position: 'relative',
             lineHeight: 1.2,
           }}

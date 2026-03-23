@@ -58,6 +58,7 @@ export const ContactForm = () => {
           style={{
             objectFit: 'cover',
             objectPosition: 'center 10%', // Focus more on the top
+            filter: 'blur(4px)',
           }}
         />
         <div style={{
@@ -127,8 +128,8 @@ export const ContactForm = () => {
             >
               {[
                 ['Phone', '+91 77890 00077'],
-                ['Email', 'info@regalempirus.com'],
-                ['Address', 'Sector 91, Mohali, Punjab'],
+                ['Email', 'info@gdplmohali.in'],
+                ['Address', 'GDPL, Sector 91, Sahibzada Ajit Singh Nagar, adjoining Eden Court, Punjab 140307'],
               ].map(([label, val]) => (
                 <div key={label}>
                   <p style={{ fontFamily: 'var(--font-sans)', fontSize: '10px', letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>

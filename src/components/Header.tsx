@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { LuxuryGoldBackground } from './LuxuryGoldBackground';
 
 const NAV = [
   { label: 'Home', href: '/#home' },
@@ -384,7 +385,7 @@ export const Header = () => {
         className="re-mobile-only"
         style={{
           position: 'fixed', inset: 0, zIndex: 999,
-          background: 'linear-gradient(160deg, rgba(21,35,28,0.99) 0%, rgba(17,29,23,1) 100%)',
+          overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -396,73 +397,76 @@ export const Header = () => {
           transition: 'opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1)',
         }}
       >
-        {/* Decorative glow */}
-        <div aria-hidden style={{
-          position: 'absolute', top: '20%', left: '50%',
-          transform: 'translateX(-50%)',
-          width: '300px', height: '300px',
-          background: 'radial-gradient(ellipse, rgba(209,193,161,0.07) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
+        <LuxuryGoldBackground />
+        <div style={{ position: 'relative', zIndex: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2.2rem' }}>
+          {/* Decorative glow */}
+          <div aria-hidden style={{
+            position: 'absolute', top: '20%', left: '50%',
+            transform: 'translateX(-50%)',
+            width: '300px', height: '300px',
+            background: 'radial-gradient(ellipse, rgba(209,193,161,0.07) 0%, transparent 70%)',
+            pointerEvents: 'none',
+          }} />
 
-        {/* Thin top border line */}
-        <div aria-hidden style={{
-          position: 'absolute', top: 0, left: '10%', right: '10%',
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(209,193,161,0.4), transparent)',
-        }} />
+          {/* Thin top border line */}
+          <div aria-hidden style={{
+            position: 'absolute', top: 0, left: '10%', right: '10%',
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent, rgba(209,193,161,0.4), transparent)',
+          }} />
 
-        {/* Logo mark */}
-        <div style={{
-          fontFamily: "'Cinzel', serif",
-          fontSize: '11px', letterSpacing: '0.3em',
-          color: 'rgba(255,255,255,0.4)',
-          marginBottom: '1rem',
-          textTransform: 'uppercase',
-        }}>
-          Regal Empirus
-        </div>
+          {/* Logo mark */}
+          <div style={{
+            fontFamily: "'Cinzel', serif",
+            fontSize: '11px', letterSpacing: '0.3em',
+            color: 'rgba(255,255,255,0.4)',
+            marginBottom: '1rem',
+            textTransform: 'uppercase',
+          }}>
+            Regal Empirus
+          </div>
 
-        {NAV.map((n, i) => (
-          <Link
-            key={n.href}
-            href={n.href}
-            onClick={(e) => {
-              setOpen(false);
-              if (window.location.pathname === '/' || window.location.pathname === '') {
-                const targetId = n.href.split('#')[1];
-                const el = document.getElementById(targetId);
-                if (el) {
-                  e.preventDefault();
-                  el.scrollIntoView({ behavior: 'smooth' });
+          {NAV.map((n, i) => (
+            <Link
+              key={n.href}
+              href={n.href}
+              onClick={(e) => {
+                setOpen(false);
+                if (window.location.pathname === '/' || window.location.pathname === '') {
+                  const targetId = n.href.split('#')[1];
+                  const el = document.getElementById(targetId);
+                  if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }
-              }
-            }}
-            className="re-drawer-link"
-            style={{
-              transitionProperty: 'opacity, transform, color',
-              transitionDuration: '0.4s, 0.4s, 0.3s',
-              transitionDelay: open ? `${i * 0.06}s, ${i * 0.06}s, 0s` : '0s, 0s, 0s',
-              transform: open ? 'translateY(0)' : 'translateY(20px)',
-              opacity: open ? 1 : 0,
-            }}
-          >
-            {n.label}
-          </Link>
-        ))}
+              }}
+              className="re-drawer-link"
+              style={{
+                transitionProperty: 'opacity, transform, color',
+                transitionDuration: '0.4s, 0.4s, 0.3s',
+                transitionDelay: open ? `${i * 0.06}s, ${i * 0.06}s, 0s` : '0s, 0s, 0s',
+                transform: open ? 'translateY(0)' : 'translateY(20px)',
+                opacity: open ? 1 : 0,
+              }}
+            >
+              {n.label}
+            </Link>
+          ))}
 
-        <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
-          <a href="/#contact" className="re-cta" onClick={() => setOpen(false)}>
-            Investment Inquiry
-          </a>
+          <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
+            <a href="/#contact" className="re-cta" onClick={() => setOpen(false)}>
+              Investment Inquiry
+            </a>
+          </div>
+
+          {/* Bottom thin line */}
+          <div aria-hidden style={{
+            position: 'absolute', bottom: 0, left: '10%', right: '10%',
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent, rgba(209,193,161,0.3), transparent)',
+          }} />
         </div>
-
-        {/* Bottom thin line */}
-        <div aria-hidden style={{
-          position: 'absolute', bottom: 0, left: '10%', right: '10%',
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(209,193,161,0.3), transparent)',
-        }} />
       </div>
     </>
   );

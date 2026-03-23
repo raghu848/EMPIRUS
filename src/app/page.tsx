@@ -5,6 +5,7 @@ import { AboutSection } from '@/components/AboutSection';
 import { VisionarySection } from '@/components/VisionarySection';
 
 import { LocationAdvantage } from '@/components/LocationAdvantage';
+import { LocationContext } from '@/components/LocationContext';
 import { ContactForm } from '@/components/ContactForm';
 import { Footer } from '@/components/Footer';
 
@@ -44,7 +45,7 @@ export default function Home() {
 
           </>
         }
-        image="/pictures/30963868116.png"
+        image="/images/regal_empirus/WhatsApp Image 2026-03-23 at 12.33.52 PM.jpeg"
       />
 
       {/* ── Visionary ── */}
@@ -54,33 +55,12 @@ export default function Home() {
       <VisuraGallery />
 
       {/* ── Location & Floor Plans ── */}
+      <LocationContext />
       <LocationAdvantage />
 
       {/* ── Leadership Team ── */}
       <LeadershipSection />
 
-
-      {/* ── Approach / Podium Story ── */}
-      <AboutSection
-        id="podium"
-        eyebrow="The Podium Story"
-        title={<>A 2 Acre Elevated <em style={{ fontStyle: 'italic', color: 'var(--gold-lt)' }}>Sanctuary</em></>}
-        body={
-          <>
-            <p style={{ marginBottom: '1rem' }}>
-              The Podium Park is not just a garden. It is a lush, elevated oasis that lifts residents
-              above the city — a sanctuary of calm curated for the most discerning lifestyles.
-            </p>
-            <p>
-              From resort-style splash zones for children to high-performance wellness studios and al fresco
-              pavilions, every centimetre of the podium is an experience.
-            </p>
-          </>
-        }
-        image="/images/render-hero-1.jpg"
-        reverse
-        cta={{ label: 'View Amenities', href: '#amenities' }}
-      />
 
       {/* ── Contact & Lead Form ── */}
       <ContactForm />
