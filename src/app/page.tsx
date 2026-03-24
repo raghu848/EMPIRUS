@@ -45,7 +45,11 @@ export default function Home() {
 
           </>
         }
-        image="/images/regal_empirus/WhatsApp Image 2026-03-23 at 12.33.52 PM.jpeg"
+        images={[
+          "/images/regal_empirus/WhatsApp Image 2026-03-23 at 12.33.52 PM.jpeg",
+          "/images/IMG_1420.PNG",
+          "/images/IMG_1422.PNG"
+        ]}
       />
 
       {/* ── Visionary ── */}

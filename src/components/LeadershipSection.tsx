@@ -42,7 +42,7 @@ export const LeadershipSection = () => {
             style={{
               fontFamily: 'var(--font-hand)',
               fontWeight: 400,
-              fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+              fontSize: 'clamp(3.1rem, 5vw, 4.5rem)',
               color: 'var(--white)',
               marginTop: '1rem',
               letterSpacing: '0.02em'

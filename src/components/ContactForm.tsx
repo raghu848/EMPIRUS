@@ -7,7 +7,19 @@ const INPUTS = [
   { id: 'name', label: 'Full Name', type: 'text', required: true },
   { id: 'phone', label: 'Phone Number', type: 'tel', required: true },
   { id: 'email', label: 'Email Address', type: 'email', required: false },
-  { id: 'type', label: 'Apartment Preference', type: 'text', required: false },
+  {
+    id: 'type',
+    label: 'Apartment Preference',
+    type: 'select',
+    required: true,
+    options: [
+      '3 BHK + Servant',
+      '4 BHK + Servant',
+      'Penthouse',
+      'Investment Inquiry',
+      'General Information'
+    ]
+  },
 ];
 
 type Status = 'idle' | 'sending' | 'done';
@@ -90,7 +102,7 @@ export const ContactForm = () => {
               style={{
                 fontFamily: 'var(--font-serif)',
                 fontWeight: 300,
-                fontSize: 'clamp(2rem, 3.5vw, 3.25rem)',
+                fontSize: 'clamp(2.8rem, 4.5vw, 3.2rem)',
                 letterSpacing: '-0.015em',
                 lineHeight: 1.12,
                 color: 'var(--white)',
@@ -215,26 +227,57 @@ export const ContactForm = () => {
                     >
                       {inp.label}{inp.required && <span style={{ color: 'var(--gold)', marginLeft: '4px' }}>*</span>}
                     </label>
-                    <input
-                      id={inp.id}
-                      type={inp.type}
-                      required={inp.required}
-                      value={form[inp.id] ?? ''}
-                      onChange={e => setForm(prev => ({ ...prev, [inp.id]: e.target.value }))}
-                      style={{
-                        background: 'transparent',
-                        border: 'none',
-                        borderBottom: '1px solid var(--faint)',
-                        outline: 'none',
-                        padding: '0.75rem 0',
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '14px',
-                        color: 'var(--white)',
-                        transition: 'border-color 0.3s',
-                      }}
-                      onFocus={e => { (e.currentTarget).style.borderBottomColor = 'var(--gold)'; }}
-                      onBlur={e => { (e.currentTarget).style.borderBottomColor = 'var(--faint)'; }}
-                    />
+                    {inp.type === 'select' ? (
+                      <select
+                        id={inp.id}
+                        required={inp.required}
+                        value={form[inp.id] ?? ''}
+                        onChange={e => setForm(prev => ({ ...prev, [inp.id]: e.target.value }))}
+                        style={{
+                          background: 'rgba(255,255,255,0.03)',
+                          border: 'none',
+                          borderBottom: '1px solid var(--faint)',
+                          outline: 'none',
+                          padding: '0.75rem 0',
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: '14px',
+                          color: 'var(--white)',
+                          appearance: 'none', // Remove native arrow
+                          cursor: 'pointer',
+                          transition: 'border-color 0.3s',
+                        }}
+                      >
+                        <option value="" disabled style={{ background: '#080A0C', color: 'rgba(255,255,255,0.3)' }}>
+                          Select an option
+                        </option>
+                        {inp.options?.map(opt => (
+                          <option key={opt} value={opt} style={{ background: '#080A0C', color: 'var(--white)' }}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <input
+                        id={inp.id}
+                        type={inp.type}
+                        required={inp.required}
+                        value={form[inp.id] ?? ''}
+                        onChange={e => setForm(prev => ({ ...prev, [inp.id]: e.target.value }))}
+                        style={{
+                          background: 'transparent',
+                          border: 'none',
+                          borderBottom: '1px solid var(--faint)',
+                          outline: 'none',
+                          padding: '0.75rem 0',
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: '14px',
+                          color: 'var(--white)',
+                          transition: 'border-color 0.3s',
+                        }}
+                        onFocus={e => { (e.currentTarget).style.borderBottomColor = 'var(--gold)'; }}
+                        onBlur={e => { (e.currentTarget).style.borderBottomColor = 'var(--faint)'; }}
+                      />
+                    )}
                   </div>
                 ))}
 

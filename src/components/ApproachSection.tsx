@@ -14,7 +14,7 @@ export const ApproachSection = () => {
             <span className="block font-body text-[10px] tracking-[0.38em] text-gold uppercase mb-6">
               OUR APPROACH
             </span>
-            <h2 className="font-display text-4xl md:text-6xl text-text-primary leading-[1.1] max-w-[500px]">
+            <h2 className="font-display text-5xl md:text-6xl text-text-primary leading-[1.1] max-w-[500px]">
               Crafting Liberating Spaces for the Next Generation
             </h2>
           </div>

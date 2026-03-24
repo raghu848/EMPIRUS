@@ -93,7 +93,7 @@ export const LocationAdvantage = () => {
           </p>
           <h2 style={{
             fontFamily: 'var(--font-hand)', fontWeight: 400,
-            fontSize: 'clamp(2rem, 4vw, 3.2rem)', color: 'var(--white)',
+            fontSize: 'clamp(2.6rem, 4.5vw, 3.4rem)', color: 'var(--white)',
             margin: 0, lineHeight: 1.2,
           }}>
             Location{' '}

@@ -128,26 +128,25 @@ export const SocialDock = () => {
         <div
             style={{
                 position: 'fixed',
-                right: '24px',
-                top: '50%',
+                right: 'clamp(12px, 4vw, 24px)',
+                top: '60%', // Lowered slightly for mobile reachability
                 transform: 'translateY(-50%)',
                 zIndex: 1000,
                 pointerEvents: 'none',
             }}
-            className="hidden lg:block"
         >
             <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                whileHover={{ width: '56px' }}
+                whileHover={{ width: 'clamp(44px, 5vw, 56px)' }}
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: '48px',
-                    padding: '24px 0',
-                    gap: '12px',
+                    width: 'clamp(40px, 4.5vw, 48px)',
+                    padding: 'clamp(16px, 3vw, 24px) 0',
+                    gap: 'clamp(8px, 1.5vw, 12px)',
                     background: 'rgba(10, 18, 14, 0.45)', // Darker glass for better contrast
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',

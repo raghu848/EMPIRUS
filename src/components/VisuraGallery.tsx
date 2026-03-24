@@ -448,7 +448,7 @@ export const VisuraGallery = () => {
 
                         <h2 style={{
                             fontFamily: 'var(--font-hand)', fontWeight: 400,
-                            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                            fontSize: 'clamp(3.1rem, 5.5vw, 4.2rem)',
                             color: '#ffffff', margin: 0, lineHeight: 1.1, letterSpacing: '-0.01em',
                         }}>
                             Discover a World of <span style={{ color: 'var(--gold)' }}>Exquisite</span> Living Experiences
@@ -668,7 +668,7 @@ export const VisuraGallery = () => {
 
                                     <h2 style={{
                                         fontFamily: 'var(--font-hand)', fontWeight: 400,
-                                        fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                                        fontSize: 'clamp(3.1rem, 5.5vw, 4.2rem)',
                                         color: '#ffffff', margin: 0, lineHeight: 1.05, letterSpacing: '-0.01em',
                                     }}>
                                         Discover a World of <span style={{ color: 'var(--gold)' }}>Exquisite</span> Living Experiences

@@ -1,8 +1,8 @@
 'use client';
 
-import { useRef, ReactNode } from 'react';
+import { useRef, ReactNode, useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { LuxuryGoldBackground } from './LuxuryGoldBackground';
 
 interface Props {
@@ -10,7 +10,8 @@ interface Props {
   eyebrow: string;
   title: ReactNode;
   body: ReactNode;
-  image: string;
+  image?: string;
+  images?: string[];
   imageAlt?: string;
   reverse?: boolean;
   cta?: { label: string; href: string };
@@ -38,10 +39,21 @@ function useTilt(strength = 10) {
 }
 
 export const AboutSection = ({
-  id, eyebrow, title, body, image, imageAlt, reverse, cta,
+  id, eyebrow, title, body, image, images, imageAlt, reverse, cta,
   stat = { value: '8+', label: 'Years of Excellence' },
   tag = '',
 }: Props) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const displayImages = images || (image ? [image] : []);
+
+  useEffect(() => {
+    if (displayImages.length <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % displayImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [displayImages.length]);
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const tilt = useTilt(8);
 
@@ -194,12 +206,23 @@ export const AboutSection = ({
                 <div style={{
                   position: 'absolute', inset: 0,
                 }}>
-                  <Image
-                    src={image}
-                    alt={imageAlt ?? eyebrow}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                  />
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1, ease: 'easeInOut' }}
+                      style={{ position: 'absolute', inset: 0 }}
+                    >
+                      <Image
+                        src={displayImages[currentIndex]}
+                        alt={imageAlt ?? eyebrow}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
 
 
@@ -346,7 +369,7 @@ export const AboutSection = ({
               style={{
                 fontFamily: "var(--font-hand)",
                 fontWeight: 400,
-                fontSize: 'clamp(2.2rem, 3.8vw, 3.6rem)',
+                fontSize: 'clamp(2.8rem, 3.8vw, 3.8rem)',
                 lineHeight: 1.1,
                 letterSpacing: '0.01em',
                 color: '#f5f2ec',

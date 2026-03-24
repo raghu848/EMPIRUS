@@ -81,7 +81,7 @@ export const VisionarySection = () => {
                 <h2 style={{
                   fontFamily: 'var(--font-sans)',
                   fontWeight: 600,
-                  fontSize: 'clamp(3rem, 5vw, 4.5rem)',
+                  fontSize: 'clamp(3.6rem, 5.5vw, 4.8rem)',
                   lineHeight: '1.1',
                   color: '#999',
                   letterSpacing: '0.05em'

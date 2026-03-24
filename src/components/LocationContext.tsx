@@ -76,7 +76,7 @@ export const LocationContext = () => {
 
                 <h2 style={{
                     fontFamily: 'var(--font-hand)', fontWeight: 400,
-                    fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)', color: 'var(--white)',
+                    fontSize: 'clamp(3.1rem, 5.5vw, 4.5rem)', color: 'var(--white)',
                     margin: '0 auto 1.5rem', lineHeight: 1.1, maxWidth: '900px',
                     textShadow: '0 4px 20px rgba(0,0,0,0.6), 0 0 40px rgba(223,188,115,0.15)', // Added glow/shadow
                     ...fadeUp(100)
