@@ -1,17 +1,41 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export const HeroSlider = () => {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
-    // Attempt to explicitly play both videos to guarantee autoplay on refresh over mobile browsers
+    const handleInteraction = () => {
+      setHasInteracted(true);
+
+      // Synchronously update video elements within the user gesture
+      [desktopVideoRef.current, mobileVideoRef.current].forEach((video) => {
+        if (video) {
+          video.muted = false;
+          video.volume = 1;
+          video.currentTime = 0;
+          video.play().catch(() => { });
+        }
+      });
+
+      window.removeEventListener('pointerdown', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+    };
+
+    window.addEventListener('pointerdown', handleInteraction);
+    window.addEventListener('touchstart', handleInteraction);
+    window.addEventListener('keydown', handleInteraction);
+
+    // Initial silent play attempt
     const playVideo = async (video: HTMLVideoElement | null) => {
       if (video) {
         try {
+          video.muted = true;
           await video.play();
         } catch (error) {
           console.log("Autoplay failed:", error);
@@ -21,6 +45,12 @@ export const HeroSlider = () => {
 
     playVideo(desktopVideoRef.current);
     playVideo(mobileVideoRef.current);
+
+    return () => {
+      window.removeEventListener('pointerdown', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+    };
   }, []);
 
   return (
@@ -48,7 +78,7 @@ export const HeroSlider = () => {
           ref={desktopVideoRef}
           autoPlay
           loop
-          muted
+          muted={!hasInteracted}
           playsInline
           className="hide-mobile"
           style={{
@@ -66,7 +96,7 @@ export const HeroSlider = () => {
           ref={mobileVideoRef}
           autoPlay
           loop
-          muted
+          muted={!hasInteracted}
           playsInline
           className="hide-desktop"
           style={{
