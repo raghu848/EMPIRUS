@@ -1,8 +1,28 @@
 'use client';
 
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 export const HeroSlider = () => {
+  const desktopVideoRef = useRef<HTMLVideoElement>(null);
+  const mobileVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Attempt to explicitly play both videos to guarantee autoplay on refresh over mobile browsers
+    const playVideo = async (video: HTMLVideoElement | null) => {
+      if (video) {
+        try {
+          await video.play();
+        } catch (error) {
+          console.log("Autoplay failed:", error);
+        }
+      }
+    };
+
+    playVideo(desktopVideoRef.current);
+    playVideo(mobileVideoRef.current);
+  }, []);
+
   return (
     <section
       id="home"
@@ -23,11 +43,14 @@ export const HeroSlider = () => {
           zIndex: 0,
         }}
       >
+        {/* Desktop Video */}
         <video
+          ref={desktopVideoRef}
           autoPlay
           loop
           muted
           playsInline
+          className="hide-mobile"
           style={{
             width: '100%',
             height: '100%',
@@ -36,6 +59,24 @@ export const HeroSlider = () => {
           }}
         >
           <source src="/pictures/Regal_Empirus_Website_1.mp4" type="video/mp4" />
+        </video>
+
+        {/* Mobile Video */}
+        <video
+          ref={mobileVideoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="hide-desktop"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'fill',
+            objectPosition: 'center',
+          }}
+        >
+          <source src="/pictures/Regal_Empirus_Website_vertical.mp4" type="video/mp4" />
         </video>
       </div>
 

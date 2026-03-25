@@ -51,10 +51,10 @@ export const VisionarySection = () => {
                   }}
                 >
                   <Image
-                    src="/images/regal_empirus/Architect_Image.png"
+                    src="/pictures/Reza.png"
                     alt="Ar. Reza Kabul"
                     fill
-                    style={{ objectFit: 'cover', objectPosition: 'center', mixBlendMode: 'multiply' }}
+                    style={{ objectFit: 'cover', objectPosition: 'top', mixBlendMode: 'multiply' }}
                   />
                 </motion.div>
               </motion.div>
