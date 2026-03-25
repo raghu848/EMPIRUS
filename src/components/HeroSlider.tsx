@@ -12,9 +12,9 @@ export const HeroSlider = () => {
     const handleInteraction = () => {
       setHasInteracted(true);
 
-      // Synchronously update video elements within the user gesture
+      // Synchronously update only the visible video element within the user gesture
       [desktopVideoRef.current, mobileVideoRef.current].forEach((video) => {
-        if (video) {
+        if (video && window.getComputedStyle(video).display !== 'none') {
           video.muted = false;
           video.volume = 1;
           video.currentTime = 0;
