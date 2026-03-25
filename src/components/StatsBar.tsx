@@ -6,7 +6,7 @@ import { LuxuryGoldBackground } from './LuxuryGoldBackground';
 const STATS = [
   { value: 8, suffix: '+', label: 'Years of Excellence' },
   { value: 0, suffix: '3+1 & 4+1 Bhk', label: 'Luxury Living' },
-  { value: 2, suffix: ' Acre', label: 'Podium Park' },
+  { value: 5, suffix: ' Towers', label: 'Signature Towers' },
   { value: 95, suffix: '%+', label: 'Sun-Facing Apartments' },
 ];
 

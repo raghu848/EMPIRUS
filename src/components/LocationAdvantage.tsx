@@ -11,7 +11,7 @@ const LOCATIONS = [
   { place: 'Amity University', time: '~ 5 Min', image: '/location_images/Amity_univercity.jpeg', category: 'Education', icon: '🎓' },
   { place: 'Quark City', time: '~ 3 Min', image: '/location_images/quark_city.jpeg', category: 'IT & Business', icon: '🏢' },
   { place: 'IT City', time: '~ 2 Min', image: '/location_images/IT city.jpeg', category: 'IT & Business', icon: '🏢' },
-  { place: 'IVY Hospital', time: '~ 3 Min', image: '/location_images/IVY.jpeg', category: 'Healthcare', icon: '🏥' },
+  { place: 'Livasa Hospital', time: '~ 3 Min', image: '/location_images/livasa_hospital.jpeg', category: 'Healthcare', icon: '🏥' },
   { place: 'Sohana Hospital', time: '~ 5 Min', image: '/location_images/sohana_hospital.jpeg', category: 'Healthcare', icon: '🏥' },
   { place: 'Fortis Hospital', time: '~ 10 Min', image: '/location_images/Fortis_hospital.jpeg', category: 'Healthcare', icon: '🏥' },
   { place: 'CP 67 Mall', time: '~ 8 Min', image: '/location_images/cp 67.jpeg', category: 'Lifestyle', icon: '🛍️' },

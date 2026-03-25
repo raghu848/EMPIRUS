@@ -34,10 +34,10 @@ export default function Home() {
               Regal Empirus is an expression of ultra-luxury—crafted for those who belong to a class above. Set across 5.37 acres in Sector 91, it rises as a landmark of prestige, where iconic architecture meets expansive green landscapes.
             </p>
             <p>
-              Every residence is designed to deliver a sense of grandeur, with spacious layouts, 3-side open living, and abundant natural light—creating homes that feel open, elegant, and truly exceptional. Complemented by world-class amenities and a 2 Acre podium park, every detail is curated to offer a lifestyle defined by comfort, privacy, and indulgence.
+              Every residence is designed to deliver a sense of grandeur, with spacious layouts, 3-side open living, and abundant natural light—creating homes that feel open, elegant, and truly exceptional. Complemented by world-class amenities and a landscaped podium garden, every detail is curated to offer a lifestyle defined by comfort, privacy, and indulgence.
             </p>
             <p>
-              Featuring exclusive 3+1 (2200 sq. ft.) and 4+1 (3200 sq. ft.) residences, offering a compelling investment opportunity.
+              Featuring exclusive 3+1 (2200+ sq. ft.approx.), 4+1 (3200+ sq. ft.approx.), Earth Villa & Duplex Sky Villa, offering a compelling investment opportunity.
             </p>
             <p>
               This is not just a place to live—it is a statement of power, status, and refined living.
