@@ -73,6 +73,17 @@ export const HeroSlider = () => {
           zIndex: 0,
         }}
       >
+        {/* Dark Overlay Gradient for better visibility of scroll indicator */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.7) 100%)',
+            zIndex: 1,
+            pointerEvents: 'none',
+          }}
+        />
+
         {/* Desktop Video */}
         <video
           ref={desktopVideoRef}
@@ -133,7 +144,7 @@ export const HeroSlider = () => {
             fontSize: '0.65rem',
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.5)',
+            color: 'rgba(255,255,255,0.9)',
           }}
         >
           Scroll
@@ -144,7 +155,7 @@ export const HeroSlider = () => {
           style={{
             width: '1px',
             height: '30px',
-            background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)',
+            background: 'linear-gradient(to bottom, rgba(255,255,255,0.9), transparent)',
           }}
         />
       </motion.div>

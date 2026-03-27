@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValue } from 'framer-motion';
-import { Instagram, Facebook, Phone, MessageCircle, ChevronUp } from 'lucide-react';
+import { motion, AnimatePresence, useSpring, useTransform, useMotionValue } from 'framer-motion';
+import { Instagram, Facebook, Phone, MessageCircle, ChevronsDown, ChevronsUp } from 'lucide-react';
 
 const DOCK_ITEMS = [
     { id: 'instagram', icon: <Instagram size={20} />, label: 'Instagram', href: 'https://www.instagram.com/gdpl70/', color: '#E1306C' },
@@ -111,18 +111,7 @@ const MagneticIcon = ({ children, label, href, brandColor }: { children: React.R
 };
 
 export const SocialDock = () => {
-    const [showScroll, setShowScroll] = useState(false);
-    const { scrollY } = useScroll();
-
-    useEffect(() => {
-        return scrollY.onChange((latest) => {
-            setShowScroll(latest > 300);
-        });
-    }, [scrollY]);
-
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    const [isExpanded, setIsExpanded] = useState(true);
 
     return (
         <div
@@ -138,15 +127,13 @@ export const SocialDock = () => {
             <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                whileHover={{ width: 'clamp(44px, 5vw, 56px)' }}
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
                     width: 'clamp(40px, 4.5vw, 48px)',
-                    padding: 'clamp(16px, 3vw, 24px) 0',
-                    gap: 'clamp(8px, 1.5vw, 12px)',
+                    padding: isExpanded ? 'clamp(16px, 3vw, 24px) 0' : '8px 0',
                     background: 'rgba(10, 18, 14, 0.45)', // Darker glass for better contrast
                     backdropFilter: 'blur(20px)',
                     WebkitBackdropFilter: 'blur(20px)',
@@ -154,45 +141,54 @@ export const SocialDock = () => {
                     border: '1px solid rgba(255,255,255,0.08)',
                     boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)',
                     pointerEvents: 'all',
-                    transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
                 }}
             >
-                {DOCK_ITEMS.map((item) => (
-                    <MagneticIcon key={item.id} label={item.label} href={item.href} brandColor={item.color}>
-                        <div style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.4))' }}>
-                            {item.icon}
-                        </div>
-                    </MagneticIcon>
-                ))}
-
                 <AnimatePresence>
-                    {showScroll && (
-                        <motion.button
-                            initial={{ opacity: 0, scale: 0.5, y: 10 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.5, y: 10 }}
-                            onClick={scrollToTop}
+                    {isExpanded && (
+                        <motion.div
+                            initial={{ height: 0, opacity: 0, scale: 0.8 }}
+                            animate={{ height: 'auto', opacity: 1, scale: 1 }}
+                            exit={{ height: 0, opacity: 0, scale: 0.8 }}
                             style={{
-                                marginTop: '12px',
-                                paddingTop: '12px',
-                                borderTop: '1px solid rgba(255,255,255,0.1)',
                                 display: 'flex',
+                                flexDirection: 'column',
                                 alignItems: 'center',
-                                justifyContent: 'center',
-                                width: '40px',
-                                height: '52px',
-                                color: 'rgba(255,255,255,0.5)',
-                                cursor: 'pointer',
-                                background: 'none',
-                                border: 'none',
-                                outline: 'none',
+                                gap: 'clamp(8px, 1.5vw, 12px)',
+                                overflow: 'hidden'
                             }}
-                            whileHover={{ color: '#fff', scale: 1.1 }}
                         >
-                            <ChevronUp size={24} />
-                        </motion.button>
+                            {DOCK_ITEMS.map((item) => (
+                                <MagneticIcon key={item.id} label={item.label} href={item.href} brandColor={item.color}>
+                                    <div style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.4))' }}>
+                                        {item.icon}
+                                    </div>
+                                </MagneticIcon>
+                            ))}
+                        </motion.div>
                     )}
                 </AnimatePresence>
+
+                {/* Toggle Button */}
+                <motion.button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    style={{
+                        padding: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'rgba(255,255,255,0.5)',
+                        cursor: 'pointer',
+                        background: 'none',
+                        border: 'none',
+                        outline: 'none',
+                        width: '100%',
+                    }}
+                    whileHover={{ color: '#fff', scale: 1.1 }}
+                    animate={{ rotate: isExpanded ? 0 : 180 }}
+                >
+                    <ChevronsDown size={20} />
+                </motion.button>
             </motion.div>
         </div>
     );
