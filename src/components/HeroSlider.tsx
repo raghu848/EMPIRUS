@@ -6,22 +6,30 @@ import { motion } from 'framer-motion';
 export const HeroSlider = () => {
   const desktopVideoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [isInView, setIsInView] = useState(true);
 
+  // 1. Setup Intersection Observer to monitor section visibility
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0 } // Triggers as soon as it enters/leaves the viewport
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  // 2. Setup first-time interaction listener (unlocks audio)
   useEffect(() => {
     const handleInteraction = () => {
       setHasInteracted(true);
-
-      // Synchronously update only the visible video element within the user gesture
-      [desktopVideoRef.current, mobileVideoRef.current].forEach((video) => {
-        if (video && window.getComputedStyle(video).display !== 'none') {
-          video.muted = false;
-          video.volume = 1;
-          video.currentTime = 0;
-          video.play().catch(() => { });
-        }
-      });
-
       window.removeEventListener('pointerdown', handleInteraction);
       window.removeEventListener('touchstart', handleInteraction);
       window.removeEventListener('keydown', handleInteraction);
@@ -31,21 +39,6 @@ export const HeroSlider = () => {
     window.addEventListener('touchstart', handleInteraction);
     window.addEventListener('keydown', handleInteraction);
 
-    // Initial silent play attempt
-    const playVideo = async (video: HTMLVideoElement | null) => {
-      if (video) {
-        try {
-          video.muted = true;
-          await video.play();
-        } catch (error) {
-          console.log("Autoplay failed:", error);
-        }
-      }
-    };
-
-    playVideo(desktopVideoRef.current);
-    playVideo(mobileVideoRef.current);
-
     return () => {
       window.removeEventListener('pointerdown', handleInteraction);
       window.removeEventListener('touchstart', handleInteraction);
@@ -53,8 +46,50 @@ export const HeroSlider = () => {
     };
   }, []);
 
+  // 3. Centralized video playback logic (handles Scroll, Resize, and Interactions)
+  useEffect(() => {
+    const desktopVideo = desktopVideoRef.current;
+    const mobileVideo = mobileVideoRef.current;
+
+    const updateVideos = () => {
+      const manageVideo = (video: HTMLVideoElement | null) => {
+        if (!video) return;
+
+        // Determine if this specific video element is currently meant to be displayed
+        // This prevents the "mobile" video from playing sound on desktop, and vice versa.
+        const isVisibleOnScreen = window.getComputedStyle(video).display !== 'none';
+
+        if (isInView && isVisibleOnScreen) {
+          // Unmute if user has interacted, otherwise keep it muted for autoplay
+          video.muted = !hasInteracted;
+          if (hasInteracted) {
+            video.volume = 1;
+          }
+          
+          // Using a catch block to handle browser autoplay blockages gracefully
+          video.play().catch(() => {});
+        } else {
+          // If not in view OR is the hidden version of the video: Pause and Mute
+          video.pause();
+          video.muted = true;
+        }
+      };
+
+      manageVideo(desktopVideo);
+      manageVideo(mobileVideo);
+    };
+
+    // Run immediately when state changes
+    updateVideos();
+
+    // Also listen to window resize to switch between desktop/mobile videos if needed
+    window.addEventListener('resize', updateVideos);
+    return () => window.removeEventListener('resize', updateVideos);
+  }, [isInView, hasInteracted]);
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       style={{
         position: 'relative',
@@ -87,7 +122,6 @@ export const HeroSlider = () => {
         {/* Desktop Video */}
         <video
           ref={desktopVideoRef}
-          autoPlay
           loop
           muted={!hasInteracted}
           playsInline
@@ -105,7 +139,6 @@ export const HeroSlider = () => {
         {/* Mobile Video */}
         <video
           ref={mobileVideoRef}
-          autoPlay
           loop
           muted={!hasInteracted}
           playsInline

@@ -7,7 +7,7 @@ import { Instagram, Facebook, Phone, MessageCircle, ChevronsDown, ChevronsUp } f
 const DOCK_ITEMS = [
     { id: 'instagram', icon: <Instagram size={20} />, label: 'Instagram', href: 'https://www.instagram.com/gdpl70/', color: '#E1306C' },
     { id: 'facebook', icon: <Facebook size={20} />, label: 'Facebook', href: 'https://www.facebook.com/gdplmohali', color: '#1877F2' },
-    { id: 'whatsapp', icon: <MessageCircle size={20} />, label: 'WhatsApp', href: 'https://wa.me/917789000077', color: '#25D366' },
+    { id: 'whatsapp', icon: <MessageCircle size={20} />, label: 'WhatsApp', href: 'https://wa.me/918288019846', color: '#25D366' },
     { id: 'phone', icon: <Phone size={20} />, label: 'Call Us', href: 'tel:+917789000077', color: '#34C759' },
 ];
 
